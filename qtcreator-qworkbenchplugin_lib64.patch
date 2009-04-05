@@ -1,0 +1,13 @@
+--- src/qworkbenchplugin.pri.old	2009-03-17 20:39:56.000000000 -0300
++++ src/qworkbenchplugin.pri	2009-03-17 20:40:38.000000000 -0300
+@@ -54,8 +54,8 @@ contains(QT_CONFIG, reduce_exports):CONF
+ CONFIG += plugin plugin_with_soname
+ 
+ linux-* {
+-    target.path = /lib/qtcreator/plugins/$$PROVIDER
++    target.path = /lib64/qtcreator/plugins/$$PROVIDER
+     pluginspec.files += $${TARGET}.pluginspec
+-    pluginspec.path = /lib/qtcreator/plugins/$$PROVIDER
++    pluginspec.path = /lib64/qtcreator/plugins/$$PROVIDER
+     INSTALLS += target pluginspec
+ }

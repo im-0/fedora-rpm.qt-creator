@@ -1,0 +1,9 @@
+--- doc/doc.pri.old	2009-03-16 23:04:19.000000000 -0300
++++ doc/doc.pri	2009-03-16 23:04:59.000000000 -0300
+@@ -1,5 +1,5 @@
+ unix {
+-    QDOC = SRCDIR=$$PWD OUTDIR=$$OUT_PWD/doc/html $$(QTDIR)/tools/qdoc3/qdoc3
++    QDOC = SRCDIR=$$PWD OUTDIR=$$OUT_PWD/doc/html $$(QTDIR)/bin/qdoc3
+     HELPGENERATOR = $$(QTDIR)/bin/qhelpgenerator
+ } else {
+     QDOC = set SRCDIR=$$PWD&& set OUTDIR=$$OUT_PWD/doc/html&& $$(QTDIR)\tools\qdoc3\release\qdoc3.exe

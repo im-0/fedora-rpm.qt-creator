@@ -1,0 +1,11 @@
+--- src/qworkbench.pri.old	2009-03-18 19:33:33.000000000 -0300
++++ src/qworkbench.pri	2009-03-18 19:34:09.000000000 -0300
+@@ -21,7 +21,7 @@ macx {
+     contains(QT_CONFIG, ppc):CONFIG += ppc x86
+ } else {
+     IDE_APP_TARGET   = qtcreator
+-    IDE_LIBRARY_PATH = $$IDE_BUILD_TREE/lib/qtcreator
++    IDE_LIBRARY_PATH = $$IDE_BUILD_TREE/lib64/qtcreator
+     IDE_PLUGIN_PATH  = $$IDE_LIBRARY_PATH/plugins/
+ }
+ IDE_APP_PATH = $$IDE_BUILD_TREE/bin

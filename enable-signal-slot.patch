@@ -1,0 +1,19 @@
+*** src/plugins/designer/editorwidget.cpp.old	2009-03-18 20:21:01.000000000 -0300
+--- src/plugins/designer/editorwidget.cpp	2009-03-18 20:21:24.000000000 -0300
+*************** using namespace Designer::Constants;
+*** 41,47 ****
+  
+  enum { ActionEditorTab, SignalSlotEditorTab };
+  
+! enum { wantSignalSlotEditor = 0 };
+  
+  namespace Designer {
+  namespace Internal {
+--- 41,47 ----
+  
+  enum { ActionEditorTab, SignalSlotEditorTab };
+  
+! enum { wantSignalSlotEditor = 1 };
+  
+  namespace Designer {
+  namespace Internal {
