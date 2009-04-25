@@ -1,6 +1,6 @@
 Name:           qt-creator
 Version:        1.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
@@ -16,7 +16,7 @@ Patch1:         qtdoc3_location.patch
 
 #temporary disabled docs
 Patch8:       no-docu.diff
-
+Requires:       hicolor-icon-theme
 BuildRequires:  qt4-devel >= 4.5.0
 BuildRequires:  desktop-file-utils
 
@@ -45,6 +45,15 @@ make %{?_smp_mflags}
 rm -rf $RPM_BUILD_ROOT
 make install INSTALL_ROOT=$RPM_BUILD_ROOT/%{_prefix}
 
+for i in 16 24 32 48 64 128
+do
+mkdir -p $RPM_BUILD_ROOT/%{_datadir}/icons/hicolor/${i}x${i}/apps
+# link it to %{_datadir}/pixmaps/qtcreator_logo_${i}.png
+ln -s ../../../../pixmaps/qtcreator_logo_${i}.png \
+ $RPM_BUILD_ROOT/%{_datadir}/icons/hicolor/${i}x${i}/apps/Nokia-QtCreator.png
+
+done
+
 desktop-file-install                                    \
 --add-category="Development"                            \
 --dir=%{buildroot}%{_datadir}/applications              \
@@ -64,9 +73,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/qtcreator
 %{_datadir}/pixmaps/qtcreator_logo_*.png
 %{_datadir}/applications/qtcreator.desktop
-
+%{_datadir}/icons/hicolor/*/apps/Nokia-QtCreator.png
 
 %changelog
+* Sat Apr 25 2009 Muayyad Saleh Alsadi <alsadi@ojuba.org> - 1.1.0-2
+- fix icons
+
 * Thu Apr 23 2009 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 1.1.0-1
 - qt-creator 1.1.0
 - include missing BuildRequires desktop-file-utils
