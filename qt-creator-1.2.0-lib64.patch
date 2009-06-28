@@ -1,0 +1,12 @@
+diff -ruNp a/qt-creator-1.2.0-src/qtcreator.pri b/qt-creator-1.2.0-src/qtcreator.pri
+--- a/qt-creator-1.2.0-src/qtcreator.pri	2009-06-19 10:58:11.000000000 -0300
++++ b/qt-creator-1.2.0-src/qtcreator.pri	2009-06-28 19:18:58.806588157 -0300
+@@ -36,7 +36,7 @@ isEmpty(TEST):CONFIG(debug, debug|releas
+ }
+ 
+ isEmpty(IDE_LIBRARY_BASENAME) {
+-    IDE_LIBRARY_BASENAME = lib
++    IDE_LIBRARY_BASENAME = lib64
+ }
+ 
+ DEFINES += IDE_LIBRARY_BASENAME=\\\"$$IDE_LIBRARY_BASENAME\\\"

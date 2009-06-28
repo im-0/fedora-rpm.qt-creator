@@ -1,6 +1,6 @@
 Name:           qt-creator
-Version:        1.1.0
-Release:        2%{?dist}
+Version:        1.2.0
+Release:        1%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
@@ -12,10 +12,10 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Source1:       qtcreator.desktop
 
 #fix qdoc3 executable location in fedora
+Patch0:         qt-creator-1.2.0-lib64.patch
 Patch1:         qtdoc3_location.patch
 
 #temporary disabled docs
-Patch8:       no-docu.diff
 Requires:       hicolor-icon-theme
 BuildRequires:  qt4-devel >= 4.5.0
 BuildRequires:  desktop-file-utils
@@ -29,7 +29,12 @@ even faster and easier.
 %prep
 %setup -q -n %name-%version-src
 %patch1 -p0
-%patch8 -p0
+
+#make it install into lib64
+%if "%{_lib}" == "lib64"
+%patch0 -p2
+%endif
+
 
 %build
 QTDIR="%{_qt4_prefix}" ; export QTDIR ; \
@@ -66,7 +71,6 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %doc README LICENSE.LGPL LGPL_EXCEPTION.TXT
-%{_bindir}/qtcreator
 %{_bindir}/qtcreator.bin
 %{_bindir}/qtcreator_process_stub
 %{_libdir}/qtcreator
@@ -74,8 +78,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/pixmaps/qtcreator_logo_*.png
 %{_datadir}/applications/qtcreator.desktop
 %{_datadir}/icons/hicolor/*/apps/Nokia-QtCreator.png
+%{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Sun Jun 28 2009 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 1.2.0-1
+- new version 1.2.0
+
 * Sat Apr 25 2009 Muayyad Saleh Alsadi <alsadi@ojuba.org> - 1.1.0-2
 - fix icons
 
