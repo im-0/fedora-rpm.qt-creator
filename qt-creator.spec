@@ -1,6 +1,6 @@
 Name:           qt-creator
 Version:        1.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
@@ -11,11 +11,11 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Source1:       qtcreator.desktop
 
+# make it install into lib/lib64
+Patch0:         qt-creator-1.2.0-qtcreatorwidgets_pro.patch
 #fix qdoc3 executable location in fedora
-Patch0:         qt-creator-1.2.0-lib64.patch
 Patch1:         qtdoc3_location.patch
 
-#temporary disabled docs
 Requires:       hicolor-icon-theme
 BuildRequires:  qt4-devel >= 4.5.0
 BuildRequires:  desktop-file-utils
@@ -28,12 +28,13 @@ even faster and easier.
 
 %prep
 %setup -q -n %name-%version-src
+%patch0 -p1
 %patch1 -p0
 
 #make it install into lib64
-%if "%{_lib}" == "lib64"
-%patch0 -p2
-%endif
+#%if "%{_lib}" == "lib64"
+#%patch0 -p2
+#%endif
 
 
 %build
@@ -43,14 +44,14 @@ CFLAGS="${CFLAGS:-%optflags}" ; export CFLAGS ; \
 CXXFLAGS="${CXXFLAGS:-%optflags}" ; export CXXFLAGS ; \
 FFLAGS="${FFLAGS:-%optflags}" ; export FFLAGS ; \
 
-qmake-qt4
+qmake-qt4 -r IDE_LIBRARY_BASENAME=%{_lib}
 make %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 make install INSTALL_ROOT=$RPM_BUILD_ROOT/%{_prefix}
 
-for i in 16 24 32 48 64 128
+for i in 16 24 32 48 64 128 256
 do
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/icons/hicolor/${i}x${i}/apps
 # link it to %{_datadir}/pixmaps/qtcreator_logo_${i}.png
@@ -68,6 +69,20 @@ desktop-file-install                                    \
 rm -rf $RPM_BUILD_ROOT
 
 
+%post
+touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+
+%postun
+if [ $1 -eq 0 ] ; then
+  touch --no-create %{_datadir}/icons/hicolor &>/dev/null
+  gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+fi
+
+%posttrans
+gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+
+
+
 %files
 %defattr(-,root,root,-)
 %doc README LICENSE.LGPL LGPL_EXCEPTION.TXT
@@ -81,6 +96,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Mon Jul 13 2009 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 1.2.0-2
+- fix BZ #498563 patch from Michel Salim <salimma@fedoraproject.org>
+- Update GTK icon cache
+
 * Sun Jun 28 2009 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 1.2.0-1
 - new version 1.2.0
 
