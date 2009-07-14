@@ -1,6 +1,6 @@
 Name:           qt-creator
-Version:        1.2.0
-Release:        2%{?dist}
+Version:        1.2.1
+Release:        1%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
@@ -96,6 +96,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Tue Jul 14 2009 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 1.2.1-1
+- new version 1.2.1
+
 * Mon Jul 13 2009 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 1.2.0-2
 - fix BZ #498563 patch from Michel Salim <salimma@fedoraproject.org>
 - Update GTK icon cache
