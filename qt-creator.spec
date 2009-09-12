@@ -1,6 +1,6 @@
 Name:           qt-creator
-Version:        1.2.1
-Release:        3%{?dist}
+Version:        1.2.90
+Release:        1%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
@@ -10,11 +10,6 @@ Source0:        http://download.qtsoftware.com/qtcreator/%name-%version-src.tar.
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Source1:       qtcreator.desktop
-
-# make it install into lib/lib64
-Patch0:         qt-creator-1.2.0-qtcreatorwidgets_pro.patch
-#fix qdoc3 executable location in fedora
-Patch1:         qtdoc3_location.patch
 
 Requires:       hicolor-icon-theme
 BuildRequires:  qt4-devel >= 4.5.0
@@ -28,14 +23,6 @@ even faster and easier.
 
 %prep
 %setup -q -n %name-%version-src
-%patch0 -p1
-%patch1 -p0
-
-#make it install into lib64
-#%if "%{_lib}" == "lib64"
-#%patch0 -p2
-#%endif
-
 
 %build
 QTDIR="%{_qt4_prefix}" ; export QTDIR ; \
@@ -96,6 +83,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Sat Sep 12 2009 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 1.2.90-1
+- new version 1.2.90 (Qt Creator Technology Snapshot 1.2.90)
+
 * Wed Aug 12 2009 Ville Skyttä <ville.skytta@iki.fi> - 1.2.1-3
 - Use upstream gzipped tarball instead of zip.
 
