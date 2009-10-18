@@ -1,12 +1,14 @@
 Name:           qt-creator
-Version:        1.2.90
-Release:        1%{?dist}
+Version:        1.3.0
+Release:        1.0.beta%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
 License:        LGPLv2 with exceptions
 URL:            http://www.qtsoftware.com/developer/qt-creator
-Source0:        http://download.qtsoftware.com/qtcreator/%name-%version-src.tar.gz
+#Source0:        http://download.qtsoftware.com/qtcreator/%name-%version-src.tar.gz
+#source0 from http://qt.gitorious.org/qt-creator/qt-creator/commits/1.3.0-beta
+Source0:        qt-creator-qt-creator-1.3.0-beta.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Source1:       qtcreator.desktop
@@ -22,7 +24,8 @@ designed to make development with the Qt application framework
 even faster and easier.
 
 %prep
-%setup -q -n %name-%version-src
+%setup -q -n qt-creator-qt-creator
+# -n %name-%version-src
 
 %build
 QTDIR="%{_qt4_prefix}" ; export QTDIR ; \
@@ -83,6 +86,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Wed Oct 14 2009 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 1.3.0-1.0.beta
+- new version 1.3.0-beta
+
 * Sat Sep 12 2009 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 1.2.90-1
 - new version 1.2.90 (Qt Creator Technology Snapshot 1.2.90)
 
