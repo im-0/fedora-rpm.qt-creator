@@ -1,6 +1,6 @@
 Name:           qt-creator
 Version:        1.3.0
-Release:        0.2.rc%{?dist}
+Release:        0.3.rc%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
@@ -12,7 +12,7 @@ Source0:        qt-creator-qt-creator-1.3.0.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Source1:       qtcreator.desktop
-Source2:         qtcreator-bin-wrapper
+Source2:       qtcreator-bin-wrapper
 
 Requires:       hicolor-icon-theme
 BuildRequires:  qt4-devel >= 4.5.0
@@ -56,7 +56,7 @@ desktop-file-install                                    \
 --dir=%{buildroot}%{_datadir}/applications              \
 %{SOURCE1}
 
-install -Dp -m 755 %{SOURCE1} $RPM_BUILD_ROOT/%{_bindir}/qtcreator
+install -Dp -m 755 %{SOURCE2} $RPM_BUILD_ROOT/%{_bindir}/qtcreator
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -90,6 +90,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Wed Nov 18 2009 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 1.3.0-0.3.rc
+- fix install of /usr/bin/qtcreator wrapper 
+
 * Tue Nov 17 2009 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 1.3.0-0.2.rc
 - new version Qt Creator 1.3 Release Candidate(RC)
 - include /usr/bin/qtcreator wrapper to /usr/bin/qtcreator.bin
