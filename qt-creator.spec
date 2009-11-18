@@ -1,17 +1,18 @@
 Name:           qt-creator
 Version:        1.3.0
-Release:        0.1.beta%{?dist}
+Release:        0.2.rc%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
 License:        LGPLv2 with exceptions
 URL:            http://www.qtsoftware.com/developer/qt-creator
 #Source0:        http://download.qtsoftware.com/qtcreator/%name-%version-src.tar.gz
-#source0 from http://qt.gitorious.org/qt-creator/qt-creator/commits/1.3.0-beta
-Source0:        qt-creator-qt-creator-1.3.0-beta.tar.gz
+#source0 from http://qt.gitorious.org/qt-creator/qt-creator/archive-tarball/1.3.0
+Source0:        qt-creator-qt-creator-1.3.0.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Source1:       qtcreator.desktop
+Source2:         qtcreator-bin-wrapper
 
 Requires:       hicolor-icon-theme
 BuildRequires:  qt4-devel >= 4.5.0
@@ -55,6 +56,8 @@ desktop-file-install                                    \
 --dir=%{buildroot}%{_datadir}/applications              \
 %{SOURCE1}
 
+install -Dp -m 755 %{SOURCE1} $RPM_BUILD_ROOT/%{_bindir}/qtcreator
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -76,6 +79,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %files
 %defattr(-,root,root,-)
 %doc README LICENSE.LGPL LGPL_EXCEPTION.TXT
+%{_bindir}/qtcreator
 %{_bindir}/qtcreator.bin
 %{_bindir}/qtcreator_process_stub
 %{_libdir}/qtcreator
@@ -86,6 +90,10 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Tue Nov 17 2009 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 1.3.0-0.2.rc
+- new version Qt Creator 1.3 Release Candidate(RC)
+- include /usr/bin/qtcreator wrapper to /usr/bin/qtcreator.bin
+
 * Wed Oct 14 2009 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 1.3.0-0.1.beta
 - new version 1.3.0-beta
 
