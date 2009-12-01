@@ -1,14 +1,12 @@
 Name:           qt-creator
 Version:        1.3.0
-Release:        0.4.rc%{?dist}
+Release:        1%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
 License:        LGPLv2 with exceptions
 URL:            http://www.qtsoftware.com/developer/qt-creator
-#Source0:        http://download.qtsoftware.com/qtcreator/%name-%version-src.tar.gz
-#source0 from http://qt.gitorious.org/qt-creator/qt-creator/archive-tarball/1.3.0
-Source0:        qt-creator-qt-creator-1.3.0.tar.gz
+Source0:        http://download.qtsoftware.com/qtcreator/%name-%version-src.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Source1:       qtcreator.desktop
@@ -95,6 +93,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Tue Dec  1 2009 Lorenzo Villani <lvillani@binaryhelix.net> - 1.3.0-1
+- 1.3.0 final
+
 * Sun Nov 22 2009 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 1.3.0-0.4.rc
 - include demos/examples.
 
