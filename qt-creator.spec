@@ -1,6 +1,6 @@
 Name:           qt-creator
 Version:        1.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
@@ -18,7 +18,7 @@ Requires:       hicolor-icon-theme
 Requires:       qt-demos
 Requires:       qt-examples
 
-BuildRequires:  qt4-devel >= 4.5.0
+BuildRequires:  qt4-devel >= 4.6.0
 BuildRequires:  desktop-file-utils
 
 %description
@@ -92,6 +92,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Tue Dec  1 2009 Lorenzo Villani <lvillani@binaryhelix.net> - 1.3.0-2
+- Force dependency on Qt >= 4.6.0
+
 * Tue Dec  1 2009 Lorenzo Villani <lvillani@binaryhelix.net> - 1.3.0-1
 - 1.3.0 final
 
