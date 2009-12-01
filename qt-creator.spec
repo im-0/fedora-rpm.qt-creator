@@ -28,7 +28,7 @@ designed to make development with the Qt application framework
 even faster and easier.
 
 %prep
-%setup -q -n %name-%version-src
+%setup -q
 
 %build
 QTDIR="%{_qt4_prefix}" ; export QTDIR ; \
