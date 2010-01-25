@@ -1,12 +1,12 @@
 Name:           qt-creator
-Version:        1.3.0
-Release:        2%{?dist}
+Version:        1.3.1
+Release:        1%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
 License:        LGPLv2 with exceptions
 URL:            http://www.qtsoftware.com/developer/qt-creator
-Source0:        http://download.qtsoftware.com/qtcreator/%name-%version-src.tar.gz
+Source0:        http://get.qt.nokia.com/qtcreator/%{name}-%{version}-src.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Source1:       qtcreator.desktop
@@ -18,7 +18,7 @@ Requires:       hicolor-icon-theme
 Requires:       qt-demos
 Requires:       qt-examples
 
-BuildRequires:  qt4-devel >= 4.6.0
+BuildRequires:  qt4-devel >= 4.6.1
 BuildRequires:  desktop-file-utils
 
 %description
@@ -28,7 +28,7 @@ designed to make development with the Qt application framework
 even faster and easier.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{version}-src
 
 %build
 QTDIR="%{_qt4_prefix}" ; export QTDIR ; \
@@ -92,6 +92,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Mon Jan 25 2010 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 1.3.1-1
+- new version 1.3.1
+
 * Tue Dec  1 2009 Lorenzo Villani <lvillani@binaryhelix.net> - 1.3.0-2
 - Force dependency on Qt >= 4.6.0
 
