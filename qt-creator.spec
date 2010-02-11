@@ -1,6 +1,6 @@
 Name:           qt-creator
 Version:        1.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
@@ -13,6 +13,7 @@ Source1:       qtcreator.desktop
 Source2:       qtcreator-bin-wrapper
 
 Requires:       hicolor-icon-theme
+Requires:       xdg-utils
 
 #required for demos/examples
 Requires:       qt-demos
@@ -92,6 +93,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Thu Feb 11 2010 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 1.3.1-2
+- include missing requires xdg-utils
+
 * Mon Jan 25 2010 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 1.3.1-1
 - new version 1.3.1
 
