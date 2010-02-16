@@ -1,6 +1,6 @@
 Name:           qt-creator
 Version:        1.3.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
@@ -18,6 +18,7 @@ Requires:       xdg-utils
 #required for demos/examples
 Requires:       qt-demos
 Requires:       qt-examples
+%{?_qt4_version:Requires: qt4 >= %{_qt4_version}}
 
 BuildRequires:  qt4-devel >= 4.6.1
 BuildRequires:  desktop-file-utils
@@ -93,6 +94,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Tue Feb 16 2010 Rex Dieter <rdieter@fedoraproject.org> - 1.3.1-3
+- add minimal qt4 runtime dep
+
 * Thu Feb 11 2010 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 1.3.1-2
 - include missing requires xdg-utils
 
