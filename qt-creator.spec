@@ -1,6 +1,6 @@
 Name:           qt-creator
 Version:        2.0.0
-Release:        0.1.alpha1%{?dist}
+Release:        0.2.alpha1%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
@@ -18,10 +18,14 @@ Requires:       xdg-utils
 #required for demos/examples
 Requires:       qt-demos
 Requires:       qt-examples
+# we need qt-devel and gcc-c++ to compile programs using qt-creator
+Requires:       qt4-devel >= 4.7.0
+Requires:       gcc-c++
 %{?_qt4_version:Requires: qt4 >= %{_qt4_version}}
 
 BuildRequires:  qt4-devel >= 4.7.0
 BuildRequires:  desktop-file-utils
+
 
 %description
 Qt Creator (previously known as Project Greenhouse) is a new,
@@ -94,6 +98,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Thu Apr 15 2010 Itamar Reis Peixoto - 2.0.0-0.2.alpha1
+- Requres qt-devel and gcc-c++ (we need it to compile programs using qt-creator)
+
 * Tue Mar 16 2010 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 2.0.0-0.1.alpha1
 - new version qt-creator 2.0 alpha1
 
