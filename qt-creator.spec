@@ -19,11 +19,12 @@ Requires:       xdg-utils
 Requires:       qt-demos
 Requires:       qt-examples
 # we need qt-devel and gcc-c++ to compile programs using qt-creator
-Requires:       qt4-devel >= 4.7.0
+Requires:       qt4-devel
 Requires:       gcc-c++
 %{?_qt4_version:Requires: qt4 >= %{_qt4_version}}
 
 BuildRequires:  qt4-devel >= 4.7.0
+BuildRequires:  qt4-webkit-devel
 BuildRequires:  desktop-file-utils
 
 
