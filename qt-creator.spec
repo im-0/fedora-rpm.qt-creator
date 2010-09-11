@@ -1,6 +1,6 @@
 Name:           qt-creator
 Version:        2.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
@@ -99,6 +99,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Sat Sep 11 2010 Rex Dieter <rdieter@fedoraproject.org> - 2.0.0-2
+- rebuild (#632873)
+
 * Fri Jun 25 2010 Rex Dieter <rdieter@fedoraproject.org> - 2.0.0-1
 - 2.0.0 final
 
