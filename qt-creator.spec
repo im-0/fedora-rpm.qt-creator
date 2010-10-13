@@ -1,16 +1,15 @@
 Name:           qt-creator
-Version:        2.0.0
-Release:        2%{?dist}
+Version:        2.1.0
+Release:        1.beta1%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
 License:        LGPLv2 with exceptions
 URL:            http://www.qtsoftware.com/developer/qt-creator
-Source0:        http://get.qt.nokia.com/qtcreator/%{name}-%{version}-src.tar.gz
+Source0:        http://get.qt.nokia.com/qtcreator/%{name}-%{version}-beta1-src.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Source1:       qtcreator.desktop
-Source2:       qtcreator-bin-wrapper
 
 Requires:       hicolor-icon-theme
 Requires:       xdg-utils
@@ -35,7 +34,7 @@ designed to make development with the Qt application framework
 even faster and easier.
 
 %prep
-%setup -q -n %{name}-%{version}-src
+%setup -q -n %{name}-%{version}-beta1-src
 
 %build
 QTDIR="%{_qt4_prefix}" ; export QTDIR ; \
@@ -65,8 +64,6 @@ desktop-file-install                                    \
 --dir=%{buildroot}%{_datadir}/applications              \
 %{SOURCE1}
 
-install -Dp -m 755 %{SOURCE2} $RPM_BUILD_ROOT/%{_bindir}/qtcreator
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -89,7 +86,6 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %defattr(-,root,root,-)
 %doc README LICENSE.LGPL LGPL_EXCEPTION.TXT
 %{_bindir}/qtcreator
-%{_bindir}/qtcreator.bin
 %{_bindir}/qtcreator_process_stub
 %{_libdir}/qtcreator
 %{_datadir}/qtcreator
@@ -99,6 +95,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Wed Oct 13 2010 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 2.1.0-beta1
+- new version 2.1.0 beta1
+
 * Sat Sep 11 2010 Rex Dieter <rdieter@fedoraproject.org> - 2.0.0-2
 - rebuild (#632873)
 

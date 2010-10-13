@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Exec=qtcreator.bin %F
+Exec=qtcreator %F
 Name=Qt Creator
 GenericName=C++ IDE for developing Qt applications
 X-KDE-StartupNotify=true
