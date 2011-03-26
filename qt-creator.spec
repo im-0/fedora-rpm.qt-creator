@@ -1,14 +1,14 @@
 Name:           qt-creator
-Version:        2.1.0
-Release:        4.rc1%{?dist}.1
+Version:        2.2.0
+Release:        0.0.beta%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
 License:        LGPLv2 with exceptions
 URL:            http://www.qtsoftware.com/developer/qt-creator
-Source0:        http://get.qt.nokia.com/qtcreator/%{name}-%{version}-rc1-src.tar.gz
+Source0:        http://get.qt.nokia.com/qtcreator/%{name}-%{version}-beta-src.tar.gz
 
-Source1:       qtcreator.desktop
+Source1:        qtcreator.desktop
 
 Requires:       hicolor-icon-theme
 Requires:       xdg-utils
@@ -21,7 +21,7 @@ Requires:       qt4-devel
 Requires:       gcc-c++
 %{?_qt4_version:Requires: qt4 >= %{_qt4_version}}
 
-BuildRequires:  qt4-devel >= 4.7.0
+BuildRequires:  qt4-devel >= 4.7.2
 BuildRequires:  qt4-webkit-devel
 BuildRequires:  desktop-file-utils
 
@@ -33,7 +33,7 @@ designed to make development with the Qt application framework
 even faster and easier.
 
 %prep
-%setup -q -n %{name}-%{version}-rc1-src
+%setup -q -n %{name}-%{version}-beta-src
 
 %build
 QTDIR="%{_qt4_prefix}" ; export QTDIR ; \
@@ -84,6 +84,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %files
 %defattr(-,root,root,-)
 %doc README LICENSE.LGPL LGPL_EXCEPTION.TXT
+%{_bindir}/qtpromaker
 %{_bindir}/qtcreator
 %{_bindir}/qtcreator_process_stub
 %{_libdir}/qtcreator
@@ -94,6 +95,12 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Sat Mar 26 2011 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 2.2.0-0.0.beta
+- 2.2.0 beta
+
+* Sat Mar 26 2011 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 2.1.0-1
+- 2.1.0 final release
+
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.1.0-4.rc1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
