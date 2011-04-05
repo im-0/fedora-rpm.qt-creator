@@ -1,6 +1,6 @@
 Name:           qt-creator
 Version:        2.2.0
-Release:        0.0.beta%{?dist}
+Release:        0.1.beta%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
@@ -23,6 +23,8 @@ Requires:       gcc-c++
 
 BuildRequires:  qt4-devel >= 4.7.2
 BuildRequires:  qt4-webkit-devel
+# for QmlDesigner, see also https://bugzilla.redhat.com/show_bug.cgi?id=657498
+BuildRequires:  qt4-devel-private
 BuildRequires:  desktop-file-utils
 
 
@@ -95,6 +97,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Tue Apr 05 2011 Rex Dieter <rdieter@fedoraproject.org> - 2.2.0-0.1.beta
+- BR: qt4-devel-private, for QmlDesigner
+
 * Sat Mar 26 2011 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 2.2.0-0.0.beta
 - 2.2.0 beta
 
