@@ -1,6 +1,6 @@
 Name:           qt-creator
 Version:        2.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
@@ -27,6 +27,10 @@ BuildRequires:  qt4-webkit-devel
 BuildRequires:  qt4-devel-private
 BuildRequires:  desktop-file-utils
 
+# possible fix from BogDan Vatra 
+# http://bugreports.qt.nokia.com/browse/QTCREATORBUG-4909
+Patch0:        fix_qmlpuppet_installation.patch
+
 
 %description
 Qt Creator (previously known as Project Greenhouse) is a new,
@@ -36,6 +40,7 @@ even faster and easier.
 
 %prep
 %setup -q -n %{name}-%{version}-src
+%patch0 -p1
 
 %build
 QTDIR="%{_qt4_prefix}" ; export QTDIR ; \
@@ -86,6 +91,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %files
 %defattr(-,root,root,-)
 %doc README LICENSE.LGPL LGPL_EXCEPTION.TXT
+%{_bindir}/qmlpuppet
 %{_bindir}/qtpromaker
 %{_bindir}/qtcreator
 %{_bindir}/qtcreator_process_stub
@@ -97,6 +103,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Wed Jun 29 2011 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 2.2.1-2
+- include qmlpuppet
+
 * Tue Jun 21 2011 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 2.2.1-1
 - 2.2.1
 
