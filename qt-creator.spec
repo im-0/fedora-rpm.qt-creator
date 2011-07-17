@@ -1,12 +1,12 @@
 Name:           qt-creator
-Version:        2.2.1
-Release:        2%{?dist}
+Version:        2.3.0
+Release:        0.0.beta%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
 License:        LGPLv2 with exceptions
 URL:            http://www.qtsoftware.com/developer/qt-creator
-Source0:        http://get.qt.nokia.com/qtcreator/%{name}-%{version}-src.tar.gz
+Source0:        http://get.qt.nokia.com/qtcreator/%{name}-%{version}-beta-src.tar.gz
 
 Source1:        qtcreator.desktop
 
@@ -27,11 +27,6 @@ BuildRequires:  qt4-webkit-devel
 BuildRequires:  qt4-devel-private
 BuildRequires:  desktop-file-utils
 
-# possible fix from BogDan Vatra 
-# http://bugreports.qt.nokia.com/browse/QTCREATORBUG-4909
-Patch0:        fix_qmlpuppet_installation.patch
-
-
 %description
 Qt Creator (previously known as Project Greenhouse) is a new,
 lightweight, cross-platform integrated  development environment (IDE)
@@ -39,8 +34,7 @@ designed to make development with the Qt application framework
 even faster and easier.
 
 %prep
-%setup -q -n %{name}-%{version}-src
-%patch0 -p1
+%setup -q -n %{name}-%{version}-beta-src
 
 %build
 QTDIR="%{_qt4_prefix}" ; export QTDIR ; \
@@ -59,9 +53,9 @@ make install INSTALL_ROOT=$RPM_BUILD_ROOT/%{_prefix}
 for i in 16 24 32 48 64 128 256
 do
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/icons/hicolor/${i}x${i}/apps
-# link it to %{_datadir}/pixmaps/qtcreator_logo_${i}.png
-ln -s ../../../../pixmaps/qtcreator_logo_${i}.png \
- $RPM_BUILD_ROOT/%{_datadir}/icons/hicolor/${i}x${i}/apps/Nokia-QtCreator.png
+# link it to %%{_datadir}/pixmaps/qtcreator_logo_${i}.png
+#ln -s ../../../../pixmaps/qtcreator_logo_${i}.png \
+# $RPM_BUILD_ROOT/%%{_datadir}/icons/hicolor/${i}x${i}/apps/qtcreator.png
 
 done
 
@@ -97,12 +91,15 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_bindir}/qtcreator_process_stub
 %{_libdir}/qtcreator
 %{_datadir}/qtcreator
-%{_datadir}/pixmaps/qtcreator_logo_*.png
+#%%{_datadir}/pixmaps/qtcreator_logo_*.png
 %{_datadir}/applications/qtcreator.desktop
-%{_datadir}/icons/hicolor/*/apps/Nokia-QtCreator.png
-%{_datadir}/doc/qtcreator/qtcreator.qch
+%{_datadir}/icons/hicolor/*/apps/qtcreator.png
+#%%{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Wed Jul 13 2011 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 2.3.0-0.0.beta
+- 2.3.0 beta
+
 * Wed Jun 29 2011 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 2.2.1-2
 - include qmlpuppet
 
