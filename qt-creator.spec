@@ -1,5 +1,5 @@
 Name:           qt-creator
-Version:        2.3.0
+Version:        2.3.1
 Release:        1%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
@@ -97,6 +97,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #%%{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Wed Sep 28 2011 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 2.3.1-1
+- 2.3.1 release
+
 * Thu Sep 01 2011 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 2.3.0-1
 - 2.3.0 release
 
