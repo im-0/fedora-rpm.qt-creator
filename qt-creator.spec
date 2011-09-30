@@ -90,6 +90,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_bindir}/qtcreator
 %{_bindir}/qtcreator_process_stub
 %{_libdir}/qtcreator
+%{_libdir}/qmldesigner
 %{_datadir}/qtcreator
 #%%{_datadir}/pixmaps/qtcreator_logo_*.png
 %{_datadir}/applications/qtcreator.desktop
