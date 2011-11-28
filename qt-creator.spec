@@ -1,12 +1,12 @@
 Name:           qt-creator
-Version:        2.3.1
-Release:        1%{?dist}
+Version:        2.4.0
+Release:        0.0.rc%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
 License:        LGPLv2 with exceptions
 URL:            http://www.qtsoftware.com/developer/qt-creator
-Source0:        http://get.qt.nokia.com/qtcreator/%{name}-%{version}-src.tar.gz
+Source0:        http://get.qt.nokia.com/qtcreator/%{name}-%{version}-rc-src.tar.gz
 
 Source1:        qtcreator.desktop
 
@@ -34,7 +34,7 @@ designed to make development with the Qt application framework
 even faster and easier.
 
 %prep
-%setup -q -n %{name}-%{version}-src
+%setup -q -n %{name}-%{version}-rc-src
 
 %build
 QTDIR="%{_qt4_prefix}" ; export QTDIR ; \
@@ -90,7 +90,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_bindir}/qtcreator
 %{_bindir}/qtcreator_process_stub
 %{_libdir}/qtcreator
-%{_libdir}/qmldesigner
+#%{_libdir}/qmldesigner
 %{_datadir}/qtcreator
 #%%{_datadir}/pixmaps/qtcreator_logo_*.png
 %{_datadir}/applications/qtcreator.desktop
@@ -98,6 +98,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #%%{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Mon Nov 28 2011 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 2.4.0-0.0.rc
+- 2.4.0-rc
+
 * Wed Sep 28 2011 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 2.3.1-1
 - 2.3.1 release
 
