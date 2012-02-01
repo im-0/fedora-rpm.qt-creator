@@ -10,6 +10,8 @@ Source0:        http://get.qt.nokia.com/qtcreator/%{name}-%{version}-src.tar.gz
 
 Source1:        qtcreator.desktop
 
+Patch0:         qt-creator-2.4.1-src-include-unistd-valgrindfake.patch
+
 Requires:       hicolor-icon-theme
 Requires:       xdg-utils
 
@@ -35,6 +37,8 @@ even faster and easier.
 
 %prep
 %setup -q -n %{name}-%{version}-src
+
+%patch0 -p1 -b .include-unistd-valgrindfake
 
 %build
 QTDIR="%{_qt4_prefix}" ; export QTDIR ; \
@@ -86,6 +90,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %defattr(-,root,root,-)
 %doc README LICENSE.LGPL LGPL_EXCEPTION.TXT
 %{_bindir}/qmlpuppet
+%{_bindir}/qmlprofiler
 %{_bindir}/qtpromaker
 %{_bindir}/qtcreator
 %{_bindir}/qtcreator_process_stub
@@ -101,6 +106,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 * Wed Feb 01 2012 Jaroslav Reznik <jreznik@redhat.com> - 2.4.1-1
 - 2.4.1 release
 - fix upstream url
+- package qmlprofiler
 
 * Sat Jan 14 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.4.0-0.1.rc
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
