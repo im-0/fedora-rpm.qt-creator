@@ -1,12 +1,12 @@
 Name:           qt-creator
-Version:        2.4.0
-Release:        0.1.rc%{?dist}
+Version:        2.4.1
+Release:        1%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
 License:        LGPLv2 with exceptions
-URL:            http://www.qtsoftware.com/developer/qt-creator
-Source0:        http://get.qt.nokia.com/qtcreator/%{name}-%{version}-rc-src.tar.gz
+URL:            http://developer.qt.nokia.com/wiki/Category:Tools::QtCreator
+Source0:        http://get.qt.nokia.com/qtcreator/%{name}-%{version}-src.tar.gz
 
 Source1:        qtcreator.desktop
 
@@ -34,7 +34,7 @@ designed to make development with the Qt application framework
 even faster and easier.
 
 %prep
-%setup -q -n %{name}-%{version}-rc-src
+%setup -q -n %{name}-%{version}-src
 
 %build
 QTDIR="%{_qt4_prefix}" ; export QTDIR ; \
@@ -98,6 +98,10 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #%%{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Wed Feb 01 2012 Jaroslav Reznik <jreznik@redhat.com> - 2.4.1-1
+- 2.4.1 release
+- fix upstream url
+
 * Sat Jan 14 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.4.0-0.1.rc
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
 
