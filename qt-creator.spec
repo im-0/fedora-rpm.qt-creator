@@ -1,6 +1,6 @@
 Name:           qt-creator
 Version:        2.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
@@ -103,6 +103,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #%%{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Tue Feb 28 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.4.1-2
+- Rebuilt for c++ ABI breakage
+
 * Wed Feb 01 2012 Jaroslav Reznik <jreznik@redhat.com> - 2.4.1-1
 - 2.4.1 release
 - fix upstream url
