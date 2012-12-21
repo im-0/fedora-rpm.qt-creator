@@ -1,12 +1,12 @@
 Name:           qt-creator
-Version:        2.6.0
-Release:        0.1.beta%{?dist}
+Version:        2.6.1
+Release:        1%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
 License:        LGPLv2 with exceptions
 URL:            http://developer.qt.nokia.com/wiki/Category:Tools::QtCreator
-Source0:        http://get.qt.nokia.com/qtcreator/%{name}-%{version}-beta-src.tar.gz
+Source0:        http://get.qt.nokia.com/qtcreator/%{name}-%{version}-src.tar.gz
 
 Source1:        qtcreator.desktop
 
@@ -34,7 +34,7 @@ designed to make development with the Qt application framework
 even faster and easier.
 
 %prep
-%setup -q -n %{name}-%{version}-beta-src
+%setup -q -n %{name}-%{version}-src
 
 %build
 QTDIR="%{_qt4_prefix}" ; export QTDIR ; \
@@ -89,15 +89,19 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_bindir}/qtpromaker
 %{_bindir}/qtcreator
 %{_bindir}/qtcreator_process_stub
+%{_bindir}/sdktool
 %{_libdir}/qtcreator
 #%{_libdir}/qmldesigner
 %{_datadir}/qtcreator
 #%%{_datadir}/pixmaps/qtcreator_logo_*.png
 %{_datadir}/applications/qtcreator.desktop
-%{_datadir}/icons/hicolor/*/apps/qtcreator.png
+%{_datadir}/icons/hicolor/*/apps/QtProject-qtcreator.png
 #%%{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Fri Dec 21 2012 Jaroslav Reznik <jreznik@redhat.com> - 2.6.1-1
+- 2.6.1 release
+
 * Tue Sep 11 2012 Jaroslav Reznik <jreznik@redhat.com> - 2.6.0-0.1.beta
 - 2.6.0 beta release
 
