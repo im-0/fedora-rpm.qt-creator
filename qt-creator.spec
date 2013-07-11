@@ -1,12 +1,12 @@
 Name:           qt-creator
 Version:        2.8.0
-Release:        0.1.beta%{?dist}
+Release:        1%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
 License:        LGPLv2 with exceptions
 URL:            http://developer.qt.nokia.com/wiki/Category:Tools::QtCreator
-Source0:        http://get.qt.nokia.com/qtcreator/%{name}-%{version}-beta-src.tar.gz
+Source0:        http://get.qt.nokia.com/qtcreator/%{name}-%{version}-src.tar.gz
 
 Source1:        qtcreator.desktop
 
@@ -34,7 +34,7 @@ designed to make development with the Qt application framework
 even faster and easier.
 
 %prep
-%setup -q -n %{name}-%{version}-beta-src
+%setup -q -n %{name}-%{version}-src
 
 %build
 QTDIR="%{_qt4_prefix}" ; export QTDIR ; \
@@ -99,6 +99,12 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #%%{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Thu Jul 11 2013 Jaroslav Reznik <jreznik@redhat.com> - 2.8.0-1
+- 2.8.0 release
+
+* Mon Jul 01 2013 Jaroslav Reznik <jreznik@redhat.com> - 2.8.0-0.2.rc
+- 2.8.0 rc release
+
 * Fri May 31 2013 Jaroslav Reznik <jreznik@redhat.com> - 2.8.0-0.1.beta
 - 2.8.0 beta release
 
