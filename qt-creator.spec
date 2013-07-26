@@ -1,6 +1,6 @@
 Name:           qt-creator
 Version:        2.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
@@ -26,6 +26,7 @@ BuildRequires:  qt4-webkit-devel
 # for QmlDesigner, see also https://bugzilla.redhat.com/show_bug.cgi?id=657498
 BuildRequires:  qt4-devel-private
 BuildRequires:  desktop-file-utils
+BuildRequires:  botan-devel
 
 %description
 Qt Creator (previously known as Project Greenhouse) is a new,
@@ -43,11 +44,10 @@ CFLAGS="${CFLAGS:-%optflags}" ; export CFLAGS ; \
 CXXFLAGS="${CXXFLAGS:-%optflags}" ; export CXXFLAGS ; \
 FFLAGS="${FFLAGS:-%optflags}" ; export FFLAGS ; \
 
-qmake-qt4 -r IDE_LIBRARY_BASENAME=%{_lib}
+qmake-qt4 -r IDE_LIBRARY_BASENAME=%{_lib} USE_SYSTEM_BOTAN=1
 make %{?_smp_mflags}
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make install INSTALL_ROOT=$RPM_BUILD_ROOT/%{_prefix}
 
 for i in 16 24 32 48 64 128 256
@@ -63,9 +63,6 @@ desktop-file-install                                    \
 --add-category="Development"                            \
 --dir=%{buildroot}%{_datadir}/applications              \
 %{SOURCE1}
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 
 %post
@@ -83,7 +80,6 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %files
-%defattr(-,root,root,-)
 %doc README LICENSE.LGPL LGPL_EXCEPTION.TXT
 %{_bindir}/qmlpuppet
 %{_bindir}/qtpromaker
@@ -99,6 +95,10 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #%%{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Fri Jul 26 2013 Dan Horák <dan[at]danny.cz> - 2.8.0-3
+- build with system botan library (#912367)
+- spec cleanup
+
 * Wed Jul 17 2013 Petr Pisar <ppisar@redhat.com> - 2.8.0-2
 - Perl 5.18 rebuild
 
