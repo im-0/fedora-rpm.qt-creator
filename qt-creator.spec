@@ -1,6 +1,6 @@
 Name:           qt-creator
 Version:        2.8.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
@@ -95,6 +95,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #%%{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Sat Aug 03 2013 Petr Pisar <ppisar@redhat.com> - 2.8.0-4
+- Perl 5.18 rebuild
+
 * Fri Jul 26 2013 Dan Horák <dan[at]danny.cz> - 2.8.0-3
 - build with system botan library (#912367)
 - spec cleanup
