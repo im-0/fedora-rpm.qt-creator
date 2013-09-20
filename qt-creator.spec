@@ -1,6 +1,6 @@
 Name:           qt-creator
 Version:        2.8.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
@@ -9,6 +9,7 @@ URL:            http://developer.qt.nokia.com/wiki/Category:Tools::QtCreator
 Source0:        http://get.qt.nokia.com/qtcreator/%{name}-%{version}-src.tar.gz
 
 Source1:        qtcreator.desktop
+Source2:        qt-creator-Fedora-privlibs
 
 Requires:       hicolor-icon-theme
 Requires:       xdg-utils
@@ -27,6 +28,12 @@ BuildRequires:  qt4-webkit-devel
 BuildRequires:  qt4-devel-private
 BuildRequires:  desktop-file-utils
 BuildRequires:  botan-devel
+BuildRequires:  diffutils
+
+# long list of private shared lib names to filter out
+%include %{SOURCE2}
+%global __provides_exclude ^(%{privlibs})\.so
+%global __requires_exclude ^(%{privlibs})\.so
 
 %description
 Qt Creator (previously known as Project Greenhouse) is a new,
@@ -64,6 +71,21 @@ desktop-file-install                                    \
 --dir=%{buildroot}%{_datadir}/applications              \
 %{SOURCE1}
 
+# Output an up-to-date list of Provides/Requires exclude statements.
+outfile=__Fedora-privlibs
+i=0
+sofiles=$(find ${RPM_BUILD_ROOT}%{_libdir}/qtcreator -name \*.so\*|sed 's!^.*/\(.*\).so.*!\1!g'|sort|uniq)
+for so in ${sofiles} ; do
+    if [ $i == 0 ]; then
+        echo "%%global privlibs $so" > $outfile
+		i=1
+    else
+        echo "%%global privlibs %%{privlibs}|$so" >> $outfile
+	fi
+done
+diff -u %{SOURCE2} $outfile || :
+cat $outfile
+
 
 %post
 touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
@@ -95,6 +117,10 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #%%{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Fri Sep 20 2013 Michael Schwendt <mschwendt@fedoraproject.org> - 2.8.0-5
+- Filter Provides/Requires for private plugin libs (#1003197).
+  Let %%install section print an up-to-date filtering list.
+
 * Sat Aug 03 2013 Petr Pisar <ppisar@redhat.com> - 2.8.0-4
 - Perl 5.18 rebuild
 
