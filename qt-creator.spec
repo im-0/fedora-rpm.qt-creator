@@ -1,12 +1,12 @@
 Name:           qt-creator
-Version:        2.8.0
-Release:        6%{?dist}
+Version:        2.8.1
+Release:        1%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
 License:        LGPLv2 with exceptions
-URL:            http://developer.qt.nokia.com/wiki/Category:Tools::QtCreator
-Source0:        http://get.qt.nokia.com/qtcreator/%{name}-%{version}-src.tar.gz
+URL:            http://qt.digia.com/Product/Qt-Core-Features--Functions/Developer-Tools/
+Source0:        http://sourceforge.net/projects/qtcreator.mirror/files/Qt%%20Creator%%20%{version}/qt-creator-%{version}-src.tar.gz
 
 Source1:        qtcreator.desktop
 Source2:        qt-creator-Fedora-privlibs
@@ -55,30 +55,22 @@ qmake-qt4 -r IDE_LIBRARY_BASENAME=%{_lib} USE_SYSTEM_BOTAN=1
 make %{?_smp_mflags}
 
 %install
-make install INSTALL_ROOT=$RPM_BUILD_ROOT/%{_prefix}
+make install INSTALL_ROOT=%{buildroot}/%{_prefix}
 
-for i in 16 24 32 48 64 128 256
-do
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/icons/hicolor/${i}x${i}/apps
-# link it to %%{_datadir}/pixmaps/qtcreator_logo_${i}.png
-#ln -s ../../../../pixmaps/qtcreator_logo_${i}.png \
-# $RPM_BUILD_ROOT/%%{_datadir}/icons/hicolor/${i}x${i}/apps/qtcreator.png
-
+for i in 16 24 32 48 64 128 256; do
+    mkdir -p %{buildroot}/%{_datadir}/icons/hicolor/${i}x${i}/apps
 done
 
-desktop-file-install                                    \
---add-category="Development"                            \
---dir=%{buildroot}%{_datadir}/applications              \
-%{SOURCE1}
+desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 
 # Output an up-to-date list of Provides/Requires exclude statements.
 outfile=__Fedora-privlibs
 i=0
-sofiles=$(find ${RPM_BUILD_ROOT}%{_libdir}/qtcreator -name \*.so\*|sed 's!^.*/\(.*\).so.*!\1!g'|sort|uniq)
+sofiles=$(find %{buildroot}%{_libdir}/qtcreator -name \*.so\*|sed 's!^.*/\(.*\).so.*!\1!g'|sort|uniq)
 for so in ${sofiles} ; do
     if [ $i == 0 ]; then
         echo "%%global privlibs $so" > $outfile
-		i=1
+        i=1
     else
         echo "%%global privlibs %%{privlibs}|$so" >> $outfile
 	fi
@@ -111,12 +103,17 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_libdir}/qtcreator
 #%{_libdir}/qmldesigner
 %{_datadir}/qtcreator
-#%%{_datadir}/pixmaps/qtcreator_logo_*.png
 %{_datadir}/applications/qtcreator.desktop
 %{_datadir}/icons/hicolor/*/apps/QtProject-qtcreator.png
 #%%{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Wed Oct 16 2013 Sandro Mani <manisandro@gmail.com> - 2.8.1-1
+- Update to 2.8.1
+- Update URL and Source0
+- Remove unused (commented) stuff
+- Consistently use %{buildroot}
+
 * Wed Oct 16 2013 Sandro Mani <manisandro@gmail.com> - 2.8.0-6
 - Fix icon in desktop file
 
