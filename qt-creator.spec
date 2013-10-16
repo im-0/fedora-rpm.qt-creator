@@ -112,7 +112,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 - Update to 2.8.1
 - Update URL and Source0
 - Remove unused (commented) stuff
-- Consistently use %{buildroot}
+- Consistently use %%{buildroot}
 
 * Wed Oct 16 2013 Sandro Mani <manisandro@gmail.com> - 2.8.0-6
 - Fix icon in desktop file
