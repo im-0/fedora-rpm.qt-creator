@@ -1,6 +1,6 @@
 Name:           qt-creator
 Version:        2.8.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
@@ -117,6 +117,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #%%{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Wed Oct 16 2013 Sandro Mani <manisandro@gmail.com> - 2.8.0-6
+- Fix icon in desktop file
+
 * Fri Sep 20 2013 Michael Schwendt <mschwendt@fedoraproject.org> - 2.8.0-5
 - Filter Provides/Requires for private plugin libs (#1003197).
   Let %%install section print an up-to-date filtering list.
