@@ -1,12 +1,12 @@
 Name:           qt-creator
-Version:        2.8.1
-Release:        1%{?dist}
+Version:        3.0.0
+Release:        0.1.beta%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
 License:        LGPLv2 with exceptions
 URL:            http://qt.digia.com/Product/Qt-Core-Features--Functions/Developer-Tools/
-Source0:        http://sourceforge.net/projects/qtcreator.mirror/files/Qt%%20Creator%%20%{version}/qt-creator-%{version}-src.tar.gz
+Source0:        http://sourceforge.net/projects/qtcreator.mirror/files/Qt%%20Creator%%20%{version}/qt-creator-%{version}-beta-src.tar.gz
 
 Source1:        qtcreator.desktop
 Source2:        qt-creator-Fedora-privlibs
@@ -42,7 +42,7 @@ designed to make development with the Qt application framework
 even faster and easier.
 
 %prep
-%setup -q -n %{name}-%{version}-src
+%setup -q -n %{name}-%{version}-beta-src
 
 %build
 QTDIR="%{_qt4_prefix}" ; export QTDIR ; \
@@ -108,6 +108,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #%%{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Wed Oct 23 2013 Jaroslav Reznik <jreznik@redhat.com> - 3.0.0-0.1.beta
+- 3.0.0 beta release
+
 * Wed Oct 16 2013 Sandro Mani <manisandro@gmail.com> - 2.8.1-1
 - Update to 2.8.1
 - Update URL and Source0
