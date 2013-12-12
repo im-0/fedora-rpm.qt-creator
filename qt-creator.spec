@@ -1,15 +1,14 @@
-%global pre rc1
+#global pre rc1
 
 Name:           qt-creator
 Version:        3.0.0
-Release:        0.2%{?pre:.%pre}%{?dist}
+Release:        1%{?pre:.%pre}%{?dist}
 Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
 License:        LGPLv2 with exceptions
 URL:            http://qt.digia.com/Product/Qt-Core-Features--Functions/Developer-Tools/
-Source0:        http://download.qt-project.org/development_releases/qtcreator/3.0/%{version}%{?pre:-%pre}/qt-creator-opensource-src-%{version}%{?pre:-%pre}.tar.gz
-
+Source0:        http://download.qt-project.org/official_releases/qtcreator/3.0/%{version}%{?pre:-%pre}/qt-creator-opensource-src-%{version}%{?pre:-%pre}.tar.gz
 
 Source1:        qtcreator.desktop
 Source2:        qt-creator-Fedora-privlibs
@@ -76,7 +75,7 @@ for so in ${sofiles} ; do
         i=1
     else
         echo "%%global privlibs %%{privlibs}|$so" >> $outfile
-	fi
+    fi
 done
 diff -u %{SOURCE2} $outfile || :
 cat $outfile
@@ -104,13 +103,16 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_bindir}/qtcreator_process_stub
 %{_bindir}/sdktool
 %{_libdir}/qtcreator
-#%{_libdir}/qmldesigner
+#%%{_libdir}/qmldesigner
 %{_datadir}/qtcreator
 %{_datadir}/applications/qtcreator.desktop
 %{_datadir}/icons/hicolor/*/apps/QtProject-qtcreator.png
 #%%{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Thu Dec 12 2013 Sandro Mani <manisandro@gmail.com> - 3.0.0-1
+- 3.0.0 stable release
+
 * Sun Dec 01 2013 Sandro Mani <manisandro@gmail.com> - 3.0.0-0.2.rc1
 - 3.0.0 rc1 release
 
