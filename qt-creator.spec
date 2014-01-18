@@ -7,7 +7,7 @@ Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
 License:        LGPLv2 with exceptions
-URL:            http://qt.digia.com/Product/Qt-Core-Features--Functions/Developer-Tools/
+URL:            http://qt.digia.com/Product/Qt-Core-Features-Functions/Developer-Tools/
 Source0:        http://download.qt-project.org/official_releases/qtcreator/3.0/%{version}%{?pre:-%pre}/qt-creator-opensource-src-%{version}%{?pre:-%pre}.tar.gz
 
 Source1:        qtcreator.desktop
@@ -110,6 +110,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #%%{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+
+- Fix homepage URL
+
 * Thu Dec 12 2013 Sandro Mani <manisandro@gmail.com> - 3.0.0-1
 - 3.0.0 stable release
 
