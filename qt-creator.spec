@@ -3,7 +3,7 @@
 Name:           qt-creator
 Version:        3.0.0
 Release:        1%{?pre:.%pre}%{?dist}
-Summary:        Lightweight and cross-platform IDE for Qt
+Summary:        Cross-platform IDE for Qt
 
 Group:          Development/Tools
 License:        LGPLv2 with exceptions
@@ -38,10 +38,8 @@ BuildRequires:  diffutils
 %global __requires_exclude ^(%{privlibs})\.so
 
 %description
-Qt Creator (previously known as Project Greenhouse) is a new,
-lightweight, cross-platform integrated  development environment (IDE)
-designed to make development with the Qt application framework
-even faster and easier.
+Qt Creator is a cross-platform IDE (integrated development environment)
+tailored to the needs of Qt developers.
 
 %prep
 %setup -q -n qt-creator-opensource-src-%{version}%{?pre:-%pre}
