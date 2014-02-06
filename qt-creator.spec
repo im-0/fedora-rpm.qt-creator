@@ -1,7 +1,7 @@
 #global pre rc1
 
 Name:           qt-creator
-Version:        3.0.0
+Version:        3.0.1
 Release:        1%{?pre:.%pre}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
@@ -108,8 +108,10 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #%%{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
-
+* Thu Feb 06 2014 Sandro Mani <manisandro@gmail.com> - 3.0.1-1
+- 3.0.1 stable release
 - Fix homepage URL
+- Improve description
 
 * Thu Dec 12 2013 Sandro Mani <manisandro@gmail.com> - 3.0.0-1
 - 3.0.0 stable release
