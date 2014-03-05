@@ -2,32 +2,33 @@
 
 Name:           qt-creator
 Version:        3.0.1
-Release:        1%{?pre:.%pre}%{?dist}
-Summary:        Cross-platform IDE for Qt
+Release:        2%{?pre:.%pre}%{?dist}
+Summary:        Lightweight and cross-platform IDE for Qt
 
 Group:          Development/Tools
 License:        LGPLv2 with exceptions
-URL:            http://qt.digia.com/Product/Qt-Core-Features-Functions/Developer-Tools/
-Source0:        http://download.qt-project.org/official_releases/qtcreator/3.0/%{version}%{?pre:-%pre}/qt-creator-opensource-src-%{version}%{?pre:-%pre}.tar.gz
+URL:            http://qt.digia.com/Product/Qt-Core-Features--Functions/Developer-Tools/
+Source0:        http://download.qt-project.org/development_releases/qtcreator/3.0/%{version}%{?pre:-%pre}/qt-creator-opensource-src-%{version}%{?pre:-%pre}.tar.gz
 
 Source1:        qtcreator.desktop
 Source2:        qt-creator-Fedora-privlibs
 
 Requires:       hicolor-icon-theme
 Requires:       xdg-utils
+Requires:       qt5-qtquickcontrols
+Requires:       qt5-qtdoc
 
-#required for demos/examples
-Requires:       qt-demos
-Requires:       qt-examples
 # we need qt-devel and gcc-c++ to compile programs using qt-creator
-Requires:       qt4-devel
+Requires:       qt5-qtbase-devel
 Requires:       gcc-c++
-%{?_qt4_version:Requires: qt4 >= %{_qt4_version}}
 
-BuildRequires:  qt4-devel >= 4.7.2
-BuildRequires:  qt4-webkit-devel
-# for QmlDesigner, see also https://bugzilla.redhat.com/show_bug.cgi?id=657498
-BuildRequires:  qt4-devel-private
+
+BuildRequires:  qt5-qtbase-devel
+BuildRequires:  qt5-qtscript-devel
+BuildRequires:  qt5-qttools-devel
+BuildRequires:  qt5-qtwebkit-devel
+BuildRequires:  qt5-qtxmlpatterns-devel
+BuildRequires:  qt5-qtx11extras-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  botan-devel
 BuildRequires:  diffutils
@@ -38,20 +39,22 @@ BuildRequires:  diffutils
 %global __requires_exclude ^(%{privlibs})\.so
 
 %description
-Qt Creator is a cross-platform IDE (integrated development environment)
-tailored to the needs of Qt developers.
+Qt Creator (previously known as Project Greenhouse) is a new,
+lightweight, cross-platform integrated  development environment (IDE)
+designed to make development with the Qt application framework
+even faster and easier.
 
 %prep
 %setup -q -n qt-creator-opensource-src-%{version}%{?pre:-%pre}
 
 %build
-QTDIR="%{_qt4_prefix}" ; export QTDIR ; \
-PATH="%{_qt4_bindir}:$PATH" ; export PATH ; \
-CFLAGS="${CFLAGS:-%optflags}" ; export CFLAGS ; \
-CXXFLAGS="${CXXFLAGS:-%optflags}" ; export CXXFLAGS ; \
-FFLAGS="${FFLAGS:-%optflags}" ; export FFLAGS ; \
+export QTDIR="%{_qt5_prefix}"
+export PATH="%{_qt5_bindir}:$PATH"
+export CFLAGS="${CFLAGS:-%optflags}"
+export CXXFLAGS="${CXXFLAGS:-%optflags}"
+export FFLAGS="${FFLAGS:-%optflags}"
 
-qmake-qt4 -r IDE_LIBRARY_BASENAME=%{_lib} USE_SYSTEM_BOTAN=1
+qmake-qt5 -r IDE_LIBRARY_BASENAME=%{_lib} USE_SYSTEM_BOTAN=1
 make %{?_smp_mflags}
 
 %install
@@ -73,7 +76,7 @@ for so in ${sofiles} ; do
         i=1
     else
         echo "%%global privlibs %%{privlibs}|$so" >> $outfile
-    fi
+	fi
 done
 diff -u %{SOURCE2} $outfile || :
 cat $outfile
@@ -95,19 +98,22 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %files
 %doc README LICENSE.LGPL LGPL_EXCEPTION.TXT
-%{_bindir}/qmlpuppet
+%{_bindir}/qml2puppet
 %{_bindir}/qtpromaker
 %{_bindir}/qtcreator
 %{_bindir}/qtcreator_process_stub
 %{_bindir}/sdktool
 %{_libdir}/qtcreator
-#%%{_libdir}/qmldesigner
+# %%{_libdir}/qmldesigner
 %{_datadir}/qtcreator
 %{_datadir}/applications/qtcreator.desktop
 %{_datadir}/icons/hicolor/*/apps/QtProject-qtcreator.png
 #%%{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Tue Mar 03 2014 Sandro Mani <manisandro@gmail.com> - 3.0.1-2
+- Build against Qt5
+
 * Thu Feb 06 2014 Sandro Mani <manisandro@gmail.com> - 3.0.1-1
 - 3.0.1 stable release
 - Fix homepage URL
