@@ -2,13 +2,13 @@
 
 Name:           qt-creator
 Version:        3.0.1
-Release:        2%{?pre:.%pre}%{?dist}
-Summary:        Lightweight and cross-platform IDE for Qt
+Release:        3%{?pre:.%pre}%{?dist}
+Summary:        Cross-platform IDE for Qt
 
 Group:          Development/Tools
 License:        LGPLv2 with exceptions
-URL:            http://qt.digia.com/Product/Qt-Core-Features--Functions/Developer-Tools/
-Source0:        http://download.qt-project.org/development_releases/qtcreator/3.0/%{version}%{?pre:-%pre}/qt-creator-opensource-src-%{version}%{?pre:-%pre}.tar.gz
+URL:            http://qt.digia.com/Product/Qt-Core-Features-Functions/Developer-Tools/
+Source0:        http://download.qt-project.org/official_releases/qtcreator/3.0/%{version}%{?pre:-%pre}/qt-creator-opensource-src-%{version}%{?pre:-%pre}.tar.gz
 
 Source1:        qtcreator.desktop
 Source2:        qt-creator-Fedora-privlibs
@@ -39,10 +39,8 @@ BuildRequires:  diffutils
 %global __requires_exclude ^(%{privlibs})\.so
 
 %description
-Qt Creator (previously known as Project Greenhouse) is a new,
-lightweight, cross-platform integrated  development environment (IDE)
-designed to make development with the Qt application framework
-even faster and easier.
+Qt Creator is a cross-platform IDE (integrated development environment)
+tailored to the needs of Qt developers.
 
 %prep
 %setup -q -n qt-creator-opensource-src-%{version}%{?pre:-%pre}
@@ -111,6 +109,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #%%{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Thu Mar 06 2014 Sandro Mani <manisandro@gmail.com> - 3.0.1-3
+- Restore accidentally reverted changes to URL, summary, description
+
 * Wed Mar 05 2014 Sandro Mani <manisandro@gmail.com> - 3.0.1-2
 - Build against Qt5
 
