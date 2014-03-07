@@ -53,7 +53,12 @@ export CXXFLAGS="${CXXFLAGS:-%optflags}"
 export FFLAGS="${FFLAGS:-%optflags}"
 
 qmake-qt5 -r IDE_LIBRARY_BASENAME=%{_lib} USE_SYSTEM_BOTAN=1
+# Disable parallel build on arm since it can lead to swapping which makes the build time out
+%ifarch %{arm}
+make
+%else
 make %{?_smp_mflags}
+%endif
 
 %install
 make install INSTALL_ROOT=%{buildroot}/%{_prefix}
