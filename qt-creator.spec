@@ -1,3 +1,8 @@
+%ifarch %{arm}
+# Decrease debuginfo verbosity to reduce memory consumption even more
+%global optflags %(echo %{optflags} | sed 's/-g /-g1 /')
+%endif
+
 #global pre rc1
 
 Name:           qt-creator
@@ -114,7 +119,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #%%{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
-* Thu Mar 06 2014 Sandro Mani <manisandro@gmail.com> - 3.0.1-3
+* Sat Mar 08 2014 Sandro Mani <manisandro@gmail.com> - 3.0.1-3
 - Restore accidentally reverted changes to URL, summary, description
 
 * Wed Mar 05 2014 Sandro Mani <manisandro@gmail.com> - 3.0.1-2
