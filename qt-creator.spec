@@ -1,8 +1,3 @@
-%ifarch %{arm}
-# Decrease debuginfo verbosity to reduce memory consumption even more
-%global optflags %(echo %{optflags} | sed 's/-g /-g1 /')
-%endif
-
 #global pre rc1
 
 Name:           qt-creator
@@ -14,9 +9,12 @@ Group:          Development/Tools
 License:        LGPLv2 with exceptions
 URL:            http://qt.digia.com/Product/Qt-Core-Features-Functions/Developer-Tools/
 Source0:        http://download.qt-project.org/official_releases/qtcreator/3.0/%{version}%{?pre:-%pre}/qt-creator-opensource-src-%{version}%{?pre:-%pre}.tar.gz
+# See #1074700
+ExcludeArch:    %{arm}
 
 Source1:        qtcreator.desktop
 Source2:        qt-creator-Fedora-privlibs
+Source3:        qtcreator.appdata.xml
 
 Requires:       hicolor-icon-theme
 Requires:       xdg-utils
@@ -37,6 +35,7 @@ BuildRequires:  qt5-qtx11extras-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  botan-devel
 BuildRequires:  diffutils
+BuildRequires:  appdata-tools
 
 # long list of private shared lib names to filter out
 %include %{SOURCE2}
@@ -58,12 +57,7 @@ export CXXFLAGS="${CXXFLAGS:-%optflags}"
 export FFLAGS="${FFLAGS:-%optflags}"
 
 qmake-qt5 -r IDE_LIBRARY_BASENAME=%{_lib} USE_SYSTEM_BOTAN=1
-# Disable parallel build on arm since it can lead to swapping which makes the build time out
-%ifarch %{arm}
-make
-%else
 make %{?_smp_mflags}
-%endif
 
 %install
 make install INSTALL_ROOT=%{buildroot}/%{_prefix}
@@ -73,6 +67,9 @@ for i in 16 24 32 48 64 128 256; do
 done
 
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
+
+install -Dpm0644 %{SOURCE3} %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
+%{_bindir}/appdata-validate %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml || :
 
 # Output an up-to-date list of Provides/Requires exclude statements.
 outfile=__Fedora-privlibs
@@ -115,12 +112,14 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 # %%{_libdir}/qmldesigner
 %{_datadir}/qtcreator
 %{_datadir}/applications/qtcreator.desktop
+%{_datadir}/appdata/qtcreator.appdata.xml
 %{_datadir}/icons/hicolor/*/apps/QtProject-qtcreator.png
 #%%{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
-* Sat Mar 08 2014 Sandro Mani <manisandro@gmail.com> - 3.0.1-3
-- Restore accidentally reverted changes to URL, summary, description
+* Wed Mar 12 2014 Sandro Mani <manisandro@gmail.com> - 3.0.1-3
+- Add appdata file
+- ExcludeArch arm due to #1074700
 
 * Wed Mar 05 2014 Sandro Mani <manisandro@gmail.com> - 3.0.1-2
 - Build against Qt5
