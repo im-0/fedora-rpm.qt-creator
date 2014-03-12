@@ -68,8 +68,8 @@ done
 
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 
-install -Dpm0644 %{SOURCE3} %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
-%{_bindir}/appdata-validate %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml || :
+install -Dpm0644 %{SOURCE3} %{buildroot}%{_datadir}/appdata/qtcreator.appdata.xml
+%{_bindir}/appdata-validate %{buildroot}%{_datadir}/appdata/qtcreator.appdata.xml || :
 
 # Output an up-to-date list of Provides/Requires exclude statements.
 outfile=__Fedora-privlibs
