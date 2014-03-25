@@ -1,14 +1,14 @@
-#global pre rc1
+%global pre beta
 
 Name:           qt-creator
-Version:        3.0.1
-Release:        3%{?pre:.%pre}%{?dist}
+Version:        3.1.0
+Release:        0.1%{?pre:.%pre}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 Group:          Development/Tools
 License:        LGPLv2 with exceptions
 URL:            http://qt.digia.com/Product/Qt-Core-Features-Functions/Developer-Tools/
-Source0:        http://download.qt-project.org/official_releases/qtcreator/3.0/%{version}%{?pre:-%pre}/qt-creator-opensource-src-%{version}%{?pre:-%pre}.tar.gz
+Source0:        http://download.qt-project.org/%{?pre:development}%{!?pre:official}_releases/qtcreator/3.1/%{version}%{?pre:-%pre}/qt-creator-opensource-src-%{version}%{?pre:-%pre}.tar.gz
 # See #1074700
 ExcludeArch:    %{arm}
 
@@ -36,6 +36,8 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  botan-devel
 BuildRequires:  diffutils
 BuildRequires:  appdata-tools
+BuildRequires:  llvm-devel
+BuildRequires:  clang-devel
 
 # long list of private shared lib names to filter out
 %include %{SOURCE2}
@@ -55,6 +57,7 @@ export PATH="%{_qt5_bindir}:$PATH"
 export CFLAGS="${CFLAGS:-%optflags}"
 export CXXFLAGS="${CXXFLAGS:-%optflags}"
 export FFLAGS="${FFLAGS:-%optflags}"
+export LLVM_INSTALL_DIR="%{_libdir}/llvm"
 
 qmake-qt5 -r IDE_LIBRARY_BASENAME=%{_lib} USE_SYSTEM_BOTAN=1
 make %{?_smp_mflags}
@@ -81,7 +84,7 @@ for so in ${sofiles} ; do
         i=1
     else
         echo "%%global privlibs %%{privlibs}|$so" >> $outfile
-	fi
+    fi
 done
 diff -u %{SOURCE2} $outfile || :
 cat $outfile
@@ -103,6 +106,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %files
 %doc README LICENSE.LGPL LGPL_EXCEPTION.TXT
+%{_bindir}/buildoutputparser
 %{_bindir}/qml2puppet
 %{_bindir}/qtpromaker
 %{_bindir}/qtcreator
@@ -117,6 +121,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #%%{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Tue Mar 25 2014 Sandro Mani <manisandro@gmail.com> - 3.1.0-0.1.beta
+- 3.1.0 beta release
+
 * Wed Mar 12 2014 Sandro Mani <manisandro@gmail.com> - 3.0.1-3
 - Add appdata file
 - ExcludeArch arm due to #1074700
