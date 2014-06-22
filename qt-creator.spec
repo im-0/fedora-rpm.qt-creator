@@ -11,6 +11,8 @@ URL:            http://qt.digia.com/Product/Qt-Core-Features-Functions/Developer
 Source0:        http://download.qt-project.org/%{?pre:development}%{!?pre:official}_releases/qtcreator/3.1/%{version}%{?pre:-%pre}/qt-creator-opensource-src-%{version}%{?pre:-%pre}.tar.gz
 # See #1110980, https://github.com/qtproject/qt-creator/commit/e3979fe09d7dd3ef1546e97d22d76178c8e38303
 Patch0:         qt-creator_dumper-gdb7.7.patch
+# Don't use deprecated toAscii()
+Patch1:         qt-creator_toAscii.patch
 # See #1074700
 ExcludeArch:    %{arm}
 
@@ -53,6 +55,7 @@ tailored to the needs of Qt developers.
 %prep
 %setup -q -n qt-creator-opensource-src-%{version}%{?pre:-%pre}
 %patch0 -p1
+%patch1 -p1
 
 %build
 export QTDIR="%{_qt5_prefix}"
