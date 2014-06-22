@@ -2,13 +2,15 @@
 
 Name:           qt-creator
 Version:        3.1.1
-Release:        2%{?pre:.%pre}%{?dist}
+Release:        3%{?pre:.%pre}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 Group:          Development/Tools
 License:        LGPLv2 with exceptions
 URL:            http://qt.digia.com/Product/Qt-Core-Features-Functions/Developer-Tools/
 Source0:        http://download.qt-project.org/%{?pre:development}%{!?pre:official}_releases/qtcreator/3.1/%{version}%{?pre:-%pre}/qt-creator-opensource-src-%{version}%{?pre:-%pre}.tar.gz
+# See #1110980, https://github.com/qtproject/qt-creator/commit/e3979fe09d7dd3ef1546e97d22d76178c8e38303
+Patch0:         qt-creator_dumper-gdb7.7.patch
 # See #1074700
 ExcludeArch:    %{arm}
 
@@ -50,6 +52,7 @@ tailored to the needs of Qt developers.
 
 %prep
 %setup -q -n qt-creator-opensource-src-%{version}%{?pre:-%pre}
+%patch0 -p1
 
 %build
 export QTDIR="%{_qt5_prefix}"
@@ -121,6 +124,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #%%{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
+* Sun Jun 22 2014 Sandro Mani <manisandro@gmail.com> - 3.1.1-3
+- Backport upstream patch to fix dumper with gdb 7.7, see rhbz#1110980
+
 * Sun Jun 08 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 
