@@ -124,7 +124,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #%%{_datadir}/doc/qtcreator/qtcreator.qch
 
 %changelog
-* Wed Jun 26 2014 Sandro Mani <manisandro@gmail.com> - 3.1.2-1
+* Thu Jun 26 2014 Sandro Mani <manisandro@gmail.com> - 3.1.2-1
 - 3.1.2 release
 
 * Sun Jun 22 2014 Sandro Mani <manisandro@gmail.com> - 3.1.1-3
