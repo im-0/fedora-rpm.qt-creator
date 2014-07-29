@@ -2,7 +2,7 @@
 
 Name:           qt-creator
 Version:        3.2.0
-Release:        0.1%{?pre:.%pre}%{?dist}
+Release:        0.2%{?pre:.%pre}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 Group:          Development/Tools
@@ -11,6 +11,8 @@ URL:            http://qt.digia.com/Product/Qt-Core-Features-Functions/Developer
 Source0:        http://download.qt-project.org/%{?pre:development}%{!?pre:official}_releases/qtcreator/3.1/%{version}%{?pre:-%pre}/qt-creator-opensource-src-%{version}%{?pre:-%pre}.tar.gz
 # Don't use deprecated toAscii()
 Patch0:         qt-creator_toAscii.patch
+# Fix doc dir (Fedora package is called qt-creator, not qtcreator)
+Patch1:         qt-creator_docdir.patch
 # See #1074700
 ExcludeArch:    %{arm}
 
@@ -41,6 +43,15 @@ BuildRequires:  appdata-tools
 BuildRequires:  llvm-devel
 BuildRequires:  clang-devel
 
+%package doc
+Summary:        User documentation for %{name}
+Requires:       %{name} = %{version}-%{release}
+BuildArch:      noarch
+
+%description doc
+User documentation for %{name}.
+
+
 # long list of private shared lib names to filter out
 %include %{SOURCE2}
 %global __provides_exclude ^(%{privlibs})\.so
@@ -53,6 +64,7 @@ tailored to the needs of Qt developers.
 %prep
 %setup -q -n qt-creator-opensource-src-%{version}%{?pre:-%pre}
 %patch0 -p1
+%patch1 -p1
 
 %build
 export QTDIR="%{_qt5_prefix}"
@@ -64,9 +76,12 @@ export LLVM_INSTALL_DIR="%{_libdir}/llvm"
 
 qmake-qt5 -r IDE_LIBRARY_BASENAME=%{_lib} USE_SYSTEM_BOTAN=1
 make %{?_smp_mflags}
+make qch_docs %{?_smp_mflags}
 
 %install
 make install INSTALL_ROOT=%{buildroot}/%{_prefix}
+make install_inst_qch_docs INSTALL_ROOT=%{buildroot}/%{_prefix}
+
 
 for i in 16 24 32 48 64 128 256; do
     mkdir -p %{buildroot}/%{_datadir}/icons/hicolor/${i}x${i}/apps
@@ -109,6 +124,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %files
 %doc README LICENSE.LGPL LGPL_EXCEPTION.TXT
+%exclude %{_defaultdocdir}/%{name}/qtcreator.qch
 %{_bindir}/qbs*
 %{_bindir}/buildoutputparser
 %{_bindir}/qml2puppet
@@ -122,9 +138,15 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/applications/qtcreator.desktop
 %{_datadir}/appdata/qtcreator.appdata.xml
 %{_datadir}/icons/hicolor/*/apps/QtProject-qtcreator.png
-#%%{_datadir}/doc/qtcreator/qtcreator.qch
+
+%files doc
+%doc %{_defaultdocdir}/%{name}/qtcreator.qch
+
 
 %changelog
+* Tue Jul 29 2014 Sandro Mani <manisandro@gmail.com> - 3.2.0-0.2.beta1
+- doc subpackage
+
 * Tue Jul 15 2014 Sandro Mani <manisandro@gmail.com> - 3.2.0-0.1.beta1
 - 3.2.0 beta1 release
 

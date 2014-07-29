@@ -1,0 +1,66 @@
+diff -rupN qt-creator-opensource-src-3.2.0-beta1/doc/api/qtcreator-documentation.qdoc qt-creator-opensource-src-3.2.0-beta1-new/doc/api/qtcreator-documentation.qdoc
+--- qt-creator-opensource-src-3.2.0-beta1/doc/api/qtcreator-documentation.qdoc	2014-07-07 16:54:53.000000000 +0200
++++ qt-creator-opensource-src-3.2.0-beta1-new/doc/api/qtcreator-documentation.qdoc	2014-07-28 23:52:12.859408646 +0200
+@@ -283,7 +283,7 @@
+     The \QC Manual HTML files are generated in the \c {doc/html} directory.
+     The Extending \QC Manual files are generated in the
+     \c {doc/html-dev} directory. The help files (.qch) are generated in the
+-    \c {share/doc/qtcreator} directory in the \QC build directory on Windows and
++    \c {share/doc/qt-creator} directory in the \QC build directory on Windows and
+     Linux, and in the \c {bin/Qt Creator.app/Contents/Resources/app} directory
+     on OS X. You can view the HTML files in a browser and the help files in
+     the \QC \gui Help mode. For more information about adding the help files to
+diff -rupN qt-creator-opensource-src-3.2.0-beta1/doc/doc.pri qt-creator-opensource-src-3.2.0-beta1-new/doc/doc.pri
+--- qt-creator-opensource-src-3.2.0-beta1/doc/doc.pri	2014-07-07 16:54:53.000000000 +0200
++++ qt-creator-opensource-src-3.2.0-beta1-new/doc/doc.pri	2014-07-28 23:52:13.121408634 +0200
+@@ -78,12 +78,12 @@ dev_qch_docs.depends += dev_html_docs
+ 
+ !macx {
+     inst_qch_docs.files = $$QCH_FILE
+-    inst_qch_docs.path = $$QTC_PREFIX/share/doc/qtcreator
++    inst_qch_docs.path = $$QTC_PREFIX/share/doc/qt-creator
+     inst_qch_docs.CONFIG += no_check_exist no_default_install
+     INSTALLS += inst_qch_docs
+ 
+     inst_dev_qch_docs.files = $$DEV_QCH_FILE
+-    inst_dev_qch_docs.path = $$QTC_PREFIX/share/doc/qtcreator
++    inst_dev_qch_docs.path = $$QTC_PREFIX/share/doc/qt-creator
+     inst_dev_qch_docs.CONFIG += no_check_exist no_default_install
+     INSTALLS += inst_dev_qch_docs
+ 
+diff -rupN qt-creator-opensource-src-3.2.0-beta1/qtcreator.pri qt-creator-opensource-src-3.2.0-beta1-new/qtcreator.pri
+--- qt-creator-opensource-src-3.2.0-beta1/qtcreator.pri	2014-07-07 16:54:53.000000000 +0200
++++ qt-creator-opensource-src-3.2.0-beta1-new/qtcreator.pri	2014-07-28 23:52:13.135408634 +0200
+@@ -160,7 +160,7 @@ macx {
+     IDE_PLUGIN_PATH  = $$IDE_LIBRARY_PATH/plugins
+     IDE_LIBEXEC_PATH = $$IDE_APP_PATH # FIXME
+     IDE_DATA_PATH    = $$IDE_BUILD_TREE/share/qtcreator
+-    IDE_DOC_PATH     = $$IDE_BUILD_TREE/share/doc/qtcreator
++    IDE_DOC_PATH     = $$IDE_BUILD_TREE/share/doc/qt-creator
+     IDE_BIN_PATH     = $$IDE_APP_PATH
+     !isEqual(IDE_SOURCE_TREE, $$IDE_BUILD_TREE):copydata = 1
+ }
+diff -rupN qt-creator-opensource-src-3.2.0-beta1/qtcreator.qbs qt-creator-opensource-src-3.2.0-beta1-new/qtcreator.qbs
+--- qt-creator-opensource-src-3.2.0-beta1/qtcreator.qbs	2014-07-07 16:54:53.000000000 +0200
++++ qt-creator-opensource-src-3.2.0-beta1-new/qtcreator.qbs	2014-07-28 23:52:13.489408618 +0200
+@@ -41,7 +41,7 @@ Project {
+             : ide_app_path
+     property string ide_doc_path: qbs.targetOS.contains("osx")
+             ? ide_data_path + "/doc"
+-            : "share/doc/qtcreator"
++            : "share/doc/qt-creator"
+     property string ide_bin_path: qbs.targetOS.contains("osx")
+             ? ide_app_target + ".app/Contents/MacOS"
+             : ide_app_path
+diff -rupN qt-creator-opensource-src-3.2.0-beta1/src/plugins/coreplugin/icore.cpp qt-creator-opensource-src-3.2.0-beta1-new/src/plugins/coreplugin/icore.cpp
+--- qt-creator-opensource-src-3.2.0-beta1/src/plugins/coreplugin/icore.cpp	2014-07-07 16:54:53.000000000 +0200
++++ qt-creator-opensource-src-3.2.0-beta1-new/src/plugins/coreplugin/icore.cpp	2014-07-28 23:52:09.539408793 +0200
+@@ -421,7 +421,7 @@ QString ICore::userResourcePath()
+ QString ICore::documentationPath()
+ {
+     const QString docPath = QLatin1String(Utils::HostOsInfo::isMacHost()
+-                                            ? "/../Resources/doc" : "/../share/doc/qtcreator");
++                                            ? "/../Resources/doc" : "/../share/doc/qt-creator");
+     return QDir::cleanPath(QCoreApplication::applicationDirPath() + docPath);
+ }
+ 
