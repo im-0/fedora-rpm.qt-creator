@@ -1,8 +1,8 @@
-%global pre rc1
+#global pre rc1
 
 Name:           qt-creator
 Version:        3.2.0
-Release:        0.4%{?pre:.%pre}%{?dist}
+Release:        1%{?pre:.%pre}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 Group:          Development/Tools
@@ -144,6 +144,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Wed Aug 20 2014 Sandro Mani <manisandro@gmail.com> - 3.2.0-1
+- 3.2.0 release
+
 * Sun Aug 17 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
 
