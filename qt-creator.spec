@@ -1,14 +1,14 @@
 #global pre rc1
 
 Name:           qt-creator
-Version:        3.2.0
+Version:        3.2.1
 Release:        1%{?pre:.%pre}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 Group:          Development/Tools
 License:        LGPLv2 with exceptions
 URL:            http://qt.digia.com/Product/Qt-Core-Features-Functions/Developer-Tools/
-Source0:        http://download.qt-project.org/%{?pre:development}%{!?pre:official}_releases/qtcreator/3.1/%{version}%{?pre:-%pre}/qt-creator-opensource-src-%{version}%{?pre:-%pre}.tar.gz
+Source0:        http://download.qt-project.org/%{?pre:development}%{!?pre:official}_releases/qtcreator/3.2/%{version}%{?pre:-%pre}/qt-creator-opensource-src-%{version}%{?pre:-%pre}.tar.gz
 # Don't use deprecated toAscii()
 Patch0:         qt-creator_toAscii.patch
 # Fix doc dir (Fedora package is called qt-creator, not qtcreator)
@@ -144,6 +144,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Tue Sep 16 2014 Sandro Mani <manisandro@gmail.com> - 3.2.1-1
+- 3.2.1 release
+
 * Wed Aug 20 2014 Sandro Mani <manisandro@gmail.com> - 3.2.0-1
 - 3.2.0 release
 
