@@ -1,13 +1,13 @@
 #global pre rc1
 
 Name:           qt-creator
-Version:        3.2.1
+Version:        3.2.2
 Release:        1%{?pre:.%pre}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 Group:          Development/Tools
 License:        LGPLv2 with exceptions
-URL:            http://qt.digia.com/Product/Qt-Core-Features-Functions/Developer-Tools/
+URL:            http://qt-project.org/wiki/Category:Tools::QtCreator
 Source0:        http://download.qt-project.org/%{?pre:development}%{!?pre:official}_releases/qtcreator/3.2/%{version}%{?pre:-%pre}/qt-creator-opensource-src-%{version}%{?pre:-%pre}.tar.gz
 # Don't use deprecated toAscii()
 Patch0:         qt-creator_toAscii.patch
@@ -144,6 +144,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Mon Oct 13 2014 Sandro Mani <manisandro@gmail.com> - 3.2.2-1
+- 3.2.2 release
+
 * Tue Sep 16 2014 Sandro Mani <manisandro@gmail.com> - 3.2.1-1
 - 3.2.1 release
 
