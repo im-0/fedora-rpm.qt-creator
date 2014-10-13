@@ -6,7 +6,7 @@ Release:        1%{?pre:.%pre}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 Group:          Development/Tools
-License:        LGPLv2 with exceptions
+License:        LGPLv2 or LGPLv3, with exceptions
 URL:            http://qt-project.org/wiki/Category:Tools::QtCreator
 Source0:        http://download.qt-project.org/%{?pre:development}%{!?pre:official}_releases/qtcreator/3.2/%{version}%{?pre:-%pre}/qt-creator-opensource-src-%{version}%{?pre:-%pre}.tar.gz
 # Don't use deprecated toAscii()
@@ -123,7 +123,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %files
-%doc README LICENSE.LGPL LGPL_EXCEPTION.TXT
+%doc README LICENSE.LGPLv3 LICENSE.LGPLv21 LGPL_EXCEPTION.TXT
 %exclude %{_defaultdocdir}/%{name}/qtcreator.qch
 %{_bindir}/qbs*
 %{_bindir}/buildoutputparser
