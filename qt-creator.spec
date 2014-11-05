@@ -1,18 +1,16 @@
-#global pre rc1
+%global pre beta1
 
 Name:           qt-creator
-Version:        3.2.2
-Release:        1%{?pre:.%pre}%{?dist}
+Version:        3.3.0
+Release:        0.1%{?pre:.%pre}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 Group:          Development/Tools
 License:        LGPLv2 or LGPLv3, with exceptions
 URL:            http://qt-project.org/wiki/Category:Tools::QtCreator
 Source0:        http://download.qt-project.org/%{?pre:development}%{!?pre:official}_releases/qtcreator/3.2/%{version}%{?pre:-%pre}/qt-creator-opensource-src-%{version}%{?pre:-%pre}.tar.gz
-# Don't use deprecated toAscii()
-Patch0:         qt-creator_toAscii.patch
 # Fix doc dir (Fedora package is called qt-creator, not qtcreator)
-Patch1:         qt-creator_docdir.patch
+Patch0:         qt-creator_docdir.patch
 # See #1074700
 ExcludeArch:    %{arm}
 
@@ -64,7 +62,6 @@ tailored to the needs of Qt developers.
 %prep
 %setup -q -n qt-creator-opensource-src-%{version}%{?pre:-%pre}
 %patch0 -p1
-%patch1 -p1
 
 %build
 export QTDIR="%{_qt5_prefix}"
@@ -144,6 +141,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Wed Nov 05 2014 Sandro Mani <manisandro@gmail.com> - 3.3.0-0.1.beta1
+- 3.3.0 beta1 release
+
 * Mon Oct 13 2014 Sandro Mani <manisandro@gmail.com> - 3.2.2-1
 - 3.2.2 release
 
