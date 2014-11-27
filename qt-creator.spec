@@ -1,8 +1,8 @@
-%global pre beta1
+%global pre rc1
 
 Name:           qt-creator
 Version:        3.3.0
-Release:        0.1%{?pre:.%pre}%{?dist}
+Release:        0.2%{?pre:.%pre}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 Group:          Development/Tools
@@ -37,7 +37,7 @@ BuildRequires:  qt5-qtx11extras-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  botan-devel
 BuildRequires:  diffutils
-BuildRequires:  appdata-tools
+BuildRequires:  libappstream-glib
 BuildRequires:  llvm-devel
 BuildRequires:  clang-devel
 
@@ -87,7 +87,7 @@ done
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 
 install -Dpm0644 %{SOURCE3} %{buildroot}%{_datadir}/appdata/qtcreator.appdata.xml
-%{_bindir}/appdata-validate %{buildroot}%{_datadir}/appdata/qtcreator.appdata.xml || :
+%{_bindir}/appstream-util validate %{buildroot}%{_datadir}/appdata/qtcreator.appdata.xml || :
 
 # Output an up-to-date list of Provides/Requires exclude statements.
 outfile=__Fedora-privlibs
@@ -141,6 +141,10 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Thu Nov 27 2014 Sandro Mani <manisandro@gmail.com> - 3.3.0-0.2.rc1
+- 3.3.0 rc1 release
+- appdata-validate -> appstream-util validate
+
 * Wed Nov 05 2014 Sandro Mani <manisandro@gmail.com> - 3.3.0-0.1.beta1
 - 3.3.0 beta1 release
 
