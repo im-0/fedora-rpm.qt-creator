@@ -1,8 +1,8 @@
-%global pre rc1
+#global pre rc1
 
 Name:           qt-creator
 Version:        3.3.0
-Release:        0.2%{?pre:.%pre}%{?dist}
+Release:        1%{?pre:.%pre}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 Group:          Development/Tools
@@ -141,6 +141,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Wed Dec 10 2014 Sandro Mani <manisandro@gmail.com> - 3.3.0-1
+- 3.3.0 release
+
 * Thu Nov 27 2014 Sandro Mani <manisandro@gmail.com> - 3.3.0-0.2.rc1
 - 3.3.0 rc1 release
 - appdata-validate -> appstream-util validate
