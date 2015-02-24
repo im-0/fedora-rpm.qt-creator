@@ -1,0 +1,63 @@
+From 380acb5baa375806af0a081b56d6d1dccd87264f Mon Sep 17 00:00:00 2001
+From: Tobias Hunger <tobias.hunger@theqtcompany.com>
+Date: Wed, 4 Feb 2015 14:41:55 +0100
+Subject: [PATCH] TaskModel: Harden taskmodel
+
+Invalid positions should not happen, but handle them anyway if they do.
+There is one report about a crash in the task model that may be related
+to this.
+
+Task-number: QTCREATORBUG-13861
+Change-Id: Iae1b25974220d3622ecc39bd1a073c299b843fea
+Reviewed-by: Sandro Mani <manisandro@gmail.com>
+Reviewed-by: Daniel Teske <daniel.teske@theqtcompany.com>
+---
+ src/plugins/projectexplorer/taskmodel.cpp |   17 ++++++++++-------
+ 1 files changed, 10 insertions(+), 7 deletions(-)
+
+diff --git a/src/plugins/projectexplorer/taskmodel.cpp b/src/plugins/projectexplorer/taskmodel.cpp
+index 5b4150d..9351261 100644
+--- a/src/plugins/projectexplorer/taskmodel.cpp
++++ b/src/plugins/projectexplorer/taskmodel.cpp
+@@ -238,7 +238,8 @@ int TaskModel::columnCount(const QModelIndex &parent) const
+ 
+ QVariant TaskModel::data(const QModelIndex &index, int role) const
+ {
+-    if (!index.isValid() || index.row() >= m_tasks.count() || index.column() != 0)
++    int row = index.row();
++    if (!index.isValid() || row < 0 || row >= m_tasks.count() || index.column() != 0)
+         return QVariant();
+ 
+     if (role == TaskModel::File)
+@@ -264,9 +265,10 @@ QVariant TaskModel::data(const QModelIndex &index, int role) const
+ 
+ Task TaskModel::task(const QModelIndex &index) const
+ {
+-    if (!index.isValid())
++    int row = index.row();
++    if (!index.isValid() || row < 0 || row >= m_tasks.count())
+         return Task();
+-    return m_tasks.at(index.row());
++    return m_tasks.at(row);
+ }
+ 
+ QList<Core::Id> TaskModel::categoryIds() const
+@@ -317,10 +319,11 @@ int TaskModel::sizeOfLineNumber(const QFont &font)
+ 
+ void TaskModel::setFileNotFound(const QModelIndex &idx, bool b)
+ {
+-    if (idx.isValid() && idx.row() < m_tasks.count()) {
+-        m_fileNotFound.insert(m_tasks[idx.row()].file.toUserOutput(), b);
+-        emit dataChanged(idx, idx);
+-    }
++    int row = idx.row();
++    if (!idx.isValid() || row < 0 || row >= m_tasks.count())
++        return;
++    m_fileNotFound.insert(m_tasks[row].file.toUserOutput(), b);
++    emit dataChanged(idx, idx);
+ }
+ 
+ /////
+-- 
+1.7.1
+

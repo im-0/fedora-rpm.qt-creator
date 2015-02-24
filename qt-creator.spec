@@ -1,7 +1,7 @@
 #global pre rc1
 
 Name:           qt-creator
-Version:        3.3.0
+Version:        3.3.1
 Release:        1%{?pre:.%pre}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
@@ -11,6 +11,13 @@ URL:            http://qt-project.org/wiki/Category:Tools::QtCreator
 Source0:        http://download.qt-project.org/%{?pre:development}%{!?pre:official}_releases/qtcreator/3.2/%{version}%{?pre:-%pre}/qt-creator-opensource-src-%{version}%{?pre:-%pre}.tar.gz
 # Fix doc dir (Fedora package is called qt-creator, not qtcreator)
 Patch0:         qt-creator_docdir.patch
+# Backport of upstream commit 380acb5baa375806af0a081b56d6d1dccd87264f
+# QTCREATORBUG-13861 / RHBZ#1184174
+Patch1:         380acb5baa375806af0a081b56d6d1dccd87264f.patch
+# Use absolute paths for the specified rpaths, not $ORIGIN-relative paths
+# (to fix some /usr/bin/<binary> having rpath $ORIGIN/..)
+Patch2:         qt-creator_rpath.patch
+
 # See #1074700
 ExcludeArch:    %{arm}
 
@@ -26,6 +33,7 @@ Requires:       qt5-qtdoc
 # we need qt-devel and gcc-c++ to compile programs using qt-creator
 Requires:       qt5-qtbase-devel
 Requires:       gcc-c++
+Requires:       %{name}-data = %{version}-%{release}
 
 
 BuildRequires:  qt5-qtbase-devel
@@ -40,6 +48,16 @@ BuildRequires:  diffutils
 BuildRequires:  libappstream-glib
 BuildRequires:  llvm-devel
 BuildRequires:  clang-devel
+
+
+%package data
+Summary:        Application data for %{name}
+Requires:       %{name} = %{version}-%{release}
+BuildArch:      noarch
+
+%description data
+Application data for %{name}.
+
 
 %package doc
 Summary:        User documentation for %{name}
@@ -62,16 +80,15 @@ tailored to the needs of Qt developers.
 %prep
 %setup -q -n qt-creator-opensource-src-%{version}%{?pre:-%pre}
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
 
 %build
 export QTDIR="%{_qt5_prefix}"
 export PATH="%{_qt5_bindir}:$PATH"
-export CFLAGS="${CFLAGS:-%optflags}"
-export CXXFLAGS="${CXXFLAGS:-%optflags}"
-export FFLAGS="${FFLAGS:-%optflags}"
 export LLVM_INSTALL_DIR="%{_libdir}/llvm"
 
-qmake-qt5 -r IDE_LIBRARY_BASENAME=%{_lib} USE_SYSTEM_BOTAN=1
+%qmake_qt5 -r IDE_LIBRARY_BASENAME=%{_lib} USE_SYSTEM_BOTAN=1 CONFIG+=disable_rpath
 make %{?_smp_mflags}
 make qch_docs %{?_smp_mflags}
 
@@ -87,7 +104,7 @@ done
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 
 install -Dpm0644 %{SOURCE3} %{buildroot}%{_datadir}/appdata/qtcreator.appdata.xml
-%{_bindir}/appstream-util validate %{buildroot}%{_datadir}/appdata/qtcreator.appdata.xml || :
+%{_bindir}/appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/qtcreator.appdata.xml
 
 # Output an up-to-date list of Provides/Requires exclude statements.
 outfile=__Fedora-privlibs
@@ -120,7 +137,8 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %files
-%doc README LICENSE.LGPLv3 LICENSE.LGPLv21 LGPL_EXCEPTION.TXT
+%doc README
+%license LICENSE.LGPLv3 LICENSE.LGPLv21 LGPL_EXCEPTION.TXT
 %exclude %{_defaultdocdir}/%{name}/qtcreator.qch
 %{_bindir}/qbs*
 %{_bindir}/buildoutputparser
@@ -130,17 +148,25 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_bindir}/qtcreator_process_stub
 %{_bindir}/sdktool
 %{_libdir}/qtcreator
-# %%{_libdir}/qmldesigner
-%{_datadir}/qtcreator
 %{_datadir}/applications/qtcreator.desktop
 %{_datadir}/appdata/qtcreator.appdata.xml
 %{_datadir}/icons/hicolor/*/apps/QtProject-qtcreator.png
+
+%files data
+%{_datadir}/qtcreator/
 
 %files doc
 %doc %{_defaultdocdir}/%{name}/qtcreator.qch
 
 
 %changelog
+* Tue Feb 24 2015 Sandro Mani <manisandro@gmail.com> - 3.3.1-1
+- 3.3.1 release
+- Use %%license
+- Use appstream-util validate-relax
+- Split application data to noarch data subpackage
+- Sanitize rpaths
+
 * Wed Dec 10 2014 Sandro Mani <manisandro@gmail.com> - 3.3.0-1
 - 3.3.0 release
 
