@@ -1,22 +1,19 @@
-#global pre rc1
+%global pre beta1
 
 Name:           qt-creator
-Version:        3.3.2
-Release:        1%{?pre:.%pre}%{?dist}
+Version:        3.4.0
+Release:        0.1%{?pre:.%pre}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 Group:          Development/Tools
 License:        LGPLv2 or LGPLv3, with exceptions
 URL:            http://qt-project.org/wiki/Category:Tools::QtCreator
-Source0:        http://download.qt-project.org/%{?pre:development}%{!?pre:official}_releases/qtcreator/3.3/%{version}%{?pre:-%pre}/qt-creator-opensource-src-%{version}%{?pre:-%pre}.tar.gz
+Source0:        http://download.qt-project.org/%{?pre:development}%{!?pre:official}_releases/qtcreator/3.4/%{version}%{?pre:-%pre}/qt-creator-opensource-src-%{version}%{?pre:-%pre}.tar.gz
 # Fix doc dir (Fedora package is called qt-creator, not qtcreator)
 Patch0:         qt-creator_docdir.patch
-# Backport of upstream commit 380acb5baa375806af0a081b56d6d1dccd87264f
-# QTCREATORBUG-13861 / RHBZ#1184174
-Patch1:         380acb5baa375806af0a081b56d6d1dccd87264f.patch
 # Use absolute paths for the specified rpaths, not $ORIGIN-relative paths
 # (to fix some /usr/bin/<binary> having rpath $ORIGIN/..)
-Patch2:         qt-creator_rpath.patch
+Patch1:         qt-creator_rpath.patch
 
 # See #1074700
 ExcludeArch:    %{arm}
@@ -81,7 +78,6 @@ tailored to the needs of Qt developers.
 %setup -q -n qt-creator-opensource-src-%{version}%{?pre:-%pre}
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
 export QTDIR="%{_qt5_prefix}"
@@ -160,6 +156,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Thu Mar 05 2015 Sandro Mani <manisandro@gmail.com> - 3.4.0-0.1.beta1
+- 3.4.0 beta1 release
+
 * Thu Mar 05 2015 Sandro Mani <manisandro@gmail.com> - 3.3.2-1
 - 3.3.2 release
 

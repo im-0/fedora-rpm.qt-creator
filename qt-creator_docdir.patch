@@ -1,6 +1,6 @@
-diff -rupN qt-creator-opensource-src-3.3.1/doc/api/qtcreator-documentation.qdoc qt-creator-opensource-src-3.3.1-new/doc/api/qtcreator-documentation.qdoc
---- qt-creator-opensource-src-3.3.1/doc/api/qtcreator-documentation.qdoc	2015-02-19 11:16:46.000000000 +0100
-+++ qt-creator-opensource-src-3.3.1-new/doc/api/qtcreator-documentation.qdoc	2015-02-24 14:30:36.319452909 +0100
+diff -rupN qt-creator-opensource-src-3.4.0-beta1/doc/api/qtcreator-documentation.qdoc qt-creator-opensource-src-3.4.0-beta1-new/doc/api/qtcreator-documentation.qdoc
+--- qt-creator-opensource-src-3.4.0-beta1/doc/api/qtcreator-documentation.qdoc	2015-03-03 17:47:18.000000000 +0100
++++ qt-creator-opensource-src-3.4.0-beta1-new/doc/api/qtcreator-documentation.qdoc	2015-03-05 20:47:58.308259478 +0100
 @@ -294,7 +294,7 @@
      The \QC Manual HTML files are generated in the \c {doc/html} directory.
      The Extending \QC Manual files are generated in the
@@ -10,9 +10,9 @@ diff -rupN qt-creator-opensource-src-3.3.1/doc/api/qtcreator-documentation.qdoc 
      Linux, and in the \c {bin/Qt Creator.app/Contents/Resources/app} directory
      on OS X. You can view the HTML files in a browser and the help files in
      the \QC \uicontrol Help mode. For more information about adding the help files to
-diff -rupN qt-creator-opensource-src-3.3.1/doc/doc.pri qt-creator-opensource-src-3.3.1-new/doc/doc.pri
---- qt-creator-opensource-src-3.3.1/doc/doc.pri	2015-02-19 11:16:46.000000000 +0100
-+++ qt-creator-opensource-src-3.3.1-new/doc/doc.pri	2015-02-24 14:30:36.319452909 +0100
+diff -rupN qt-creator-opensource-src-3.4.0-beta1/doc/doc.pri qt-creator-opensource-src-3.4.0-beta1-new/doc/doc.pri
+--- qt-creator-opensource-src-3.4.0-beta1/doc/doc.pri	2015-03-03 17:47:18.000000000 +0100
++++ qt-creator-opensource-src-3.4.0-beta1-new/doc/doc.pri	2015-03-05 20:47:58.309259500 +0100
 @@ -68,12 +68,12 @@ dev_qch_docs.depends += dev_html_docs
  
  !macx {
@@ -28,9 +28,9 @@ diff -rupN qt-creator-opensource-src-3.3.1/doc/doc.pri qt-creator-opensource-src
      inst_dev_qch_docs.CONFIG += no_check_exist no_default_install
      INSTALLS += inst_dev_qch_docs
  
-diff -rupN qt-creator-opensource-src-3.3.1/qtcreator.pri qt-creator-opensource-src-3.3.1-new/qtcreator.pri
---- qt-creator-opensource-src-3.3.1/qtcreator.pri	2015-02-19 11:16:46.000000000 +0100
-+++ qt-creator-opensource-src-3.3.1-new/qtcreator.pri	2015-02-24 14:30:36.320452927 +0100
+diff -rupN qt-creator-opensource-src-3.4.0-beta1/qtcreator.pri qt-creator-opensource-src-3.4.0-beta1-new/qtcreator.pri
+--- qt-creator-opensource-src-3.4.0-beta1/qtcreator.pri	2015-03-03 17:47:18.000000000 +0100
++++ qt-creator-opensource-src-3.4.0-beta1-new/qtcreator.pri	2015-03-05 20:47:58.309259500 +0100
 @@ -90,7 +90,7 @@ macx {
      IDE_PLUGIN_PATH  = $$IDE_LIBRARY_PATH/plugins
      IDE_LIBEXEC_PATH = $$IDE_APP_PATH # FIXME
@@ -40,10 +40,10 @@ diff -rupN qt-creator-opensource-src-3.3.1/qtcreator.pri qt-creator-opensource-s
      IDE_BIN_PATH     = $$IDE_APP_PATH
      !isEqual(IDE_SOURCE_TREE, $$IDE_BUILD_TREE):copydata = 1
  }
-diff -rupN qt-creator-opensource-src-3.3.1/qtcreator.qbs qt-creator-opensource-src-3.3.1-new/qtcreator.qbs
---- qt-creator-opensource-src-3.3.1/qtcreator.qbs	2015-02-19 11:16:46.000000000 +0100
-+++ qt-creator-opensource-src-3.3.1-new/qtcreator.qbs	2015-02-24 14:30:36.320452927 +0100
-@@ -42,7 +42,7 @@ Project {
+diff -rupN qt-creator-opensource-src-3.4.0-beta1/qtcreator.qbs qt-creator-opensource-src-3.4.0-beta1-new/qtcreator.qbs
+--- qt-creator-opensource-src-3.4.0-beta1/qtcreator.qbs	2015-03-03 17:47:18.000000000 +0100
++++ qt-creator-opensource-src-3.4.0-beta1-new/qtcreator.qbs	2015-03-05 20:47:58.310259521 +0100
+@@ -44,7 +44,7 @@ Project {
              : ide_app_path
      property string ide_doc_path: qbs.targetOS.contains("osx")
              ? ide_data_path + "/doc"
@@ -52,10 +52,10 @@ diff -rupN qt-creator-opensource-src-3.3.1/qtcreator.qbs qt-creator-opensource-s
      property string ide_bin_path: qbs.targetOS.contains("osx")
              ? ide_app_target + ".app/Contents/MacOS"
              : ide_app_path
-diff -rupN qt-creator-opensource-src-3.3.1/src/plugins/coreplugin/icore.cpp qt-creator-opensource-src-3.3.1-new/src/plugins/coreplugin/icore.cpp
---- qt-creator-opensource-src-3.3.1/src/plugins/coreplugin/icore.cpp	2015-02-19 11:16:46.000000000 +0100
-+++ qt-creator-opensource-src-3.3.1-new/src/plugins/coreplugin/icore.cpp	2015-02-24 14:30:36.321452946 +0100
-@@ -422,7 +422,7 @@ QString ICore::userResourcePath()
+diff -rupN qt-creator-opensource-src-3.4.0-beta1/src/plugins/coreplugin/icore.cpp qt-creator-opensource-src-3.4.0-beta1-new/src/plugins/coreplugin/icore.cpp
+--- qt-creator-opensource-src-3.4.0-beta1/src/plugins/coreplugin/icore.cpp	2015-03-03 17:47:18.000000000 +0100
++++ qt-creator-opensource-src-3.4.0-beta1-new/src/plugins/coreplugin/icore.cpp	2015-03-05 20:47:58.311259542 +0100
+@@ -411,7 +411,7 @@ QString ICore::userResourcePath()
  QString ICore::documentationPath()
  {
      const QString docPath = QLatin1String(Utils::HostOsInfo::isMacHost()
