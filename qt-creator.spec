@@ -2,7 +2,7 @@
 
 Name:           qt-creator
 Version:        3.4.0
-Release:        0.1%{?pre:.%pre}%{?dist}
+Release:        0.2%{?pre:.%pre}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 Group:          Development/Tools
@@ -14,9 +14,6 @@ Patch0:         qt-creator_docdir.patch
 # Use absolute paths for the specified rpaths, not $ORIGIN-relative paths
 # (to fix some /usr/bin/<binary> having rpath $ORIGIN/..)
 Patch1:         qt-creator_rpath.patch
-
-# See #1074700
-ExcludeArch:    %{arm}
 
 Source1:        qtcreator.desktop
 Source2:        qt-creator-Fedora-privlibs
@@ -156,6 +153,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Thu Mar 19 2015 Sandro Mani <manisandro@gmail.com> - 3.4.0-0.2.beta1
+- Re-enable ARM build
+
 * Thu Mar 05 2015 Sandro Mani <manisandro@gmail.com> - 3.4.0-0.1.beta1
 - 3.4.0 beta1 release
 
