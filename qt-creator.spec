@@ -130,7 +130,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %files
-%doc README
+%doc README.md
 %license LICENSE.LGPLv3 LICENSE.LGPLv21 LGPL_EXCEPTION.TXT
 %exclude %{_defaultdocdir}/%{name}/qtcreator.qch
 %{_bindir}/qbs*
