@@ -2,7 +2,7 @@
 
 Name:           qt-creator
 Version:        3.4.0
-Release:        1%{?pre:.%pre}%{?dist}
+Release:        2%{?pre:.%pre}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 Group:          Development/Tools
@@ -14,6 +14,8 @@ Patch0:         qt-creator_docdir.patch
 # Use absolute paths for the specified rpaths, not $ORIGIN-relative paths
 # (to fix some /usr/bin/<binary> having rpath $ORIGIN/..)
 Patch1:         qt-creator_rpath.patch
+# In Fedora, the ninja command is called ninja-build
+Patch2:         qt-creator_ninja-build.patch
 
 Source1:        qtcreator.desktop
 Source2:        qt-creator-Fedora-privlibs
@@ -75,6 +77,7 @@ tailored to the needs of Qt developers.
 %setup -q -n qt-creator-opensource-src-%{version}%{?pre:-%pre}
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 export QTDIR="%{_qt5_prefix}"
@@ -153,6 +156,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Thu Apr 23 2015 Sandro Mani <manisandro@gmail.com> - 3.4.0-2
+- Add patch to correctly call ninja-build (#1216189)
+
 * Thu Apr 23 2015 Sandro Mani <manisandro@gmail.com> - 3.4.0-1
 - 3.4.0 release
 
