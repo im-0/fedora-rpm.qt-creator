@@ -2,6 +2,8 @@
 <!-- Copyright 2014 Digia Plc and/or its subsidiary(-ies) Contact: http://www.qt-project.org/legal -->
 <application>
  <id type="desktop">qtcreator.desktop</id>
+ <name>Qt Creator</name>
+ <summary>A cross-platform IDE tailored to the needs of Qt developers</summary>
  <licence>CC-BY-SA</licence>
  <description>
   <p>
@@ -21,8 +23,9 @@
   </p>
  </description>
  <screenshots>
-  <screenshot type="default" width="789" height="599">http://qt-project.org/uploads/image_upload/qtcreator-edit-mode.png</screenshot>
+  <screenshot type="default" width="756" height="547">https://wiki.qt.io/images/c/cc/Qtcreator-qtdesigner.png</screenshot>
  </screenshots>
  <url type="homepage">https://qt-project.org/wiki/Category:Tools::QtCreator</url>
  <project_group>Qt</project_group>
+ <updatecontact>manisandro@gmail.com</updatecontact>
 </application>

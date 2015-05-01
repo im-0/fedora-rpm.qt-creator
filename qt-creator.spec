@@ -2,7 +2,7 @@
 
 Name:           qt-creator
 Version:        3.4.0
-Release:        2%{?pre:.%pre}%{?dist}
+Release:        3%{?pre:.%pre}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 Group:          Development/Tools
@@ -156,7 +156,10 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
-* Thu Apr 23 2015 Sandro Mani <manisandro@gmail.com> - 3.4.0-2
+* Fri May 01 2015 Sandro Mani <manisandro@gmail.com> - 3.4.0-3
+- Fix appdata file (#1217757)
+
+* Tue Apr 28 2015 Sandro Mani <manisandro@gmail.com> - 3.4.0-2
 - Add patch to correctly call ninja-build (#1216189)
 
 * Thu Apr 23 2015 Sandro Mani <manisandro@gmail.com> - 3.4.0-1
