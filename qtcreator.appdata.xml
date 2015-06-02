@@ -4,7 +4,8 @@
  <id type="desktop">qtcreator.desktop</id>
  <name>Qt Creator</name>
  <summary>A cross-platform IDE tailored to the needs of Qt developers</summary>
- <licence>CC-BY-SA</licence>
+ <metadata_license>CC-BY-SA</metadata_license>
+ <project_license>LGPL-3.0 WITH exceptions</project_license>
  <description>
   <p>
    Qt Creator provides a cross-platform, complete integrated development

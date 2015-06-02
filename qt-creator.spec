@@ -1,8 +1,8 @@
 #global pre rc1
 
 Name:           qt-creator
-Version:        3.4.0
-Release:        3%{?pre:.%pre}%{?dist}
+Version:        3.4.1
+Release:        1%{?pre:.%pre}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 Group:          Development/Tools
@@ -156,6 +156,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Tue Jun 02 2015 Sandro Mani <manisandro@gmail.com> - 3.4.1-1
+- 3.4.1 release
+
 * Fri May 01 2015 Sandro Mani <manisandro@gmail.com> - 3.4.0-3
 - Fix appdata file (#1217757)
 
