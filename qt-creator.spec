@@ -2,7 +2,7 @@
 
 Name:           qt-creator
 Version:        3.4.1
-Release:        2%{?pre:.%pre}%{?dist}
+Release:        3%{?pre:.%pre}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 Group:          Development/Tools
@@ -53,6 +53,15 @@ BuildArch:      noarch
 
 %description data
 Application data for %{name}.
+
+%package translations
+Summary:        Translations for %{name}
+Requires:       %{name}-data = %{version}-%{release}
+Requires:       qt5-qttranslations
+BuildArch:      noarch
+
+%description translations
+Translations for %{name}.
 
 
 %package doc
@@ -150,13 +159,20 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %files data
 %{_datadir}/qtcreator/
+%exclude %{_datadir}/qtcreator/translations
+
+%files translations
+%{_datadir}/qtcreator/translations/
 
 %files doc
 %doc %{_defaultdocdir}/%{name}/qtcreator.qch
 
 
 %changelog
-* Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org>
+* Sun Jun 21 2015 Sandro Mani <manisandro@gmail.com> - 3.4.1-3
+- Add -translations subpackage
+
+* Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
 * Tue Jun 02 2015 Sandro Mani <manisandro@gmail.com> - 3.4.1-1
