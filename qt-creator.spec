@@ -1,16 +1,20 @@
-#global pre rc1
+%define prerelease 1538dca
+
+# We need avoid oython byte compiler to not crash over template .py file which
+# is not a valid python file, only for the IDE
+%global _python_bytecompile_errors_terminate_build 0
 
 Name:           qt-creator
-Version:        3.4.1
-Release:        3%{?pre:.%pre}%{?dist}
+Version:        3.5.0
+Release:        0.1%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 Group:          Development/Tools
 License:        LGPLv2 or LGPLv3, with exceptions
 URL:            http://qt-project.org/wiki/Category:Tools::QtCreator
-Source0:        http://download.qt-project.org/%{?pre:development}%{!?pre:official}_releases/qtcreator/3.4/%{version}%{?pre:-%pre}/qt-creator-opensource-src-%{version}%{?pre:-%pre}.tar.gz
+Source0:        qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
 # Fix doc dir (Fedora package is called qt-creator, not qtcreator)
-Patch0:         qt-creator_docdir.patch
+Patch0:         qt-creator_docdir-3.5.0.patch
 # Use absolute paths for the specified rpaths, not $ORIGIN-relative paths
 # (to fix some /usr/bin/<binary> having rpath $ORIGIN/..)
 Patch1:         qt-creator_rpath.patch
@@ -32,12 +36,12 @@ Requires:       gcc-c++
 Requires:       %{name}-data = %{version}-%{release}
 
 
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtscript-devel
-BuildRequires:  qt5-qttools-devel
-BuildRequires:  qt5-qtwebkit-devel
-BuildRequires:  qt5-qtxmlpatterns-devel
-BuildRequires:  qt5-qtx11extras-devel
+BuildRequires:  qt5-qtbase-devel >= 5.5.0
+BuildRequires:  pkgconfig(Qt5Designer) >= 5.5.0
+BuildRequires:  pkgconfig(Qt5Script) >= 5.5.0
+BuildRequires:  pkgconfig(Qt5XmlPatterns) >= 5.5.0
+BuildRequires:  pkgconfig(Qt5X11Extras) >= 5.5.0
+BuildRequires:  pkgconfig(Qt5WebKit) >= 5.5.0
 BuildRequires:  desktop-file-utils
 BuildRequires:  botan-devel
 BuildRequires:  diffutils
@@ -91,7 +95,6 @@ tailored to the needs of Qt developers.
 %build
 export QTDIR="%{_qt5_prefix}"
 export PATH="%{_qt5_bindir}:$PATH"
-export LLVM_INSTALL_DIR="%{_libdir}/llvm"
 
 %qmake_qt5 -r IDE_LIBRARY_BASENAME=%{_lib} USE_SYSTEM_BOTAN=1 CONFIG+=disable_rpath
 make %{?_smp_mflags}
@@ -145,7 +148,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %doc README.md
 %license LICENSE.LGPLv3 LICENSE.LGPLv21 LGPL_EXCEPTION.TXT
 %exclude %{_defaultdocdir}/%{name}/qtcreator.qch
-%{_bindir}/qbs*
+%{_bindir}/cpaster
 %{_bindir}/buildoutputparser
 %{_bindir}/qml2puppet
 %{_bindir}/qtpromaker
@@ -169,6 +172,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Fri Jun 26 2015 Helio Chissini de Castro <helio@kde.org> - 3.5.0-0.1.1538dca
+- Build git package
+
 * Sun Jun 21 2015 Sandro Mani <manisandro@gmail.com> - 3.4.1-3
 - Add -translations subpackage
 
