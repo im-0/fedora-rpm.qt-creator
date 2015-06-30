@@ -6,20 +6,18 @@
 
 Name:           qt-creator
 Version:        3.5.0
-Release:        0.1%{?prerelease:.%prerelease}%{?dist}
+Release:        0.2%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
-
 Group:          Development/Tools
 License:        LGPLv2 or LGPLv3, with exceptions
 URL:            http://qt-project.org/wiki/Category:Tools::QtCreator
+Provides:		qtcreator = %{version}-%{release}
 Source0:        qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
-# Fix doc dir (Fedora package is called qt-creator, not qtcreator)
-Patch0:         qt-creator_docdir-3.5.0.patch
 # Use absolute paths for the specified rpaths, not $ORIGIN-relative paths
 # (to fix some /usr/bin/<binary> having rpath $ORIGIN/..)
-Patch1:         qt-creator_rpath.patch
+Patch0:         qt-creator_rpath.patch
 # In Fedora, the ninja command is called ninja-build
-Patch2:         qt-creator_ninja-build.patch
+Patch1:         qt-creator_ninja-build.patch
 
 Source1:        qtcreator.desktop
 Source2:        qt-creator-Fedora-privlibs
@@ -90,7 +88,6 @@ tailored to the needs of Qt developers.
 %setup -q -n qt-creator-opensource-src-%{version}%{?pre:-%pre}
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
 export QTDIR="%{_qt5_prefix}"
@@ -168,10 +165,14 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/qtcreator/translations/
 
 %files doc
-%doc %{_defaultdocdir}/%{name}/qtcreator.qch
+%doc %{_defaultdocdir}/qtcreator/qtcreator.qch
 
 
 %changelog
+* Tue Jun 30 2015 Helio Chissini de Castro <helio@kde.org> - 3.5.0-0.2.1538dca
+- Try to make Fedora Qt creator package more compatible with the rest of the world removing the docs patch
+- Make appstream contact pointing to fedora qt-creator admins
+
 * Fri Jun 26 2015 Helio Chissini de Castro <helio@kde.org> - 3.5.0-0.1.1538dca
 - Build git package
 
