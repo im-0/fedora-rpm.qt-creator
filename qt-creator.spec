@@ -40,6 +40,7 @@ BuildRequires:  pkgconfig(Qt5Script) >= 5.5.0
 BuildRequires:  pkgconfig(Qt5XmlPatterns) >= 5.5.0
 BuildRequires:  pkgconfig(Qt5X11Extras) >= 5.5.0
 BuildRequires:  pkgconfig(Qt5WebKit) >= 5.5.0
+BuildRequires:  pkgconfig(Qt5Help) >= 5.5.0
 BuildRequires:  desktop-file-utils
 BuildRequires:  botan-devel
 BuildRequires:  diffutils
@@ -144,7 +145,11 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %files
 %doc README.md
 %license LICENSE.LGPLv3 LICENSE.LGPLv21 LGPL_EXCEPTION.TXT
-%exclude %{_defaultdocdir}/%{name}/qtcreator.qch
+%{_bindir}/qbs
+%{_bindir}/qbs-config
+%{_bindir}/qbs-config-ui
+%{_bindir}/qbs-qmltypes
+%{_bindir}/qbs-setup-*
 %{_bindir}/cpaster
 %{_bindir}/buildoutputparser
 %{_bindir}/qml2puppet
