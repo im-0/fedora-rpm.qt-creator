@@ -1,4 +1,4 @@
-%define prerelease 1538dca
+%define prerelease beta1
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
@@ -6,13 +6,13 @@
 
 Name:           qt-creator
 Version:        3.5.0
-Release:        0.2%{?prerelease:.%prerelease}%{?dist}
+Release:        0.3%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 Group:          Development/Tools
 License:        LGPLv2 or LGPLv3, with exceptions
 URL:            http://qt-project.org/wiki/Category:Tools::QtCreator
 Provides:		qtcreator = %{version}-%{release}
-Source0:        qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
+Source0:        https://download.qt.io/development_releases/qtcreator/3.5/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.gz
 # Use absolute paths for the specified rpaths, not $ORIGIN-relative paths
 # (to fix some /usr/bin/<binary> having rpath $ORIGIN/..)
 Patch0:         qt-creator_rpath.patch
@@ -85,7 +85,7 @@ Qt Creator is a cross-platform IDE (integrated development environment)
 tailored to the needs of Qt developers.
 
 %prep
-%setup -q -n qt-creator-opensource-src-%{version}%{?pre:-%pre}
+%setup -q -n qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}
 %patch0 -p1
 %patch1 -p1
 
@@ -169,6 +169,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Wed Jul 08 2015 Helio Chissini de Castro <helio@kde.org> - 3.5.0-0.3.beta1
+- Update to released beta1
+
 * Tue Jun 30 2015 Helio Chissini de Castro <helio@kde.org> - 3.5.0-0.2.1538dca
 - Try to make Fedora Qt creator package more compatible with the rest of the world removing the docs patch
 - Make appstream contact pointing to fedora qt-creator admins
