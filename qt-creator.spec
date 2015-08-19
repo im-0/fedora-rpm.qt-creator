@@ -48,6 +48,9 @@ BuildRequires:  libappstream-glib
 BuildRequires:  llvm-devel
 BuildRequires:  clang-devel
 
+# Temporary, see http://pkgs.fedoraproject.org/cgit/qt5-qtbase.git/commit/?id=9cdab9fd7a68b40b2dfce0aa6b3de2a30fdb3ebe
+BuildRequires:  valgrind
+
 
 %package data
 Summary:        Application data for %{name}
