@@ -174,7 +174,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
-* Wed Auf 19 2015 Sandro Mani <manisandro@gmail.com> - 3.5.0-1
+* Wed Aug 19 2015 Sandro Mani <manisandro@gmail.com> - 3.5.0-1
 - 3.5.0 release
 
 * Thu Aug 06 2015 Sandro Mani <manisandro@gmail.com> - 3.5.0-0.4.rc1
