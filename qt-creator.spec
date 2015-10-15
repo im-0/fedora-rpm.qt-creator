@@ -5,14 +5,14 @@
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           qt-creator
-Version:        3.5.0
+Version:        3.5.1
 Release:        1%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 Group:          Development/Tools
 License:        LGPLv2 or LGPLv3, with exceptions
 URL:            http://qt-project.org/wiki/Category:Tools::QtCreator
 Provides:       qtcreator = %{version}-%{release}
-Source0:        https://download.qt.io/development_releases/qtcreator/3.5/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.gz
+Source0:        https://download.qt.io/development_releases/qtcreator/3.5/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
 # Use absolute paths for the specified rpaths, not $ORIGIN-relative paths
 # (to fix some /usr/bin/<binary> having rpath $ORIGIN/..)
 Patch0:         qt-creator_rpath.patch
@@ -174,6 +174,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Thu Oct 15 2015 Sandro Mani <manisandro@gmail.com> - 3.5.1-1
+- 3.5.1 release
+
 * Mon Aug 24 2015 Sandro Mani <manisandro@gmail.com> - 3.5.0-1
 - 3.5.0 release
 
