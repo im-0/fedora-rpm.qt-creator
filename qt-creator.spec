@@ -1,18 +1,18 @@
-#define prerelease rc1
+%define prerelease beta1
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           qt-creator
-Version:        3.5.1
-Release:        1%{?prerelease:.%prerelease}%{?dist}
+Version:        3.6.0
+Release:        0.1%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 Group:          Development/Tools
 License:        LGPLv2 or LGPLv3, with exceptions
 URL:            http://qt-project.org/wiki/Category:Tools::QtCreator
 Provides:       qtcreator = %{version}-%{release}
-Source0:        https://download.qt.io/development_releases/qtcreator/3.5/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
+Source0:        https://download.qt.io/development_releases/qtcreator/3.5/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.gz
 # Use absolute paths for the specified rpaths, not $ORIGIN-relative paths
 # (to fix some /usr/bin/<binary> having rpath $ORIGIN/..)
 Patch0:         qt-creator_rpath.patch
@@ -150,14 +150,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_bindir}/qbs-config-ui
 %{_bindir}/qbs-qmltypes
 %{_bindir}/qbs-setup-*
-%{_bindir}/cpaster
-%{_bindir}/buildoutputparser
-%{_bindir}/qml2puppet
-%{_bindir}/qtpromaker
 %{_bindir}/qtcreator
-%{_bindir}/qtcreator_process_stub
-%{_bindir}/sdktool
 %{_libdir}/qtcreator
+%{_libexecdir}/qtcreator/
 %{_datadir}/applications/qtcreator.desktop
 %{_datadir}/appdata/qtcreator.appdata.xml
 %{_datadir}/icons/hicolor/*/apps/QtProject-qtcreator.png
@@ -174,6 +169,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Tue Oct 27 2015 Sandro Mani <manisandro@gmail.com> - 3.6.0-0.1.beta1
+- 3.6.0 beta1 release
+
 * Thu Oct 15 2015 Sandro Mani <manisandro@gmail.com> - 3.5.1-1
 - 3.5.1 release
 
