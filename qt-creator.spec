@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        3.6.0
-Release:        0.2%{?prerelease:.%prerelease}%{?dist}
+Release:        0.3%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 Group:          Development/Tools
 License:        LGPLv2 or LGPLv3, with exceptions
@@ -35,6 +35,7 @@ Requires:       %{name}-data = %{version}-%{release}
 
 
 BuildRequires:  qt5-qtbase-devel >= 5.5.0
+BuildRequires:  qt5-qdoc
 BuildRequires:  pkgconfig(Qt5Designer) >= 5.5.0
 BuildRequires:  pkgconfig(Qt5Script) >= 5.5.0
 BuildRequires:  pkgconfig(Qt5XmlPatterns) >= 5.5.0
@@ -169,6 +170,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Fri Nov 27 2015 Helio Chissini de Castro <helio@kde.org> - 3.6.0-0.3.rc1
+- QDoc was splitted to prepare 5.6.0 changes
+
 * Wed Nov 25 2015 Sandro Mani <manisandro@gmail.com> - 3.6.0-0.2.rc1
 - 3.6.0 rc1 release
 
