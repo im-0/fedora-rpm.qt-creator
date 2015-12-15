@@ -1,4 +1,4 @@
-%define prerelease rc1
+#define prerelease rc1
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
@@ -6,10 +6,10 @@
 
 Name:           qt-creator
 Version:        3.6.0
-Release:        0.3%{?prerelease:.%prerelease}%{?dist}
+Release:        1%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 Group:          Development/Tools
-License:        LGPLv2 or LGPLv3, with exceptions
+License:        LGPLv2 with exceptions or LGPLv3 with exceptions
 URL:            http://qt-project.org/wiki/Category:Tools::QtCreator
 Provides:       qtcreator = %{version}-%{release}
 Source0:        https://download.qt.io/development_releases/qtcreator/3.5/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.gz
@@ -170,6 +170,10 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Tue Dec 15 2015 Sandro Mani <manisandro@gmail.com> - 3.6.0-1
+- 3.6.0 release
+- Clarify license
+
 * Fri Nov 27 2015 Helio Chissini de Castro <helio@kde.org> - 3.6.0-0.3.rc1
 - QDoc was splitted to prepare 5.6.0 changes
 
