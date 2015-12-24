@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        3.6.0
-Release:        1%{?prerelease:.%prerelease}%{?dist}
+Release:        2%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 Group:          Development/Tools
 License:        LGPLv2 with exceptions or LGPLv3 with exceptions
@@ -95,7 +95,7 @@ tailored to the needs of Qt developers.
 export QTDIR="%{_qt5_prefix}"
 export PATH="%{_qt5_bindir}:$PATH"
 
-%qmake_qt5 -r IDE_LIBRARY_BASENAME=%{_lib} USE_SYSTEM_BOTAN=1 CONFIG+=disable_rpath
+%qmake_qt5 -r IDE_LIBRARY_BASENAME=%{_lib} USE_SYSTEM_BOTAN=1 LLVM_INSTALL_DIR=%{_prefix} CONFIG+=disable_rpath
 make %{?_smp_mflags}
 make qch_docs %{?_smp_mflags}
 
@@ -170,6 +170,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Thu Dec 24 2015 Sandro Mani <manisandro@gmail.com> - 3.6.0-2
+- Ensure ClangCodeModel is built
+
 * Tue Dec 15 2015 Sandro Mani <manisandro@gmail.com> - 3.6.0-1
 - 3.6.0 release
 - Clarify license
