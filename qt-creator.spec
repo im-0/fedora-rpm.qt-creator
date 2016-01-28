@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        3.6.0
-Release:        2%{?prerelease:.%prerelease}%{?dist}
+Release:        3%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 Group:          Development/Tools
 License:        LGPLv2 with exceptions or LGPLv3 with exceptions
@@ -170,6 +170,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Thu Jan 28 2016 Adam Jackson <ajax@redhat.com> 3.6.0-3
+- Rebuild for llvm 3.7.1 library split
+
 * Thu Dec 24 2015 Sandro Mani <manisandro@gmail.com> - 3.6.0-2
 - Ensure ClangCodeModel is built
 
