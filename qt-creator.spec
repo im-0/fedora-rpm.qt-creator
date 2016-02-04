@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        3.6.0
-Release:        3%{?prerelease:.%prerelease}%{?dist}
+Release:        4%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 Group:          Development/Tools
 License:        LGPLv2 with exceptions or LGPLv3 with exceptions
@@ -170,6 +170,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org>
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+
 * Thu Jan 28 2016 Adam Jackson <ajax@redhat.com> 3.6.0-3
 - Rebuild for llvm 3.7.1 library split
 
