@@ -27,6 +27,5 @@
   <screenshot type="default" width="756" height="547">https://wiki.qt.io/images/c/cc/Qtcreator-qtdesigner.png</screenshot>
  </screenshots>
  <url type="homepage">https://qt-project.org/wiki/Category:Tools::QtCreator</url>
- <project_group>Qt</project_group>
  <updatecontact>qt-creator-owner@fedoraproject.org</updatecontact>
 </application>

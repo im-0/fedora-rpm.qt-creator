@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        3.6.0
-Release:        6%{?prerelease:.%prerelease}%{?dist}
+Release:        7%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 Group:          Development/Tools
 License:        LGPLv2 with exceptions or LGPLv3 with exceptions
@@ -18,6 +18,8 @@ Source0:        https://download.qt.io/development_releases/qtcreator/3.5/%{vers
 Patch0:         qt-creator_rpath.patch
 # In Fedora, the ninja command is called ninja-build
 Patch1:         qt-creator_ninja-build.patch
+# Don't add LLVM_INCLUDEPATH to INCLUDES, since it translates to adding -isystem /usr/include to the compiler flags which breaks compilation
+Patch2:         qt-creator_llvmincdir.patch
 
 Source1:        qtcreator.desktop
 Source2:        qt-creator-Fedora-privlibs
@@ -93,6 +95,7 @@ tailored to the needs of Qt developers.
 %setup -q -n qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 export QTDIR="%{_qt5_prefix}"
@@ -173,6 +176,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Mon Feb 08 2016 Sandro Mani <manisandro@gmail.com> - 3.6.0-7
+- Add qt-creator_llvmincdir.patch to fix FTBFS
+
 * Mon Feb 08 2016 Rex Dieter <rdieter@fedoraproject.org> 3.6.0-6
 - rebuild (botan)
 
