@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        3.6.0
-Release:        5%{?prerelease:.%prerelease}%{?dist}
+Release:        6%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 Group:          Development/Tools
 License:        LGPLv2 with exceptions or LGPLv3 with exceptions
@@ -173,6 +173,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Mon Feb 08 2016 Rex Dieter <rdieter@fedoraproject.org> 3.6.0-6
+- rebuild (botan)
+
 * Fri Feb 05 2016 Rex Dieter <rdieter@fedoraproject.org> 3.6.0-5
 - add tight dep on qt5-qtbase version used to build qt-creator
 
