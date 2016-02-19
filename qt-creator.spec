@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        3.6.0
-Release:        7%{?prerelease:.%prerelease}%{?dist}
+Release:        8%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 Group:          Development/Tools
 License:        LGPLv2 with exceptions or LGPLv3 with exceptions
@@ -20,6 +20,8 @@ Patch0:         qt-creator_rpath.patch
 Patch1:         qt-creator_ninja-build.patch
 # Don't add LLVM_INCLUDEPATH to INCLUDES, since it translates to adding -isystem /usr/include to the compiler flags which breaks compilation
 Patch2:         qt-creator_llvmincdir.patch
+# Fix build against Qt 5.6.0 rc onwards
+Patch3:         qt-creator_qt5.6rc.patch
 
 Source1:        qtcreator.desktop
 Source2:        qt-creator-Fedora-privlibs
@@ -96,6 +98,7 @@ tailored to the needs of Qt developers.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 export QTDIR="%{_qt5_prefix}"
@@ -176,6 +179,10 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Fri Feb 19 2016 Sandro Mani <manisandro@gmail.com> - 3.6.0-8
+- Rebuild (clang)
+- Fix build against Qt 5.6rc
+
 * Mon Feb 08 2016 Sandro Mani <manisandro@gmail.com> - 3.6.0-7
 - Add qt-creator_llvmincdir.patch to fix FTBFS
 

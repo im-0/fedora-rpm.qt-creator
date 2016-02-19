@@ -1,0 +1,32 @@
+diff -rupN qt-creator-opensource-src-3.6.0/src/plugins/coreplugin/find/basetextfind.cpp qt-creator-opensource-src-3.6.0-new/src/plugins/coreplugin/find/basetextfind.cpp
+--- qt-creator-opensource-src-3.6.0/src/plugins/coreplugin/find/basetextfind.cpp	2015-12-11 13:45:01.000000000 +0100
++++ qt-creator-opensource-src-3.6.0-new/src/plugins/coreplugin/find/basetextfind.cpp	2016-02-19 13:24:30.773079717 +0100
+@@ -392,8 +392,10 @@ void BaseTextFind::defineFindScope()
+ {
+     QTextCursor cursor = textCursor();
+     if (cursor.hasSelection() && cursor.block() != cursor.document()->findBlock(cursor.anchor())) {
+-        d->m_findScopeStart = QTextCursor(document()->docHandle(), qMax(0, cursor.selectionStart()));
+-        d->m_findScopeEnd = QTextCursor(document()->docHandle(), cursor.selectionEnd());
++        d->m_findScopeStart = QTextCursor(document());
++        d->m_findScopeStart.setPosition(qMax(0, cursor.selectionStart()));
++        d->m_findScopeEnd = QTextCursor(document());
++        d->m_findScopeEnd.setPosition(cursor.selectionEnd());
+         d->m_findScopeVerticalBlockSelectionFirstColumn = -1;
+         d->m_findScopeVerticalBlockSelectionLastColumn = -1;
+ 
+diff -rupN qt-creator-opensource-src-3.6.0/src/plugins/texteditor/texteditoroverlay.cpp qt-creator-opensource-src-3.6.0-new/src/plugins/texteditor/texteditoroverlay.cpp
+--- qt-creator-opensource-src-3.6.0/src/plugins/texteditor/texteditoroverlay.cpp	2015-12-11 13:45:01.000000000 +0100
++++ qt-creator-opensource-src-3.6.0-new/src/plugins/texteditor/texteditoroverlay.cpp	2016-02-19 13:49:09.251936023 +0100
+@@ -92,8 +92,10 @@ void TextEditorOverlay::addOverlaySelect
+     selection.m_fg = fg;
+     selection.m_bg = bg;
+ 
+-    selection.m_cursor_begin = QTextCursor(document->docHandle(), begin);
+-    selection.m_cursor_end = QTextCursor(document->docHandle(), end);
++    selection.m_cursor_begin = QTextCursor(document);
++    selection.m_cursor_begin.setPosition(begin);
++    selection.m_cursor_end = QTextCursor(document);
++    selection.m_cursor_end.setPosition(end);
+ 
+     if (overlaySelectionFlags & ExpandBegin)
+         selection.m_cursor_begin.setKeepPositionOnInsert(true);
