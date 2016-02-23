@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        3.6.0
-Release:        8%{?prerelease:.%prerelease}%{?dist}
+Release:        9%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 Group:          Development/Tools
 License:        LGPLv2 with exceptions or LGPLv3 with exceptions
@@ -179,6 +179,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Tue Feb 23 2016 Sandro Mani <manisandro@gmail.com> - 3.6.0-9
+- Rebuild for Qt5 ABI breakage
+
 * Fri Feb 19 2016 Sandro Mani <manisandro@gmail.com> - 3.6.0-8
 - Rebuild (clang)
 - Fix build against Qt 5.6rc
