@@ -5,8 +5,8 @@
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           qt-creator
-Version:        3.6.0
-Release:        9%{?prerelease:.%prerelease}%{?dist}
+Version:        3.6.1
+Release:        1%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 Group:          Development/Tools
 License:        LGPLv2 with exceptions or LGPLv3 with exceptions
@@ -20,8 +20,6 @@ Patch0:         qt-creator_rpath.patch
 Patch1:         qt-creator_ninja-build.patch
 # Don't add LLVM_INCLUDEPATH to INCLUDES, since it translates to adding -isystem /usr/include to the compiler flags which breaks compilation
 Patch2:         qt-creator_llvmincdir.patch
-# Fix build against Qt 5.6.0 rc onwards
-Patch3:         qt-creator_qt5.6rc.patch
 
 Source1:        qtcreator.desktop
 Source2:        qt-creator-Fedora-privlibs
@@ -98,7 +96,6 @@ tailored to the needs of Qt developers.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 %build
 export QTDIR="%{_qt5_prefix}"
@@ -179,6 +176,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Wed Mar 16 2016 Sandro Mani <manisandro@gmail.com> - 3.6.1-1
+- Update to 3.6.1
+
 * Tue Feb 23 2016 Sandro Mani <manisandro@gmail.com> - 3.6.0-9
 - Rebuild for Qt5 ABI breakage
 
