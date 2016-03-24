@@ -1,6 +1,6 @@
 %global privlibs libAggregation
-%global privlibs %{privlibs}|libAnalyzerBase
 %global privlibs %{privlibs}|libAndroid
+%global privlibs %{privlibs}|libAutoTest
 %global privlibs %{privlibs}|libAutotoolsProjectManager
 %global privlibs %{privlibs}|libBareMetal
 %global privlibs %{privlibs}|libBazaar
@@ -11,6 +11,7 @@
 %global privlibs %{privlibs}|libCPlusPlus
 %global privlibs %{privlibs}|libCVS
 %global privlibs %{privlibs}|libClangCodeModel
+%global privlibs %{privlibs}|libClangStaticAnalyzer
 %global privlibs %{privlibs}|libClangbackendipc
 %global privlibs %{privlibs}|libClassView
 %global privlibs %{privlibs}|libClearCase
@@ -50,6 +51,7 @@
 %global privlibs %{privlibs}|libQmlJSEditor
 %global privlibs %{privlibs}|libQmlJSTools
 %global privlibs %{privlibs}|libQmlProfiler
+%global privlibs %{privlibs}|libQmlProfilerExtension
 %global privlibs %{privlibs}|libQmlProjectManager
 %global privlibs %{privlibs}|libQnx
 %global privlibs %{privlibs}|libQtSupport

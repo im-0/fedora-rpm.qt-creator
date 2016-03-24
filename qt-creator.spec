@@ -1,18 +1,18 @@
-#define prerelease rc1
+%define prerelease beta1
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           qt-creator
-Version:        3.6.1
-Release:        1%{?prerelease:.%prerelease}%{?dist}
+Version:        4.0.0
+Release:        0.1%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 Group:          Development/Tools
-License:        LGPLv2 with exceptions or LGPLv3 with exceptions
+License:        GPLv3 with exceptions
 URL:            http://qt-project.org/wiki/Category:Tools::QtCreator
 Provides:       qtcreator = %{version}-%{release}
-Source0:        https://download.qt.io/development_releases/qtcreator/3.5/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.gz
+Source0:        http://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/4.0/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.gz
 # Use absolute paths for the specified rpaths, not $ORIGIN-relative paths
 # (to fix some /usr/bin/<binary> having rpath $ORIGIN/..)
 Patch0:         qt-creator_rpath.patch
@@ -20,6 +20,8 @@ Patch0:         qt-creator_rpath.patch
 Patch1:         qt-creator_ninja-build.patch
 # Don't add LLVM_INCLUDEPATH to INCLUDES, since it translates to adding -isystem /usr/include to the compiler flags which breaks compilation
 Patch2:         qt-creator_llvmincdir.patch
+# Fix build failure due to missing include
+Patch3:         qt-creator_build.patch
 
 Source1:        qtcreator.desktop
 Source2:        qt-creator-Fedora-privlibs
@@ -55,6 +57,11 @@ BuildRequires:  llvm-devel
 BuildRequires:  clang-devel
 
 
+%description
+Qt Creator is a cross-platform IDE (integrated development environment)
+tailored to the needs of Qt developers.
+
+
 %package data
 Summary:        Application data for %{name}
 Requires:       %{name} = %{version}-%{release}
@@ -62,6 +69,7 @@ BuildArch:      noarch
 
 %description data
 Application data for %{name}.
+
 
 %package translations
 Summary:        Translations for %{name}
@@ -87,15 +95,14 @@ User documentation for %{name}.
 %global __provides_exclude ^(%{privlibs})\.so
 %global __requires_exclude ^(%{privlibs})\.so
 
-%description
-Qt Creator is a cross-platform IDE (integrated development environment)
-tailored to the needs of Qt developers.
 
 %prep
 %setup -q -n qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
+
 
 %build
 export QTDIR="%{_qt5_prefix}"
@@ -104,6 +111,7 @@ export PATH="%{_qt5_bindir}:$PATH"
 %qmake_qt5 -r IDE_LIBRARY_BASENAME=%{_lib} USE_SYSTEM_BOTAN=1 LLVM_INSTALL_DIR=%{_prefix} CONFIG+=disable_rpath
 make %{?_smp_mflags}
 make qch_docs %{?_smp_mflags}
+
 
 %install
 make install INSTALL_ROOT=%{buildroot}/%{_prefix}
@@ -148,10 +156,9 @@ fi
 gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
-
 %files
 %doc README.md
-%license LICENSE.LGPLv3 LICENSE.LGPLv21 LGPL_EXCEPTION.TXT
+%license LICENSE.GPL3-EXCEPT
 %{_bindir}/qbs
 %{_bindir}/qbs-config
 %{_bindir}/qbs-config-ui
@@ -176,6 +183,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Thu Mar 24 2016 Sandro Mani <manisandro@gmail.com> - 4.0.0-0.1.beta1
+- Update to 4.0.0 beta1
+
 * Wed Mar 16 2016 Sandro Mani <manisandro@gmail.com> - 3.6.1-1
 - Update to 3.6.1
 
