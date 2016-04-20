@@ -33,7 +33,6 @@ Requires:       qt5-qtquickcontrols
 Requires:       qt5-qtdoc
 
 # tight dep on qt5-qtbase used to build, uses some private apis
-BuildRequires:  qt5-qtbase-private-devel
 %{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
 
 # we need qt-devel and gcc-c++ to compile programs using qt-creator
