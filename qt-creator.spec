@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        4.0.1
-Release:        2%{?prerelease:.%prerelease}%{?dist}
+Release:        3%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 Group:          Development/Tools
 License:        GPLv3 with exceptions
@@ -33,6 +33,7 @@ Requires:       qt5-qtquickcontrols
 Requires:       qt5-qtdoc
 
 # tight dep on qt5-qtbase used to build, uses some private apis
+BuildRequires:  qt5-qtbase-private-devel
 %{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
 
 # we need qt-devel and gcc-c++ to compile programs using qt-creator
@@ -183,6 +184,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Fri Jun 10 2016 Rex Dieter <rdieter@fedoraproject.org> - 4.0.1-3
+- Re-add BR: qt5-qtbase-private-devel (got lost?)
+
 * Fri Jun 10 2016 Jan Grulich <jgrulich@redhat.com> - 4.0.1-2
 - Rebuild (qt5-qtbase)
 
