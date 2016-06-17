@@ -5,8 +5,8 @@
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           qt-creator
-Version:        4.0.1
-Release:        3%{?prerelease:.%prerelease}%{?dist}
+Version:        4.0.2
+Release:        1%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 Group:          Development/Tools
 License:        GPLv3 with exceptions
@@ -184,6 +184,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Fri Jun 17 2016 Sandro Mani <manisandro@gmail.com> - 4.0.2-1
+- Update to 4.0.2
+
 * Fri Jun 10 2016 Rex Dieter <rdieter@fedoraproject.org> - 4.0.1-3
 - Re-add BR: qt5-qtbase-private-devel (got lost?)
 
