@@ -184,6 +184,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Thu Jun 30 2016 Rex Dieter <rdieter@fedoraproject.org> - 4.0.2-1
+- rebuild (qt5-qtbase)
+
 * Fri Jun 17 2016 Sandro Mani <manisandro@gmail.com> - 4.0.2-1
 - Update to 4.0.2
 
