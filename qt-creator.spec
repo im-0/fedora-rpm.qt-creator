@@ -136,10 +136,6 @@ done
 diff -u %{SOURCE2} $outfile || :
 cat $outfile
 
-# Invalid rpath
-#chrpath --delete $RPM_BUILD_ROOT%{_libexecdir}/qtcreator/clangbackend
-
-
 %post
 touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 
