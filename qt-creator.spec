@@ -1,27 +1,22 @@
-#define prerelease rc1
+%define prerelease beta1
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           qt-creator
-Version:        4.0.2
-Release:        2%{?prerelease:.%prerelease}%{?dist}
+Version:        4.1.0
+Release:        0.1%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 Group:          Development/Tools
 License:        GPLv3 with exceptions
 URL:            http://qt-project.org/wiki/Category:Tools::QtCreator
 Provides:       qtcreator = %{version}-%{release}
 Source0:        http://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/4.0/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.gz
-# Use absolute paths for the specified rpaths, not $ORIGIN-relative paths
-# (to fix some /usr/bin/<binary> having rpath $ORIGIN/..)
-Patch0:         qt-creator_rpath.patch
 # In Fedora, the ninja command is called ninja-build
-Patch1:         qt-creator_ninja-build.patch
+Patch0:         qt-creator_ninja-build.patch
 # Don't add LLVM_INCLUDEPATH to INCLUDES, since it translates to adding -isystem /usr/include to the compiler flags which breaks compilation
-Patch2:         qt-creator_llvmincdir.patch
-# Fix build failure due to missing include
-Patch3:         qt-creator_build.patch
+Patch1:         qt-creator_llvmincdir.patch
 
 Source1:        qtcreator.desktop
 Source2:        qt-creator-Fedora-privlibs
@@ -42,14 +37,14 @@ Requires:       gcc-c++
 Requires:       %{name}-data = %{version}-%{release}
 
 
-BuildRequires:  qt5-qtbase-devel >= 5.5.0
+BuildRequires:  qt5-qtbase-devel >= 5.6.0
 BuildRequires:  qt5-qdoc
-BuildRequires:  pkgconfig(Qt5Designer) >= 5.5.0
-BuildRequires:  pkgconfig(Qt5Script) >= 5.5.0
-BuildRequires:  pkgconfig(Qt5XmlPatterns) >= 5.5.0
-BuildRequires:  pkgconfig(Qt5X11Extras) >= 5.5.0
-BuildRequires:  pkgconfig(Qt5WebKit) >= 5.5.0
-BuildRequires:  pkgconfig(Qt5Help) >= 5.5.0
+BuildRequires:  pkgconfig(Qt5Designer) >= 5.6.0
+BuildRequires:  pkgconfig(Qt5Script) >= 5.6.0
+BuildRequires:  pkgconfig(Qt5XmlPatterns) >= 5.6.0
+BuildRequires:  pkgconfig(Qt5X11Extras) >= 5.6.0
+BuildRequires:  pkgconfig(Qt5WebKit) >= 5.6.0
+BuildRequires:  pkgconfig(Qt5Help) >= 5.6.0
 BuildRequires:  desktop-file-utils
 BuildRequires:  botan-devel
 BuildRequires:  diffutils
@@ -101,15 +96,13 @@ User documentation for %{name}.
 %setup -q -n qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
-%patch3 -p1
 
 
 %build
 export QTDIR="%{_qt5_prefix}"
 export PATH="%{_qt5_bindir}:$PATH"
 
-%qmake_qt5 -r IDE_LIBRARY_BASENAME=%{_lib} USE_SYSTEM_BOTAN=1 LLVM_INSTALL_DIR=%{_prefix} CONFIG+=disable_rpath
+%qmake_qt5 -r IDE_LIBRARY_BASENAME=%{_lib} USE_SYSTEM_BOTAN=1 LLVM_INSTALL_DIR=%{_prefix} CONFIG+=disable_external_rpath
 make %{?_smp_mflags}
 make qch_docs %{?_smp_mflags}
 
@@ -142,6 +135,9 @@ for so in ${sofiles} ; do
 done
 diff -u %{SOURCE2} $outfile || :
 cat $outfile
+
+# Invalid rpath
+#chrpath --delete $RPM_BUILD_ROOT%{_libexecdir}/qtcreator/clangbackend
 
 
 %post
@@ -184,6 +180,10 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Wed Jul 06 2016 Helio Chissini de Castro <helio@kde.org> - 4.1.0-0.1
+- Beta1 release of 4.1.0
+- Removed both rpath and build patches not needed anymore
+
 * Thu Jun 30 2016 Rex Dieter <rdieter@fedoraproject.org> - 4.0.2-2
 - rebuild (qt5-qtbase)
 
