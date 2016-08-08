@@ -1,4 +1,4 @@
-%define prerelease beta1
+%define prerelease rc1
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
@@ -6,13 +6,13 @@
 
 Name:           qt-creator
 Version:        4.1.0
-Release:        0.2%{?prerelease:.%prerelease}%{?dist}
+Release:        0.3%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 Group:          Development/Tools
 License:        GPLv3 with exceptions
 URL:            http://qt-project.org/wiki/Category:Tools::QtCreator
 Provides:       qtcreator = %{version}-%{release}
-Source0:        http://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/4.0/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.gz
+Source0:        http://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/4.0/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
 # In Fedora, the ninja command is called ninja-build
 Patch0:         qt-creator_ninja-build.patch
 # Don't add LLVM_INCLUDEPATH to INCLUDES, since it translates to adding -isystem /usr/include to the compiler flags which breaks compilation
@@ -103,8 +103,8 @@ export QTDIR="%{_qt5_prefix}"
 export PATH="%{_qt5_bindir}:$PATH"
 
 %qmake_qt5 -r IDE_LIBRARY_BASENAME=%{_lib} USE_SYSTEM_BOTAN=1 LLVM_INSTALL_DIR=%{_prefix} CONFIG+=disable_external_rpath
-make %{?_smp_mflags}
-make qch_docs %{?_smp_mflags}
+%make_build
+%make_build qch_docs
 
 
 %install
@@ -176,6 +176,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Mon Aug 08 2016 Sandro Mani <manisandro@gmail.com> - 4.1.0-0.3.rc1
+- Update to 4.1.0-rc1
+
 * Sat Jul 16 2016 Sandro Mani <manisandro@gmail.com> - 4.1.0-0.2.beta1
 - Rebuild (qt5-qtbase)
 
