@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        4.1.0
-Release:        0.3%{?prerelease:.%prerelease}%{?dist}
+Release:        0.4%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 Group:          Development/Tools
 License:        GPLv3 with exceptions
@@ -176,6 +176,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Fri Aug 12 2016 Helio Chissini de Castro <helio@kde.org> - 4.1.0-0.4.rc1
+- Update appdata as requested
+
 * Mon Aug 08 2016 Sandro Mani <manisandro@gmail.com> - 4.1.0-0.3.rc1
 - Update to 4.1.0-rc1
 
