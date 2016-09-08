@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        4.1.0
-Release:        1%{?prerelease:.%prerelease}%{?dist}
+Release:        2%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 Group:          Development/Tools
 License:        GPLv3 with exceptions
@@ -49,8 +49,14 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  botan-devel
 BuildRequires:  diffutils
 BuildRequires:  libappstream-glib
-BuildRequires:  llvm-devel
-BuildRequires:  clang-devel
+%if 0%{?fedora} > 23
+%global llvm 1
+%global llvm_version 3.8.0
+%endif
+%if 0%{?llvm}
+BuildRequires:  llvm-devel >= %{llvm_version}
+BuildRequires:  clang-devel >= %{llvm_version}
+%endif
 
 
 %description
@@ -102,7 +108,7 @@ User documentation for %{name}.
 export QTDIR="%{_qt5_prefix}"
 export PATH="%{_qt5_bindir}:$PATH"
 
-%qmake_qt5 -r IDE_LIBRARY_BASENAME=%{_lib} USE_SYSTEM_BOTAN=1 LLVM_INSTALL_DIR=%{_prefix} CONFIG+=disable_external_rpath
+%qmake_qt5 -r IDE_LIBRARY_BASENAME=%{_lib} USE_SYSTEM_BOTAN=1 %{?llvm:LLVM_INSTALL_DIR=%{_prefix}} CONFIG+=disable_external_rpath
 %make_build
 %make_build qch_docs
 
@@ -176,6 +182,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Thu Sep 08 2016 Rex Dieter <rdieter@fedoraproject.org> - 4.1.0-2
+- make clang support optional (now buildable on more platforms, including epel7)
+
 * Thu Aug 25 2016 Helio Chissini de Castro <helio@kde.org> - 4.1.0-1
 - 4.1.0 stable final released
 
