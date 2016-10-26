@@ -1,18 +1,18 @@
-#define prerelease rc1
+%define prerelease beta1
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           qt-creator
-Version:        4.1.0
-Release:        2%{?prerelease:.%prerelease}%{?dist}
+Version:        4.2.0
+Release:        0.1%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 Group:          Development/Tools
 License:        GPLv3 with exceptions
 URL:            http://qt-project.org/wiki/Category:Tools::QtCreator
 Provides:       qtcreator = %{version}-%{release}
-Source0:        http://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/4.0/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
+Source0:        http://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/4.2/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
 # In Fedora, the ninja command is called ninja-build
 Patch0:         qt-creator_ninja-build.patch
 # Don't add LLVM_INCLUDEPATH to INCLUDES, since it translates to adding -isystem /usr/include to the compiler flags which breaks compilation
@@ -182,6 +182,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Wed Oct 26 2016 Sandro Mani <manisandro@gmail.com> - 4.2.0-0.1.beta1
+- Update to 4.2.0-beta1
+
 * Thu Sep 08 2016 Rex Dieter <rdieter@fedoraproject.org> - 4.1.0-2
 - make clang support optional (now buildable on more platforms, including epel7)
 

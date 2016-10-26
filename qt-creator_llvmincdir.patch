@@ -1,10 +1,10 @@
-diff -rupN qt-creator-opensource-src-3.6.0/src/tools/clangbackend/clangbackend.pro qt-creator-opensource-src-3.6.0-new/src/tools/clangbackend/clangbackend.pro
---- qt-creator-opensource-src-3.6.0/src/tools/clangbackend/clangbackend.pro	2015-12-11 13:45:01.000000000 +0100
-+++ qt-creator-opensource-src-3.6.0-new/src/tools/clangbackend/clangbackend.pro	2016-02-08 23:04:03.654903983 +0100
+diff -rupN qt-creator-opensource-src-4.2.0-beta1/src/tools/clangbackend/clangbackend.pro qt-creator-opensource-src-4.2.0-beta1-new/src/tools/clangbackend/clangbackend.pro
+--- qt-creator-opensource-src-4.2.0-beta1/src/tools/clangbackend/clangbackend.pro	2016-10-26 00:12:05.000000000 +0200
++++ qt-creator-opensource-src-4.2.0-beta1-new/src/tools/clangbackend/clangbackend.pro	2016-10-26 18:00:45.953703064 +0200
 @@ -10,7 +10,7 @@ QT += core network
  QT -= gui
  
- LIBS += $$LLVM_LIBS
+ LIBS += $$LIBCLANG_LIBS
 -INCLUDEPATH += $$LLVM_INCLUDEPATH
 +#INCLUDEPATH += $$LLVM_INCLUDEPATH
  
