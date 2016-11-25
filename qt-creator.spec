@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        4.2.0
-Release:        0.2%{?prerelease:.%prerelease}%{?dist}
+Release:        0.3%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 Group:          Development/Tools
 License:        GPLv3 with exceptions
@@ -17,6 +17,8 @@ Source0:        http://download.qt.io/%{?prerelease:development}%{?!prerelease:o
 Patch0:         qt-creator_ninja-build.patch
 # Don't add LLVM_INCLUDEPATH to INCLUDES, since it translates to adding -isystem /usr/include to the compiler flags which breaks compilation
 Patch1:         qt-creator_llvmincdir.patch
+# Backport: Fix potential null pointer access in build graph loader
+Patch2:         qbs.git-3dd97e4e55735b6efbcbd13d8c59653b227951a4.patch
 
 Source1:        qtcreator.desktop
 Source2:        qt-creator-Fedora-privlibs
@@ -102,6 +104,7 @@ User documentation for %{name}.
 %setup -q -n qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1 -d src/shared/qbs/
 
 
 %build
@@ -182,6 +185,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Fri Nov 25 2016 Sandro Mani <manisandro@gmail.com> - 4.2.0-0.3.beta1
+- Backport: Fix potential null pointer access in build graph loader (#1396760)
+
 * Mon Nov 07 2016 Sandro Mani <manisandro@gmail.com> - 4.2.0-0.2.beta1
 - Rebuild (clang)
 
