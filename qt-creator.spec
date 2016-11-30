@@ -17,8 +17,6 @@ Source0:        http://download.qt.io/%{?prerelease:development}%{?!prerelease:o
 Patch0:         qt-creator_ninja-build.patch
 # Don't add LLVM_INCLUDEPATH to INCLUDES, since it translates to adding -isystem /usr/include to the compiler flags which breaks compilation
 Patch1:         qt-creator_llvmincdir.patch
-# Backport: Fix potential null pointer access in build graph loader
-Patch2:         qbs.git-3dd97e4e55735b6efbcbd13d8c59653b227951a4.patch
 
 Source1:        qtcreator.desktop
 Source2:        qt-creator-Fedora-privlibs
@@ -104,7 +102,6 @@ User documentation for %{name}.
 %setup -q -n qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1 -d src/shared/qbs/
 
 
 %build
