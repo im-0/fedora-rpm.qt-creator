@@ -17,10 +17,10 @@ Source0:        http://download.qt.io/%{?prerelease:development}%{?!prerelease:o
 Patch0:         qt-creator_ninja-build.patch
 # Don't add LLVM_INCLUDEPATH to INCLUDES, since it translates to adding -isystem /usr/include to the compiler flags which breaks compilation
 Patch1:         qt-creator_llvmincdir.patch
+# Fix appdata file to make it pass validation
+Patch2:         qt-creator_appdata.patch
 
-Source1:        qtcreator.desktop
-Source2:        qt-creator-Fedora-privlibs
-Source3:        qtcreator.appdata.xml
+Source1:        qt-creator-Fedora-privlibs
 
 Requires:       hicolor-icon-theme
 Requires:       xdg-utils
@@ -93,7 +93,7 @@ User documentation for %{name}.
 
 
 # long list of private shared lib names to filter out
-%include %{SOURCE2}
+%include %{SOURCE1}
 %global __provides_exclude ^(%{privlibs})\.so
 %global __requires_exclude ^(%{privlibs})\.so
 
@@ -102,6 +102,7 @@ User documentation for %{name}.
 %setup -q -n qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 
 %build
@@ -122,10 +123,12 @@ for i in 16 24 32 48 64 128 256; do
     mkdir -p %{buildroot}/%{_datadir}/icons/hicolor/${i}x${i}/apps
 done
 
-desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
+desktop-file-validate %{buildroot}/%{_datadir}/applications/org.qt-project.qtcreator.desktop
 
-install -Dpm0644 %{SOURCE3} %{buildroot}%{_datadir}/appdata/qtcreator.appdata.xml
-%{_bindir}/appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/qtcreator.appdata.xml
+mkdir -p %{buildroot}%{_datadir}/appdata/
+mv %{buildroot}%{_datadir}/metainfo/org.qt-project.qtcreator.appdata.xml %{buildroot}%{_datadir}/appdata/
+rmdir %{buildroot}%{_datadir}/metainfo/
+%{_bindir}/appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/org.qt-project.qtcreator.appdata.xml
 
 # Output an up-to-date list of Provides/Requires exclude statements.
 outfile=__Fedora-privlibs
@@ -139,8 +142,9 @@ for so in ${sofiles} ; do
         echo "%%global privlibs %%{privlibs}|$so" >> $outfile
     fi
 done
-diff -u %{SOURCE2} $outfile || :
+diff -u %{SOURCE1} $outfile || :
 cat $outfile
+
 
 %post
 touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
@@ -166,8 +170,8 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_bindir}/qtcreator
 %{_libdir}/qtcreator
 %{_libexecdir}/qtcreator/
-%{_datadir}/applications/qtcreator.desktop
-%{_datadir}/appdata/qtcreator.appdata.xml
+%{_datadir}/applications/org.qt-project.qtcreator.desktop
+%{_datadir}/appdata/org.qt-project.qtcreator.appdata.xml
 %{_datadir}/icons/hicolor/*/apps/QtProject-qtcreator.png
 
 %files data
