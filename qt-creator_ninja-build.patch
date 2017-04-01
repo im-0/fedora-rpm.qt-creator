@@ -1,12 +1,12 @@
-diff -rupN qt-creator-opensource-src-4.2.0-beta1/src/plugins/cmakeprojectmanager/cmakekitinformation.cpp qt-creator-opensource-src-4.2.0-beta1-new/src/plugins/cmakeprojectmanager/cmakekitinformation.cpp
---- qt-creator-opensource-src-4.2.0-beta1/src/plugins/cmakeprojectmanager/cmakekitinformation.cpp	2016-10-26 00:12:05.000000000 +0200
-+++ qt-creator-opensource-src-4.2.0-beta1-new/src/plugins/cmakeprojectmanager/cmakekitinformation.cpp	2016-10-26 17:54:07.883570929 +0200
-@@ -304,7 +304,7 @@ QVariant CMakeGeneratorKitInformation::d
+diff -rupN qt-creator-opensource-src-4.3.0-beta1/src/plugins/cmakeprojectmanager/cmakekitinformation.cpp qt-creator-opensource-src-4.3.0-beta1-new/src/plugins/cmakeprojectmanager/cmakekitinformation.cpp
+--- qt-creator-opensource-src-4.3.0-beta1/src/plugins/cmakeprojectmanager/cmakekitinformation.cpp	2017-03-29 17:05:59.000000000 +0200
++++ qt-creator-opensource-src-4.3.0-beta1-new/src/plugins/cmakeprojectmanager/cmakekitinformation.cpp	2017-03-31 21:37:00.198524685 +0200
+@@ -309,7 +309,7 @@ QVariant CMakeGeneratorKitInformation::d
      if (it != known.constEnd()) {
          Utils::Environment env = Utils::Environment::systemEnvironment();
          k->addToEnvironment(env);
 -        const Utils::FileName ninjaExec = env.searchInPath(QLatin1String("ninja"));
 +        const Utils::FileName ninjaExec = env.searchInPath(QLatin1String("ninja-build"));
          if (!ninjaExec.isEmpty())
-             return GeneratorInfo({ QString("Ninja"), extraGenerator, QString(), QString() }).toVariant();
+             return GeneratorInfo({QString("Ninja"), extraGenerator, QString(), QString()}).toVariant();
      }

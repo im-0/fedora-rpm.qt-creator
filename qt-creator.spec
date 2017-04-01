@@ -1,18 +1,18 @@
-#define prerelease rc1
+%define prerelease beta1
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           qt-creator
-Version:        4.2.1
-Release:        5%{?prerelease:.%prerelease}%{?dist}
+Version:        4.3.0
+Release:        0.1%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 Group:          Development/Tools
 License:        GPLv3 with exceptions
 URL:            http://qt-project.org/wiki/Category:Tools::QtCreator
 Provides:       qtcreator = %{version}-%{release}
-Source0:        http://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/4.2/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
+Source0:        http://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/4.3/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
 # In Fedora, the ninja command is called ninja-build
 Patch0:         qt-creator_ninja-build.patch
 # Don't add LLVM_INCLUDEPATH to INCLUDES, since it translates to adding -isystem /usr/include to the compiler flags which breaks compilation
@@ -34,6 +34,7 @@ BuildRequires:  qt5-qtbase-private-devel
 # we need qt-devel and gcc-c++ to compile programs using qt-creator
 Requires:       qt5-qtbase-devel
 Requires:       gcc-c++
+Requires:       qbs%{?_isa} = %{version}-%{release}
 Requires:       %{name}-data = %{version}-%{release}
 
 
@@ -62,6 +63,15 @@ BuildRequires:  clang-devel >= %{llvm_version}
 %description
 Qt Creator is a cross-platform IDE (integrated development environment)
 tailored to the needs of Qt developers.
+
+
+%package -n qbs
+Summary:        Cross-platform build tool
+
+%description -n qbs
+Qbs is an all-in-one tool that generates a build graph from a high-level
+project description (like qmake or CMake) and additionally undertakes the task
+of executing the commands in the low-level build graph (like make).
 
 
 %package data
@@ -162,17 +172,28 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %files
 %doc README.md
 %license LICENSE.GPL3-EXCEPT
-%{_bindir}/qbs
-%{_bindir}/qbs-config
-%{_bindir}/qbs-config-ui
-%{_bindir}/qbs-qmltypes
-%{_bindir}/qbs-setup-*
 %{_bindir}/qtcreator
 %{_libdir}/qtcreator
+%exclude %{_libdir}/qtcreator/libqbscore.so*
+%exclude %{_libdir}/qtcreator/libqbsqtprofilesetup.so*
+%exclude %{_libdir}/qtcreator/plugins/qbs
 %{_libexecdir}/qtcreator/
 %{_datadir}/applications/org.qt-project.qtcreator.desktop
 %{_datadir}/appdata/org.qt-project.qtcreator.appdata.xml
 %{_datadir}/icons/hicolor/*/apps/QtProject-qtcreator.png
+
+%files -n qbs
+%{_bindir}/qbs
+%{_bindir}/qbs-config
+%{_bindir}/qbs-config-ui
+%{_bindir}/qbs-create-project
+%{_bindir}/qbs-qmltypes
+%{_bindir}/qbs-setup-*
+%dir %{_libdir}/qtcreator
+%{_libdir}/qtcreator/libqbscore.so*
+%{_libdir}/qtcreator/libqbsqtprofilesetup.so*
+%dir %{_libdir}/qtcreator/plugins
+%{_libdir}/qtcreator/plugins/qbs
 
 %files data
 %{_datadir}/qtcreator/
@@ -182,10 +203,15 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/qtcreator/translations/
 
 %files doc
+%dir %{_defaultdocdir}/qtcreator/
 %doc %{_defaultdocdir}/qtcreator/qtcreator.qch
+%doc %{_defaultdocdir}/qtcreator/qtcreator-dev.qch
 
 
 %changelog
+* Sat Apr 01 2017 Sandro Mani <manisandro@gmail.com> - 4.3.0-0.1.beta1
+- Update to 4.3.0-beta1
+
 * Fri Mar 31 2017 Rex Dieter <rdieter@fedoraproject.org> - 4.2.1-5
 - rebuild (qt5)
 
