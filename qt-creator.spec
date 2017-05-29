@@ -1,4 +1,4 @@
-%define prerelease rc1
+#define prerelease rc1
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        4.3.0
-Release:        0.2%{?prerelease:.%prerelease}%{?dist}
+Release:        1%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 Group:          Development/Tools
 License:        GPLv3 with exceptions
@@ -209,6 +209,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Sat May 27 2017 Sandro Mani <manisandro@gmail.com> - 4.3.0-1
+- Update to 4.3.0
+
 * Thu May 11 2017 Sandro Mani <manisandro@gmail.com> - 4.3.0-0.2.rc1
 - Update to 4.3.0-rc1
 
