@@ -5,7 +5,7 @@
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           qt-creator
-Version:        4.3.0
+Version:        4.3.1
 Release:        1%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 Group:          Development/Tools
@@ -209,6 +209,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Fri Jun 30 2017 Sandro Mani <manisandro@gmail.com> - 4.3.1-1
+- Update to 4.3.1
+
 * Sat May 27 2017 Sandro Mani <manisandro@gmail.com> - 4.3.0-1
 - Update to 4.3.0
 
