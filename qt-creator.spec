@@ -8,36 +8,23 @@ Name:           qt-creator
 Version:        4.3.1
 Release:        3%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
-Group:          Development/Tools
+
 License:        GPLv3 with exceptions
-URL:            http://qt-project.org/wiki/Category:Tools::QtCreator
-Provides:       qtcreator = %{version}-%{release}
+URL:            https://www.qt.io/ide/
 Source0:        http://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/4.3/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
+
 # In Fedora, the ninja command is called ninja-build
 Patch0:         qt-creator_ninja-build.patch
 # Don't add LLVM_INCLUDEPATH to INCLUDES, since it translates to adding -isystem /usr/include to the compiler flags which breaks compilation
 Patch1:         qt-creator_llvmincdir.patch
-# Fix appdata file to make it pass validation
+# Fix appdata file to make it pass validation, install appdata file to correct location
 Patch2:         qt-creator_appdata.patch
-
-Source1:        qt-creator-Fedora-privlibs
-
-Requires:       hicolor-icon-theme
-Requires:       xdg-utils
-Requires:       qt5-qtquickcontrols
-Requires:       qt5-qtdoc
+# Fix leading whitespace in desktop file
+Patch3:         qt-creator_desktop.patch
 
 # tight dep on qt5-qtbase used to build, uses some private apis
 BuildRequires:  qt5-qtbase-private-devel
 %{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
-
-# we need qt-devel and gcc-c++ to compile programs using qt-creator
-Requires:       qt5-qtbase-devel
-Requires:       gcc-c++
-Requires:       qbs%{?_isa} = %{version}-%{release}
-Requires:       %{name}-data = %{version}-%{release}
-
-
 BuildRequires:  qt5-qtbase-devel >= 5.6.0
 BuildRequires:  qt5-qdoc
 BuildRequires:  pkgconfig(Qt5Designer) >= 5.6.0
@@ -50,14 +37,23 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  botan-devel
 BuildRequires:  diffutils
 BuildRequires:  libappstream-glib
-%if 0%{?fedora} > 23
-%global llvm 1
-%global llvm_version 3.8.0
-%endif
-%if 0%{?llvm}
-BuildRequires:  llvm-devel >= %{llvm_version}
-BuildRequires:  clang-devel >= %{llvm_version}
-%endif
+BuildRequires:  llvm-devel
+BuildRequires:  clang-devel
+
+Requires:       hicolor-icon-theme
+Requires:       xdg-utils
+Requires:       qt5-qtquickcontrols%{?_isa}
+
+# we need qt-devel and gcc-c++ to compile programs using qt-creator
+Requires:       qt5-qtbase-devel
+Requires:       gcc-c++
+Requires:       qbs%{?_isa} = %{version}-%{release}
+Requires:       %{name}-data = %{version}-%{release}
+
+Provides:       qtcreator = %{version}-%{release}
+
+# Exclude private library from provides
+%global __provides_exclude_from ^%{_libdir}/qtcreator/.*$
 
 
 %description
@@ -96,23 +92,15 @@ Translations for %{name}.
 %package doc
 Summary:        User documentation for %{name}
 Requires:       %{name} = %{version}-%{release}
+Requires:       qt5-qtdoc
 BuildArch:      noarch
 
 %description doc
 User documentation for %{name}.
 
 
-# long list of private shared lib names to filter out
-%include %{SOURCE1}
-%global __provides_exclude ^(%{privlibs})\.so
-%global __requires_exclude ^(%{privlibs})\.so
-
-
 %prep
-%setup -q -n qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
+%autosetup -p1 -n qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}
 
 
 %build
@@ -134,26 +122,7 @@ for i in 16 24 32 48 64 128 256; do
 done
 
 desktop-file-validate %{buildroot}/%{_datadir}/applications/org.qt-project.qtcreator.desktop
-
-mkdir -p %{buildroot}%{_datadir}/appdata/
-mv %{buildroot}%{_datadir}/metainfo/org.qt-project.qtcreator.appdata.xml %{buildroot}%{_datadir}/appdata/
-rmdir %{buildroot}%{_datadir}/metainfo/
 %{_bindir}/appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/org.qt-project.qtcreator.appdata.xml
-
-# Output an up-to-date list of Provides/Requires exclude statements.
-outfile=__Fedora-privlibs
-i=0
-sofiles=$(find %{buildroot}%{_libdir}/qtcreator -name \*.so\*|sed 's!^.*/\(.*\).so.*!\1!g'|sort|uniq)
-for so in ${sofiles} ; do
-    if [ $i == 0 ]; then
-        echo "%%global privlibs $so" > $outfile
-        i=1
-    else
-        echo "%%global privlibs %%{privlibs}|$so" >> $outfile
-    fi
-done
-diff -u %{SOURCE1} $outfile || :
-cat $outfile
 
 
 %post
@@ -209,7 +178,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
-* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org>
+* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
 * Wed Jul 19 2017 Rex Dieter <rdieter@fedoraproject.org> - 4.3.1-2

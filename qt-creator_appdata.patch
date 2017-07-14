@@ -1,6 +1,6 @@
-diff -rupN qt-creator-opensource-src-4.2.1/dist/org.qt-project.qtcreator.appdata.xml qt-creator-opensource-src-4.2.1-new/dist/org.qt-project.qtcreator.appdata.xml
---- qt-creator-opensource-src-4.2.1/dist/org.qt-project.qtcreator.appdata.xml	2017-01-19 16:04:00.000000000 +0100
-+++ qt-creator-opensource-src-4.2.1-new/dist/org.qt-project.qtcreator.appdata.xml	2017-02-02 16:12:29.388256671 +0100
+diff -rupN qt-creator-opensource-src-4.3.1/dist/org.qt-project.qtcreator.appdata.xml qt-creator-opensource-src-4.3.1-new/dist/org.qt-project.qtcreator.appdata.xml
+--- qt-creator-opensource-src-4.3.1/dist/org.qt-project.qtcreator.appdata.xml	2017-06-28 17:39:49.000000000 +0200
++++ qt-creator-opensource-src-4.3.1-new/dist/org.qt-project.qtcreator.appdata.xml	2017-07-14 12:22:38.697656320 +0200
 @@ -1,6 +1,8 @@
  <?xml version="1.0" encoding="UTF-8"?>
  <!-- Copyright (C) 2016 The Qt Company Ltd. Contact: https://www.qt.io/licensing/ -->
@@ -16,3 +16,15 @@ diff -rupN qt-creator-opensource-src-4.2.1/dist/org.qt-project.qtcreator.appdata
   <url type="homepage">https://qt.io/ide/</url>
 - <project_group>Qt</project_group>
  </component>
+diff -rupN qt-creator-opensource-src-4.3.1/qtcreator.pro qt-creator-opensource-src-4.3.1-new/qtcreator.pro
+--- qt-creator-opensource-src-4.3.1/qtcreator.pro	2017-06-28 17:39:49.000000000 +0200
++++ qt-creator-opensource-src-4.3.1-new/qtcreator.pro	2017-07-14 12:22:19.711306599 +0200
+@@ -107,7 +107,7 @@ else:INSTALLER_NAME = "$${BASENAME}"
+ 
+ linux {
+     appstream.files = dist/org.qt-project.qtcreator.appdata.xml
+-    appstream.path = $$QTC_PREFIX/share/metainfo/
++    appstream.path = $$QTC_PREFIX/share/appdata/
+ 
+     desktop.files = dist/org.qt-project.qtcreator.desktop
+     desktop.path = $$QTC_PREFIX/share/applications/
