@@ -10,7 +10,6 @@
 %global privlibs %{privlibs}|libCMakeProjectManager
 %global privlibs %{privlibs}|libCPlusPlus
 %global privlibs %{privlibs}|libCVS
-%global privlibs %{privlibs}|libClangCodeModel
 %global privlibs %{privlibs}|libClangStaticAnalyzer
 %global privlibs %{privlibs}|libClangbackendipc
 %global privlibs %{privlibs}|libClassView
@@ -25,6 +24,7 @@
 %global privlibs %{privlibs}|libEmacsKeys
 %global privlibs %{privlibs}|libExtensionSystem
 %global privlibs %{privlibs}|libFakeVim
+%global privlibs %{privlibs}|libFlameGraph
 %global privlibs %{privlibs}|libGLSL
 %global privlibs %{privlibs}|libGLSLEditor
 %global privlibs %{privlibs}|libGenericProjectManager
@@ -38,6 +38,7 @@
 %global privlibs %{privlibs}|libMercurial
 %global privlibs %{privlibs}|libModelEditor
 %global privlibs %{privlibs}|libModeling
+%global privlibs %{privlibs}|libNim
 %global privlibs %{privlibs}|libPerforce
 %global privlibs %{privlibs}|libProjectExplorer
 %global privlibs %{privlibs}|libPythonEditor
@@ -45,19 +46,19 @@
 %global privlibs %{privlibs}|libQmakeAndroidSupport
 %global privlibs %{privlibs}|libQmakeProjectManager
 %global privlibs %{privlibs}|libQmlDebug
-%global privlibs %{privlibs}|libQmlDesigner
 %global privlibs %{privlibs}|libQmlEditorWidgets
 %global privlibs %{privlibs}|libQmlJS
 %global privlibs %{privlibs}|libQmlJSEditor
 %global privlibs %{privlibs}|libQmlJSTools
 %global privlibs %{privlibs}|libQmlProfiler
-%global privlibs %{privlibs}|libQmlProfilerExtension
 %global privlibs %{privlibs}|libQmlProjectManager
 %global privlibs %{privlibs}|libQnx
 %global privlibs %{privlibs}|libQtSupport
 %global privlibs %{privlibs}|libQtcSsh
 %global privlibs %{privlibs}|libRemoteLinux
 %global privlibs %{privlibs}|libResourceEditor
+%global privlibs %{privlibs}|libScxmlEditor
+%global privlibs %{privlibs}|libSilverSearcher
 %global privlibs %{privlibs}|libSqlite
 %global privlibs %{privlibs}|libSubversion
 %global privlibs %{privlibs}|libTaskList
@@ -70,9 +71,3 @@
 %global privlibs %{privlibs}|libVcsBase
 %global privlibs %{privlibs}|libWelcome
 %global privlibs %{privlibs}|libWinRt
-%global privlibs %{privlibs}|libcomponentsplugin
-%global privlibs %{privlibs}|libqbs_cpp_scanner
-%global privlibs %{privlibs}|libqbs_qt_scanner
-%global privlibs %{privlibs}|libqbscore
-%global privlibs %{privlibs}|libqbsqtprofilesetup
-%global privlibs %{privlibs}|libqtquickplugin

@@ -1,17 +1,19 @@
-#define prerelease rc1
+%define prerelease beta1
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           qt-creator
-Version:        4.3.1
-Release:        3%{?prerelease:.%prerelease}%{?dist}
+Version:        4.4.0
+Release:        0.1%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
 URL:            https://www.qt.io/ide/
-Source0:        http://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/4.3/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
+Source0:        https://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/4.4/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
+
+Source1:        qt-creator-Fedora-privlibs
 
 # In Fedora, the ninja command is called ninja-build
 Patch0:         qt-creator_ninja-build.patch
@@ -33,6 +35,7 @@ BuildRequires:  pkgconfig(Qt5XmlPatterns) >= 5.6.0
 BuildRequires:  pkgconfig(Qt5X11Extras) >= 5.6.0
 BuildRequires:  pkgconfig(Qt5WebKit) >= 5.6.0
 BuildRequires:  pkgconfig(Qt5Help) >= 5.6.0
+BuildRequires:  qbs-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  botan-devel
 BuildRequires:  diffutils
@@ -47,27 +50,20 @@ Requires:       qt5-qtquickcontrols%{?_isa}
 # we need qt-devel and gcc-c++ to compile programs using qt-creator
 Requires:       qt5-qtbase-devel
 Requires:       gcc-c++
-Requires:       qbs%{?_isa} = %{version}-%{release}
 Requires:       %{name}-data = %{version}-%{release}
 
 Provides:       qtcreator = %{version}-%{release}
 
-# Exclude private library from provides
-%global __provides_exclude_from ^%{_libdir}/qtcreator/.*$
+# long list of private shared lib names to filter out
+%include %{SOURCE1}
+%global __provides_exclude ^(%{privlibs})\.so
+%global __requires_exclude ^(%{privlibs})\.so
+
 
 
 %description
 Qt Creator is a cross-platform IDE (integrated development environment)
 tailored to the needs of Qt developers.
-
-
-%package -n qbs
-Summary:        Cross-platform build tool
-
-%description -n qbs
-Qbs is an all-in-one tool that generates a build graph from a high-level
-project description (like qmake or CMake) and additionally undertakes the task
-of executing the commands in the low-level build graph (like make).
 
 
 %package data
@@ -107,7 +103,7 @@ User documentation for %{name}.
 export QTDIR="%{_qt5_prefix}"
 export PATH="%{_qt5_bindir}:$PATH"
 
-%qmake_qt5 -r IDE_LIBRARY_BASENAME=%{_lib} USE_SYSTEM_BOTAN=1 %{?llvm:LLVM_INSTALL_DIR=%{_prefix}} CONFIG+=disable_external_rpath
+%qmake_qt5 -r IDE_LIBRARY_BASENAME=%{_lib} USE_SYSTEM_BOTAN=1 %{?llvm:LLVM_INSTALL_DIR=%{_prefix}} QBS_INSTALL_DIR=%{_prefix} CONFIG+=disable_external_rpath
 %make_build
 %make_build qch_docs
 
@@ -122,7 +118,24 @@ for i in 16 24 32 48 64 128 256; do
 done
 
 desktop-file-validate %{buildroot}/%{_datadir}/applications/org.qt-project.qtcreator.desktop
-%{_bindir}/appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/org.qt-project.qtcreator.appdata.xml
+%{_bindir}/appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.qt-project.qtcreator.appdata.xml
+
+
+# Output an up-to-date list of Provides/Requires exclude statements.
+outfile=__Fedora-privlibs
+i=0
+sofiles=$(find %{buildroot}%{_libdir}/qtcreator -name \*.so\*|sed 's!^.*/\(.*\).so.*!\1!g'|sort|uniq)
+for so in ${sofiles} ; do
+    if [ $i == 0 ]; then
+        echo "%%global privlibs $so" > $outfile
+        i=1
+    else
+        echo "%%global privlibs %%{privlibs}|$so" >> $outfile
+    fi
+done
+cat $outfile
+# If there are differences, abort the build
+diff -u %{SOURCE1} $outfile
 
 
 %post
@@ -148,21 +161,8 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %exclude %{_libdir}/qtcreator/plugins/qbs
 %{_libexecdir}/qtcreator/
 %{_datadir}/applications/org.qt-project.qtcreator.desktop
-%{_datadir}/appdata/org.qt-project.qtcreator.appdata.xml
+%{_datadir}/metainfo/org.qt-project.qtcreator.appdata.xml
 %{_datadir}/icons/hicolor/*/apps/QtProject-qtcreator.png
-
-%files -n qbs
-%{_bindir}/qbs
-%{_bindir}/qbs-config
-%{_bindir}/qbs-config-ui
-%{_bindir}/qbs-create-project
-%{_bindir}/qbs-qmltypes
-%{_bindir}/qbs-setup-*
-%dir %{_libdir}/qtcreator
-%{_libdir}/qtcreator/libqbscore.so*
-%{_libdir}/qtcreator/libqbsqtprofilesetup.so*
-%dir %{_libdir}/qtcreator/plugins
-%{_libdir}/qtcreator/plugins/qbs
 
 %files data
 %{_datadir}/qtcreator/
@@ -172,12 +172,17 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/qtcreator/translations/
 
 %files doc
+# Please don't change this, it is where qt-creator expects the documentation to be!
 %dir %{_defaultdocdir}/qtcreator/
 %doc %{_defaultdocdir}/qtcreator/qtcreator.qch
 %doc %{_defaultdocdir}/qtcreator/qtcreator-dev.qch
 
 
 %changelog
+* Mon Jul 31 2017 Sandro Mani <manisandro@gmail.com> - 4.4.0-0.1.beta1
+- Update to 4.4.0-beta1
+- Drop qbs subpackage, it now lives in a separate package
+
 * Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
