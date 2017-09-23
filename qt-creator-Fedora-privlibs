@@ -10,6 +10,7 @@
 %global privlibs %{privlibs}|libCMakeProjectManager
 %global privlibs %{privlibs}|libCPlusPlus
 %global privlibs %{privlibs}|libCVS
+%global privlibs %{privlibs}|libClangCodeModel
 %global privlibs %{privlibs}|libClangStaticAnalyzer
 %global privlibs %{privlibs}|libClangbackendipc
 %global privlibs %{privlibs}|libClassView

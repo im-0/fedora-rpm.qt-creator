@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        4.4.0
-Release:        1%{?prerelease:.%prerelease}%{?dist}
+Release:        2%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
@@ -103,7 +103,7 @@ User documentation for %{name}.
 export QTDIR="%{_qt5_prefix}"
 export PATH="%{_qt5_bindir}:$PATH"
 
-%qmake_qt5 -r IDE_LIBRARY_BASENAME=%{_lib} USE_SYSTEM_BOTAN=1 %{?llvm:LLVM_INSTALL_DIR=%{_prefix}} QBS_INSTALL_DIR=%{_prefix} CONFIG+=disable_external_rpath
+%qmake_qt5 -r IDE_LIBRARY_BASENAME=%{_lib} USE_SYSTEM_BOTAN=1 LLVM_INSTALL_DIR=%{_prefix} QBS_INSTALL_DIR=%{_prefix} CONFIG+=disable_external_rpath
 %make_build
 %make_build qch_docs
 
@@ -179,6 +179,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Sat Sep 23 2017 Sandro Mani <manisandro@gmail.com> - 4.4.0-2
+- Fix libClangCodeModel not getting built (thanks Abrahm Scully)
+
 * Tue Sep 05 2017 Sandro Mani <manisandro@gmail.com> - 4.4.0-1
 - Update to 4.4.0
 
