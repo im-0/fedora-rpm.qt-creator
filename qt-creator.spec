@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        4.4.0
-Release:        2%{?prerelease:.%prerelease}%{?dist}
+Release:        3%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
@@ -17,12 +17,10 @@ Source1:        qt-creator-Fedora-privlibs
 
 # In Fedora, the ninja command is called ninja-build
 Patch0:         qt-creator_ninja-build.patch
-# Don't add LLVM_INCLUDEPATH to INCLUDES, since it translates to adding -isystem /usr/include to the compiler flags which breaks compilation
-Patch1:         qt-creator_llvmincdir.patch
 # Fix appdata file to make it pass validation, install appdata file to correct location
-Patch2:         qt-creator_appdata.patch
+Patch1:         qt-creator_appdata.patch
 # Fix leading whitespace in desktop file
-Patch3:         qt-creator_desktop.patch
+Patch2:         qt-creator_desktop.patch
 
 # tight dep on qt5-qtbase used to build, uses some private apis
 BuildRequires:  qt5-qtbase-private-devel
@@ -103,7 +101,7 @@ User documentation for %{name}.
 export QTDIR="%{_qt5_prefix}"
 export PATH="%{_qt5_bindir}:$PATH"
 
-%qmake_qt5 -r IDE_LIBRARY_BASENAME=%{_lib} USE_SYSTEM_BOTAN=1 LLVM_INSTALL_DIR=%{_prefix} QBS_INSTALL_DIR=%{_prefix} CONFIG+=disable_external_rpath
+%qmake_qt5 -r IDE_LIBRARY_BASENAME=%{_lib} USE_SYSTEM_BOTAN=1 LLVM_INSTALL_DIR=%{_prefix} QMAKE_CFLAGS_ISYSTEM=-I QBS_INSTALL_DIR=%{_prefix} CONFIG+=disable_external_rpath
 %make_build
 %make_build qch_docs
 
@@ -179,6 +177,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Sun Sep 24 2017 Sandro Mani <manisandro@gmail.com> - 4.4.0-3
+- Add QMAKE_CFLAGS_ISYSTEM=-I
+
 * Sat Sep 23 2017 Sandro Mani <manisandro@gmail.com> - 4.4.0-2
 - Fix libClangCodeModel not getting built (thanks Abrahm Scully)
 
