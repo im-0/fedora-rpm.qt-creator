@@ -12,7 +12,7 @@
 %global privlibs %{privlibs}|libCVS
 %global privlibs %{privlibs}|libClangCodeModel
 %global privlibs %{privlibs}|libClangStaticAnalyzer
-%global privlibs %{privlibs}|libClangbackendipc
+%global privlibs %{privlibs}|libClangsupport
 %global privlibs %{privlibs}|libClassView
 %global privlibs %{privlibs}|libClearCase
 %global privlibs %{privlibs}|libCodePaster
