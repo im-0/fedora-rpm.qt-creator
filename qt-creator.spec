@@ -1,4 +1,4 @@
-%define prerelease rc1
+#define prerelease rc1
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        4.5.0
-Release:        0.4%{?prerelease:.%prerelease}%{?dist}
+Release:        1%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
@@ -177,6 +177,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Sat Dec 09 2017 Sandro Mani <manisandro@gmail.com> - 4.5.0-1
+- Update to 4.5.0
+
 * Mon Nov 27 2017 Rex Dieter <rdieter@fedoraproject.org> - 4.5.0-0.4.rc1
 - rebuild (qt5)
 
