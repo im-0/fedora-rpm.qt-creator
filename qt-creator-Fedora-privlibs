@@ -47,6 +47,7 @@
 %global privlibs %{privlibs}|libQmakeAndroidSupport
 %global privlibs %{privlibs}|libQmakeProjectManager
 %global privlibs %{privlibs}|libQmlDebug
+%global privlibs %{privlibs}|libQmlDesigner
 %global privlibs %{privlibs}|libQmlEditorWidgets
 %global privlibs %{privlibs}|libQmlJS
 %global privlibs %{privlibs}|libQmlJSEditor
@@ -72,3 +73,5 @@
 %global privlibs %{privlibs}|libVcsBase
 %global privlibs %{privlibs}|libWelcome
 %global privlibs %{privlibs}|libWinRt
+%global privlibs %{privlibs}|libcomponentsplugin
+%global privlibs %{privlibs}|libqtquickplugin

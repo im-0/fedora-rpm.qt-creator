@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        4.5.0
-Release:        3%{?prerelease:.%prerelease}%{?dist}
+Release:        4%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
@@ -26,6 +26,7 @@ Patch2:         qt-creator_desktop.patch
 BuildRequires:  qt5-qtbase-private-devel
 %{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
 BuildRequires:  qt5-qtbase-devel >= 5.6.0
+BuildRequires:  qt5-qtquickcontrols
 BuildRequires:  qt5-qdoc
 BuildRequires:  pkgconfig(Qt5Designer) >= 5.6.0
 BuildRequires:  pkgconfig(Qt5Script) >= 5.6.0
@@ -177,6 +178,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Sun Feb 04 2018 Sandro Mani <manisandro@gmail.com> - 4.5.0-4
+- BR qt5-qtquickcontrols to enable qmldesigner
+
 * Wed Jan 17 2018 Sandro Mani <manisandro@gmail.com> - 4.5.0-3
 - Rebuild for broken dependencies on F27 (#1535355)
 
