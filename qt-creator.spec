@@ -1,12 +1,12 @@
-#define prerelease rc1
+%define prerelease beta1
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           qt-creator
-Version:        4.5.0
-Release:        4%{?prerelease:.%prerelease}%{?dist}
+Version:        4.6.0
+Release:        0.1%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
@@ -178,6 +178,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Thu Feb 08 2018 Sandro Mani <manisandro@gmail.com> - 4.6.0-0.1.beta1
+- Update to 4.6.0-beta1
+
 * Sun Feb 04 2018 Sandro Mani <manisandro@gmail.com> - 4.5.0-4
 - BR qt5-qtquickcontrols to enable qmldesigner
 
