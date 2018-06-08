@@ -11,7 +11,9 @@
 %global privlibs %{privlibs}|libCPlusPlus
 %global privlibs %{privlibs}|libCVS
 %global privlibs %{privlibs}|libClangCodeModel
-%global privlibs %{privlibs}|libClangStaticAnalyzer
+%global privlibs %{privlibs}|libClangPchManager
+%global privlibs %{privlibs}|libClangRefactoring
+%global privlibs %{privlibs}|libClangTools
 %global privlibs %{privlibs}|libClangsupport
 %global privlibs %{privlibs}|libClassView
 %global privlibs %{privlibs}|libClearCase
@@ -25,7 +27,6 @@
 %global privlibs %{privlibs}|libEmacsKeys
 %global privlibs %{privlibs}|libExtensionSystem
 %global privlibs %{privlibs}|libFakeVim
-%global privlibs %{privlibs}|libFlameGraph
 %global privlibs %{privlibs}|libGLSL
 %global privlibs %{privlibs}|libGLSLEditor
 %global privlibs %{privlibs}|libGenericProjectManager
@@ -65,8 +66,8 @@
 %global privlibs %{privlibs}|libSubversion
 %global privlibs %{privlibs}|libTaskList
 %global privlibs %{privlibs}|libTextEditor
-%global privlibs %{privlibs}|libTimeline
 %global privlibs %{privlibs}|libTodo
+%global privlibs %{privlibs}|libTracing
 %global privlibs %{privlibs}|libUpdateInfo
 %global privlibs %{privlibs}|libUtils
 %global privlibs %{privlibs}|libValgrind

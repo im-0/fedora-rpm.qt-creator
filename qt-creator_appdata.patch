@@ -1,6 +1,6 @@
-diff -rupN qt-creator-opensource-src-4.3.1/dist/org.qt-project.qtcreator.appdata.xml qt-creator-opensource-src-4.3.1-new/dist/org.qt-project.qtcreator.appdata.xml
---- qt-creator-opensource-src-4.3.1/dist/org.qt-project.qtcreator.appdata.xml	2017-06-28 17:39:49.000000000 +0200
-+++ qt-creator-opensource-src-4.3.1-new/dist/org.qt-project.qtcreator.appdata.xml	2017-07-14 12:22:38.697656320 +0200
+diff -rupN qt-creator-opensource-src-4.7.0-beta1/dist/org.qt-project.qtcreator.appdata.xml qt-creator-opensource-src-4.7.0-beta1-new/dist/org.qt-project.qtcreator.appdata.xml
+--- qt-creator-opensource-src-4.7.0-beta1/dist/org.qt-project.qtcreator.appdata.xml	2018-06-04 06:52:27.000000000 +0200
++++ qt-creator-opensource-src-4.7.0-beta1-new/dist/org.qt-project.qtcreator.appdata.xml	2018-06-07 10:31:39.423923645 +0200
 @@ -1,6 +1,8 @@
  <?xml version="1.0" encoding="UTF-8"?>
  <!-- Copyright (C) 2016 The Qt Company Ltd. Contact: https://www.qt.io/licensing/ -->
@@ -8,11 +8,11 @@ diff -rupN qt-creator-opensource-src-4.3.1/dist/org.qt-project.qtcreator.appdata
 + <name>Qt Creator</name>
 + <summary>A cross-platform IDE for Qt</summary>
   <id>org.qt-project.qtcreator.desktop</id>
-  <metadata_license>CC0-1.0</metadata_license>
-  <project_license>GPL-3.0</project_license>
-@@ -23,5 +25,4 @@
+  <name>Qt Creator</name>
+  <summary>Provides a cross-platform, complete integrated development environment (IDE) for application developers to create applications for multiple platforms and devices</summary>
+@@ -25,5 +27,4 @@
   </description>
  
-  <url type="homepage">https://qt.io/ide/</url>
+  <url type="homepage">https://www.qt.io/ide/</url>
 - <project_group>Qt</project_group>
  </component>
