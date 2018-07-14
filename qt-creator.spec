@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        4.7.0
-Release:        0.3%{?prerelease:.%prerelease}%{?dist}
+Release:        0.4%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
@@ -178,6 +178,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org>
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
 * Thu Jul 05 2018 Sandro Mani <manisandro@gamil.com> - 4.7.0-0.3.rc1
 - Update to 4.7.0-rc1
 
