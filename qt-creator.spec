@@ -1,4 +1,4 @@
-%define prerelease rc1
+#define prerelease rc1
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        4.7.0
-Release:        0.4%{?prerelease:.%prerelease}%{?dist}
+Release:        1%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
@@ -178,6 +178,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Wed Jul 18 2018 Sandro Mani <manisandro@gmail.com> - 4.7.0-1
+- Update to 4.7.0
+
 * Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
