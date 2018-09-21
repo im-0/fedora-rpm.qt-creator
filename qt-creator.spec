@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        4.7.1
-Release:        1%{?prerelease:.%prerelease}%{?dist}
+Release:        2%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
@@ -183,6 +183,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Fri Sep 21 2018 Jan Grulich <jgrulich@redhat.com> - 4.7.1-2
+- rebuild (qt5)
+
 * Thu Sep 20 2018 Sandro Mani <manisandro@gmail.com> - 4.7.1-1
 - Update to 4.7.1
 
