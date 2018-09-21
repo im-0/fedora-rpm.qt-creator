@@ -21,12 +21,10 @@ Patch0:         qt-creator_ninja-build.patch
 Patch1:         qt-creator_appdata.patch
 # Fix leading whitespace in desktop file
 Patch2:         qt-creator_desktop.patch
-%if 0%{fedora} >= 30
 # Invoke versioned python interpreter
 Patch3:         qt-creator_python3.patch
 # Fix build against clang-7.0
 Patch4:         qt-creator_clang7.patch
-%endif
 
 # tight dep on qt5-qtbase used to build, uses some private apis
 BuildRequires:  qt5-qtbase-private-devel
