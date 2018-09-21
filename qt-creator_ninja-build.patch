@@ -1,6 +1,6 @@
-diff -rupN qt-creator-opensource-src-4.7.0-beta1/src/plugins/cmakeprojectmanager/cmakekitinformation.cpp qt-creator-opensource-src-4.7.0-beta1-new/src/plugins/cmakeprojectmanager/cmakekitinformation.cpp
---- qt-creator-opensource-src-4.7.0-beta1/src/plugins/cmakeprojectmanager/cmakekitinformation.cpp	2018-06-04 06:52:27.000000000 +0200
-+++ qt-creator-opensource-src-4.7.0-beta1-new/src/plugins/cmakeprojectmanager/cmakekitinformation.cpp	2018-06-07 10:31:39.057923665 +0200
+diff -rupN qt-creator-opensource-src-4.7.1/src/plugins/cmakeprojectmanager/cmakekitinformation.cpp qt-creator-opensource-src-4.7.1-new/src/plugins/cmakeprojectmanager/cmakekitinformation.cpp
+--- qt-creator-opensource-src-4.7.1/src/plugins/cmakeprojectmanager/cmakekitinformation.cpp	2018-09-18 10:30:26.000000000 +0200
++++ qt-creator-opensource-src-4.7.1-new/src/plugins/cmakeprojectmanager/cmakekitinformation.cpp	2018-09-20 21:41:35.929792690 +0200
 @@ -322,7 +322,7 @@ QVariant CMakeGeneratorKitInformation::d
      if (it != known.constEnd()) {
          Utils::Environment env = Utils::Environment::systemEnvironment();

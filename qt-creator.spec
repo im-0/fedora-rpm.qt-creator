@@ -5,7 +5,7 @@
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           qt-creator
-Version:        4.7.0
+Version:        4.7.1
 Release:        1%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
@@ -21,6 +21,12 @@ Patch0:         qt-creator_ninja-build.patch
 Patch1:         qt-creator_appdata.patch
 # Fix leading whitespace in desktop file
 Patch2:         qt-creator_desktop.patch
+%if 0%{fedora} >= 30
+# Invoke versioned python interpreter
+Patch3:         qt-creator_python3.patch
+# Fix build against clang-7.0
+Patch4:         qt-creator_clang7.patch
+%endif
 
 # tight dep on qt5-qtbase used to build, uses some private apis
 BuildRequires:  qt5-qtbase-private-devel
@@ -34,6 +40,7 @@ BuildRequires:  pkgconfig(Qt5XmlPatterns) >= 5.6.0
 BuildRequires:  pkgconfig(Qt5X11Extras) >= 5.6.0
 BuildRequires:  pkgconfig(Qt5WebKit) >= 5.6.0
 BuildRequires:  pkgconfig(Qt5Help) >= 5.6.0
+BuildRequires:  python3
 BuildRequires:  qbs-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  botan-devel
@@ -178,6 +185,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Thu Sep 20 2018 Sandro Mani <manisandro@gmail.com> - 4.7.1-1
+- Update to 4.7.1
+
 * Wed Jul 18 2018 Sandro Mani <manisandro@gmail.com> - 4.7.0-1
 - Update to 4.7.0
 

@@ -1,0 +1,53 @@
+diff -rupN qt-creator-opensource-src-4.7.1/qtcreator.pro qt-creator-opensource-src-4.7.1-new/qtcreator.pro
+--- qt-creator-opensource-src-4.7.1/qtcreator.pro	2018-09-18 10:30:26.000000000 +0200
++++ qt-creator-opensource-src-4.7.1-new/qtcreator.pro	2018-09-20 22:32:59.520622127 +0200
+@@ -112,13 +112,13 @@ macx {
+     BINDIST_SOURCE = "$$OUT_PWD/bin/$${IDE_APP_TARGET}.app"
+     deployqt.commands = $$PWD/scripts/deployqtHelper_mac.sh \"$${APPBUNDLE}\" \"$$[QT_INSTALL_BINS]\" \"$$[QT_INSTALL_TRANSLATIONS]\" \"$$[QT_INSTALL_PLUGINS]\" \"$$[QT_INSTALL_IMPORTS]\" \"$$[QT_INSTALL_QML]\"
+     codesign.commands = codesign --deep -s \"$(SIGNING_IDENTITY)\" $(SIGNING_FLAGS) \"$${APPBUNDLE}\"
+-    dmg.commands = python -u \"$$PWD/scripts/makedmg.py\" \"$${BASENAME}.dmg\" \"Qt Creator\" \"$$IDE_SOURCE_TREE\" \"$$OUT_PWD/bin\"
++    dmg.commands = python3 -u \"$$PWD/scripts/makedmg.py\" \"$${BASENAME}.dmg\" \"Qt Creator\" \"$$IDE_SOURCE_TREE\" \"$$OUT_PWD/bin\"
+     #dmg.depends = deployqt
+     QMAKE_EXTRA_TARGETS += codesign dmg
+ } else {
+     BINDIST_SOURCE = "$(INSTALL_ROOT)$$QTC_PREFIX"
+     BINDIST_EXCLUDE_ARG = "--exclude-toplevel"
+-    deployqt.commands = python -u $$PWD/scripts/deployqt.py -i \"$(INSTALL_ROOT)$$QTC_PREFIX/bin/$${IDE_APP_TARGET}\" \"$(QMAKE)\"
++    deployqt.commands = python3 -u $$PWD/scripts/deployqt.py -i \"$(INSTALL_ROOT)$$QTC_PREFIX/bin/$${IDE_APP_TARGET}\" \"$(QMAKE)\"
+     deployqt.depends = install
+     win32 {
+         deployartifacts.depends = install
+@@ -140,9 +140,9 @@ isEmpty(INSTALLER_ARCHIVE_FROM_ENV) {
+ INSTALLER_ARCHIVE_DEBUG = $$INSTALLER_ARCHIVE
+ INSTALLER_ARCHIVE_DEBUG ~= s/(.*)[.]7z/\1-debug.7z
+ 
+-bindist.commands = python -u $$PWD/scripts/createDistPackage.py $$OUT_PWD/$${BASENAME}.7z \"$$BINDIST_SOURCE\"
+-bindist_installer.commands = python -u $$PWD/scripts/createDistPackage.py $$BINDIST_EXCLUDE_ARG $${INSTALLER_ARCHIVE} \"$$BINDIST_SOURCE\"
+-bindist_debug.commands = python -u $$PWD/scripts/createDistPackage.py --debug $$BINDIST_EXCLUDE_ARG $${INSTALLER_ARCHIVE_DEBUG} \"$$BINDIST_SOURCE\"
++bindist.commands = python3 -u $$PWD/scripts/createDistPackage.py $$OUT_PWD/$${BASENAME}.7z \"$$BINDIST_SOURCE\"
++bindist_installer.commands = python3 -u $$PWD/scripts/createDistPackage.py $$BINDIST_EXCLUDE_ARG $${INSTALLER_ARCHIVE} \"$$BINDIST_SOURCE\"
++bindist_debug.commands = python3 -u $$PWD/scripts/createDistPackage.py --debug $$BINDIST_EXCLUDE_ARG $${INSTALLER_ARCHIVE_DEBUG} \"$$BINDIST_SOURCE\"
+ 
+ win32 {
+     deployqt.commands ~= s,/,\\\\,g
+diff -rupN qt-creator-opensource-src-4.7.1/src/libs/3rdparty/botan/configure.py qt-creator-opensource-src-4.7.1-new/src/libs/3rdparty/botan/configure.py
+--- qt-creator-opensource-src-4.7.1/src/libs/3rdparty/botan/configure.py	2018-09-18 10:30:26.000000000 +0200
++++ qt-creator-opensource-src-4.7.1-new/src/libs/3rdparty/botan/configure.py	2018-09-20 22:34:33.658616920 +0200
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ """
+ Configuration program for botan
+diff -rupN qt-creator-opensource-src-4.7.1/src/libs/botan/botan.pro qt-creator-opensource-src-4.7.1-new/src/libs/botan/botan.pro
+--- qt-creator-opensource-src-4.7.1/src/libs/botan/botan.pro	2018-09-18 10:30:26.000000000 +0200
++++ qt-creator-opensource-src-4.7.1-new/src/libs/botan/botan.pro	2018-09-20 22:34:18.518617758 +0200
+@@ -44,7 +44,7 @@ configure.input = configure_inputs
+ configure.output = $$BOTAN_BUILD_DIR/Makefile
+ configure.variable_out = BOTAN_MAKEFILE
+ configure.commands = cd $$BOTAN_BUILD_DIR_FOR_SHELL && \
+-                     python $$CONFIGURE_FILE_PATH_FOR_SHELL \
++                     python3 $$CONFIGURE_FILE_PATH_FOR_SHELL \
+                      --cc=$$BOTAN_CC_TYPE --cc-bin=$$shell_quote($$QMAKE_CXX) \
+                      $$BOTAN_ARCH_SWITCH $$BOTAN_OS_SWITCH $$OTHER_FLAGS
+ QMAKE_EXTRA_COMPILERS += configure

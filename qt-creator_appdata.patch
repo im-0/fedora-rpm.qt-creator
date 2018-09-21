@@ -1,6 +1,6 @@
-diff -rupN qt-creator-opensource-src-4.7.0-beta1/dist/org.qt-project.qtcreator.appdata.xml qt-creator-opensource-src-4.7.0-beta1-new/dist/org.qt-project.qtcreator.appdata.xml
---- qt-creator-opensource-src-4.7.0-beta1/dist/org.qt-project.qtcreator.appdata.xml	2018-06-04 06:52:27.000000000 +0200
-+++ qt-creator-opensource-src-4.7.0-beta1-new/dist/org.qt-project.qtcreator.appdata.xml	2018-06-07 10:31:39.423923645 +0200
+diff -rupN qt-creator-opensource-src-4.7.1/dist/org.qt-project.qtcreator.appdata.xml qt-creator-opensource-src-4.7.1-new/dist/org.qt-project.qtcreator.appdata.xml
+--- qt-creator-opensource-src-4.7.1/dist/org.qt-project.qtcreator.appdata.xml	2018-09-18 10:30:26.000000000 +0200
++++ qt-creator-opensource-src-4.7.1-new/dist/org.qt-project.qtcreator.appdata.xml	2018-09-20 21:41:36.356792667 +0200
 @@ -1,6 +1,8 @@
  <?xml version="1.0" encoding="UTF-8"?>
  <!-- Copyright (C) 2016 The Qt Company Ltd. Contact: https://www.qt.io/licensing/ -->

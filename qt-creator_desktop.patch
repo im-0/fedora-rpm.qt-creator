@@ -1,8 +1,8 @@
-diff -rupN qt-creator-opensource-src-4.7.0-beta1/dist/org.qt-project.qtcreator.desktop qt-creator-opensource-src-4.7.0-beta1-new/dist/org.qt-project.qtcreator.desktop
---- qt-creator-opensource-src-4.7.0-beta1/dist/org.qt-project.qtcreator.desktop	2018-06-04 06:52:27.000000000 +0200
-+++ qt-creator-opensource-src-4.7.0-beta1-new/dist/org.qt-project.qtcreator.desktop	2018-06-07 10:31:39.773923625 +0200
-@@ -7,5 +7,5 @@ X-KDE-StartupNotify=true
- Icon=QtProject-qtcreator
+diff -rupN qt-creator-opensource-src-4.7.1/dist/org.qt-project.qtcreator.desktop qt-creator-opensource-src-4.7.1-new/dist/org.qt-project.qtcreator.desktop
+--- qt-creator-opensource-src-4.7.1/dist/org.qt-project.qtcreator.desktop	2018-09-18 10:30:26.000000000 +0200
++++ qt-creator-opensource-src-4.7.1-new/dist/org.qt-project.qtcreator.desktop	2018-09-20 21:41:36.759792645 +0200
+@@ -8,5 +8,5 @@ Icon=QtProject-qtcreator
+ StartupWMClass=qtcreator
  Terminal=false
  Categories=Development;IDE;Qt;
 -MimeType= text/x-c++src;text/x-c++hdr;text/x-xsrc;application/x-designer;application/vnd.qt.qmakeprofile;application/vnd.qt.xml.resource;
