@@ -1,6 +1,6 @@
-diff -rupN qt-creator-opensource-src-4.7.1/dist/org.qt-project.qtcreator.desktop qt-creator-opensource-src-4.7.1-new/dist/org.qt-project.qtcreator.desktop
---- qt-creator-opensource-src-4.7.1/dist/org.qt-project.qtcreator.desktop	2018-09-18 10:30:26.000000000 +0200
-+++ qt-creator-opensource-src-4.7.1-new/dist/org.qt-project.qtcreator.desktop	2018-09-20 21:41:36.759792645 +0200
+diff -rupN qt-creator-opensource-src-4.8.0-beta1/dist/org.qt-project.qtcreator.desktop qt-creator-opensource-src-4.8.0-beta1-new/dist/org.qt-project.qtcreator.desktop
+--- qt-creator-opensource-src-4.8.0-beta1/dist/org.qt-project.qtcreator.desktop	2018-10-09 14:54:47.000000000 +0200
++++ qt-creator-opensource-src-4.8.0-beta1-new/dist/org.qt-project.qtcreator.desktop	2018-10-11 11:30:54.948801705 +0200
 @@ -8,5 +8,5 @@ Icon=QtProject-qtcreator
  StartupWMClass=qtcreator
  Terminal=false

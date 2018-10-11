@@ -11,14 +11,17 @@
 %global privlibs %{privlibs}|libCPlusPlus
 %global privlibs %{privlibs}|libCVS
 %global privlibs %{privlibs}|libClangCodeModel
+%global privlibs %{privlibs}|libClangFormat
 %global privlibs %{privlibs}|libClangTools
 %global privlibs %{privlibs}|libClangsupport
 %global privlibs %{privlibs}|libClassView
 %global privlibs %{privlibs}|libClearCase
 %global privlibs %{privlibs}|libCodePaster
+%global privlibs %{privlibs}|libCompilationDatabaseProjectManager
 %global privlibs %{privlibs}|libCore
 %global privlibs %{privlibs}|libCppEditor
 %global privlibs %{privlibs}|libCppTools
+%global privlibs %{privlibs}|libCppcheck
 %global privlibs %{privlibs}|libDebugger
 %global privlibs %{privlibs}|libDesigner
 %global privlibs %{privlibs}|libDiffEditor
@@ -33,6 +36,8 @@
 %global privlibs %{privlibs}|libHelp
 %global privlibs %{privlibs}|libImageViewer
 %global privlibs %{privlibs}|libIos
+%global privlibs %{privlibs}|libLanguageClient
+%global privlibs %{privlibs}|libLanguageServerProtocol
 %global privlibs %{privlibs}|libLanguageUtils
 %global privlibs %{privlibs}|libMacros
 %global privlibs %{privlibs}|libMercurial

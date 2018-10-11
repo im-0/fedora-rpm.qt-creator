@@ -1,12 +1,12 @@
-#define prerelease rc1
+%define prerelease beta1
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           qt-creator
-Version:        4.7.1
-Release:        2%{?prerelease:.%prerelease}%{?dist}
+Version:        4.8.0
+Release:        0.1%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
@@ -23,8 +23,6 @@ Patch1:         qt-creator_appdata.patch
 Patch2:         qt-creator_desktop.patch
 # Invoke versioned python interpreter
 Patch3:         qt-creator_python3.patch
-# Fix build against clang-7.0
-Patch4:         qt-creator_clang7.patch
 
 # tight dep on qt5-qtbase used to build, uses some private apis
 BuildRequires:  qt5-qtbase-private-devel
@@ -183,6 +181,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Thu Oct 11 2018 Sandro Mani <manisandro@gmail.com> - 4.8.0-0.1.beta1
+- Update to 4.8.0-beta1
+
 * Fri Sep 21 2018 Jan Grulich <jgrulich@redhat.com> - 4.7.1-2
 - rebuild (qt5)
 
