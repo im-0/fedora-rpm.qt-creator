@@ -5,7 +5,7 @@
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           qt-creator
-Version:        4.7.1
+Version:        4.7.2
 Release:        1%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
@@ -23,8 +23,6 @@ Patch1:         qt-creator_appdata.patch
 Patch2:         qt-creator_desktop.patch
 # Invoke versioned python interpreter
 Patch3:         qt-creator_python3.patch
-# Fix build against clang-7.0
-Patch4:         qt-creator_clang7.patch
 
 # tight dep on qt5-qtbase used to build, uses some private apis
 BuildRequires:  qt5-qtbase-private-devel
@@ -183,6 +181,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Wed Nov 14 2018 Sandro Mani <manisandro@gmail.com> - 4.7.2-1
+- Update to 4.7.2
+
 * Thu Sep 20 2018 Sandro Mani <manisandro@gmail.com> - 4.7.1-1
 - Update to 4.7.1
 
