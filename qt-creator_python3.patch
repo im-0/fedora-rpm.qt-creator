@@ -1,6 +1,6 @@
-diff -rupN qt-creator-opensource-src-4.8.0-beta1/qtcreator.pro qt-creator-opensource-src-4.8.0-beta1-new/qtcreator.pro
---- qt-creator-opensource-src-4.8.0-beta1/qtcreator.pro	2018-10-09 14:54:47.000000000 +0200
-+++ qt-creator-opensource-src-4.8.0-beta1-new/qtcreator.pro	2018-10-11 11:30:55.610801669 +0200
+diff -rupN qt-creator-opensource-src-4.8.0-beta2/qtcreator.pro qt-creator-opensource-src-4.8.0-beta2-new/qtcreator.pro
+--- qt-creator-opensource-src-4.8.0-beta2/qtcreator.pro	2018-11-15 21:32:33.000000000 +0100
++++ qt-creator-opensource-src-4.8.0-beta2-new/qtcreator.pro	2018-11-17 11:18:12.565491269 +0100
 @@ -112,13 +112,13 @@ macx {
      BINDIST_SOURCE = "$$OUT_PWD/bin/$${IDE_APP_TARGET}.app"
      deployqt.commands = $$PWD/scripts/deployqtHelper_mac.sh \"$${APPBUNDLE}\" \"$$[QT_INSTALL_BINS]\" \"$$[QT_INSTALL_TRANSLATIONS]\" \"$$[QT_INSTALL_PLUGINS]\" \"$$[QT_INSTALL_IMPORTS]\" \"$$[QT_INSTALL_QML]\"
@@ -30,19 +30,19 @@ diff -rupN qt-creator-opensource-src-4.8.0-beta1/qtcreator.pro qt-creator-openso
  
  win32 {
      deployqt.commands ~= s,/,\\\\,g
-diff -rupN qt-creator-opensource-src-4.8.0-beta1/src/libs/3rdparty/botan/configure.py qt-creator-opensource-src-4.8.0-beta1-new/src/libs/3rdparty/botan/configure.py
---- qt-creator-opensource-src-4.8.0-beta1/src/libs/3rdparty/botan/configure.py	2018-10-09 14:54:47.000000000 +0200
-+++ qt-creator-opensource-src-4.8.0-beta1-new/src/libs/3rdparty/botan/configure.py	2018-10-11 11:30:55.611801669 +0200
+diff -rupN qt-creator-opensource-src-4.8.0-beta2/src/libs/3rdparty/botan/configure.py qt-creator-opensource-src-4.8.0-beta2-new/src/libs/3rdparty/botan/configure.py
+--- qt-creator-opensource-src-4.8.0-beta2/src/libs/3rdparty/botan/configure.py	2018-11-15 21:32:33.000000000 +0100
++++ qt-creator-opensource-src-4.8.0-beta2-new/src/libs/3rdparty/botan/configure.py	2018-11-17 11:18:12.566491266 +0100
 @@ -1,4 +1,4 @@
 -#!/usr/bin/env python
 +#!/usr/bin/env python3
  
  """
  Configuration program for botan
-diff -rupN qt-creator-opensource-src-4.8.0-beta1/src/libs/botan/botan.pro qt-creator-opensource-src-4.8.0-beta1-new/src/libs/botan/botan.pro
---- qt-creator-opensource-src-4.8.0-beta1/src/libs/botan/botan.pro	2018-10-09 14:54:47.000000000 +0200
-+++ qt-creator-opensource-src-4.8.0-beta1-new/src/libs/botan/botan.pro	2018-10-11 11:30:55.611801669 +0200
-@@ -44,7 +44,7 @@ configure.input = configure_inputs
+diff -rupN qt-creator-opensource-src-4.8.0-beta2/src/libs/botan/botan.pro qt-creator-opensource-src-4.8.0-beta2-new/src/libs/botan/botan.pro
+--- qt-creator-opensource-src-4.8.0-beta2/src/libs/botan/botan.pro	2018-11-15 21:32:33.000000000 +0100
++++ qt-creator-opensource-src-4.8.0-beta2-new/src/libs/botan/botan.pro	2018-11-17 11:18:12.566491266 +0100
+@@ -49,7 +49,7 @@ configure.input = configure_inputs
  configure.output = $$BOTAN_BUILD_DIR/Makefile
  configure.variable_out = BOTAN_MAKEFILE
  configure.commands = cd $$BOTAN_BUILD_DIR_FOR_SHELL && \
