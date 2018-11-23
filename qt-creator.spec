@@ -1,4 +1,4 @@
-%define prerelease beta2
+%define prerelease rc1
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
@@ -6,12 +6,12 @@
 
 Name:           qt-creator
 Version:        4.8.0
-Release:        0.2%{?prerelease:.%prerelease}%{?dist}
+Release:        0.3%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
 URL:            https://www.qt.io/ide/
-Source0:        https://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/4.5/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
+Source0:        https://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/4.8/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
 
 Source1:        qt-creator-Fedora-privlibs
 
@@ -181,6 +181,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Sat Nov 24 2018 Sandro Mani <manisandro@gmail.com> - 4.8.0-0.3.rc1
+- Update to 4.8.0-rc1
+
 * Sat Nov 17 2018 Sandro Mani <manisandro@gmail.com> - 4.8.0-0.2.beta2
 - Update to 4.8.0-beta2
 
