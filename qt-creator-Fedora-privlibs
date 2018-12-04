@@ -11,6 +11,8 @@
 %global privlibs %{privlibs}|libCPlusPlus
 %global privlibs %{privlibs}|libCVS
 %global privlibs %{privlibs}|libClangCodeModel
+%global privlibs %{privlibs}|libClangPchManager
+%global privlibs %{privlibs}|libClangRefactoring
 %global privlibs %{privlibs}|libClangTools
 %global privlibs %{privlibs}|libClangsupport
 %global privlibs %{privlibs}|libClassView
