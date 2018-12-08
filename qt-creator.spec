@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        4.8.0
-Release:        1%{?prerelease:.%prerelease}%{?dist}
+Release:        2%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
@@ -42,8 +42,8 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  botan-devel
 BuildRequires:  diffutils
 BuildRequires:  libappstream-glib
-BuildRequires:  llvm-devel
-BuildRequires:  clang-devel
+BuildRequires:  llvm6.0-devel
+BuildRequires:  clang6.0-devel
 
 Requires:       hicolor-icon-theme
 Requires:       xdg-utils
@@ -103,9 +103,11 @@ User documentation for %{name}.
 
 %build
 export QTDIR="%{_qt5_prefix}"
-export PATH="%{_qt5_bindir}:$PATH"
+export PATH="%{_qt5_bindir}:%{_libdir}/llvm6.0/bin:$PATH"
+# Include path reported by llvm-config (%{_libdir}/llvm6.0/include) does not contain clang include files.
+export CXXFLAGS="-I%{_includedir}/llvm6.0"
 
-%qmake_qt5 -r IDE_LIBRARY_BASENAME=%{_lib} USE_SYSTEM_BOTAN=1 LLVM_INSTALL_DIR=%{_prefix} QMAKE_CFLAGS_ISYSTEM=-I QBS_INSTALL_DIR=%{_prefix} CONFIG+=disable_external_rpath
+%qmake_qt5 -r IDE_LIBRARY_BASENAME=%{_lib} USE_SYSTEM_BOTAN=1 QMAKE_CFLAGS_ISYSTEM=-I QBS_INSTALL_DIR=%{_prefix} CONFIG+=disable_external_rpath
 %make_build
 %make_build qch_docs
 
@@ -181,6 +183,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Tue Dec 08 2018 Ivan Mironov <mironov.ivan@gmail.com> - 4.8.0-2
+- Build with LLVM/Clang 6.0 instead of latest available (#1655852)
+
 * Thu Dec 06 2018 Sandro Mani <manisandro@gmail.com> - 4.8.0-1
 - Update to 4.8.0
 
